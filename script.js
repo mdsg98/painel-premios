@@ -1,31 +1,93 @@
 document.addEventListener('DOMContentLoaded', function() {
     const dataContainer = document.getElementById('data-container');
-    const spreadsheetUrl = 'https://script.google.com/macros/s/AKfycbzarCfobIMbbgnuVz7Fa4cuutetQ2t78hBVvZJU1GzSNwLfwTZzKbMKG4RULdhPjA/exec'; // URL do Google Sheets em formato JSON transformado pelo Apps Script
+    const filterTipoSelect = document.getElementById('filter-tipo');
+    const filterAnoSelect = document.getElementById('filter-ano');
+    const filterCategoriaSelect = document.getElementById('filter-categoria');
+    const filterUnidadeSelect = document.getElementById('filter-unidade');
+    const searchButton = document.getElementById('search-button');
+    const spreadsheetUrl = 'https://script.google.com/macros/s/AKfycbzarCfobIMbbgnuVz7Fa4cuutetQ2t78hBVvZJU1GzSNwLfwTZzKbMKG4RULdhPjA/exec';
+    let allData = [];
 
     fetch(spreadsheetUrl)
         .then(response => response.json())
         .then(data => {
-            // 'data' agora é um array de objetos Javascript, onde cada objeto representa uma linha da sua planilha
-            data.feed.entry.forEach(item => {
-                const itemDiv = document.createElement('div');
-                itemDiv.classList.add('item');
-
-                // Itere pelas propriedades de cada item (correspondentes aos cabeçalhos das colunas)
-                for (const key in item) {
-                    if (key.startsWith('gsx$')) { // As colunas são prefixadas com 'gsx$'
-                        const columnName = key.substring(4); // Remove o 'gsx$' para obter o nome do cabeçalho
-                        const columnValue = item[key].$t; // '$t' contém o valor da célula
-
-                        const infoParagraph = document.createElement('p');
-                        infoParagraph.textContent = `${columnName}: ${columnValue}`;
-                        itemDiv.appendChild(infoParagraph);
-                    }
-                }
-                dataContainer.appendChild(itemDiv);
-            });
+            allData = data;
+            populateFilters(allData);
+            renderData(allData);
         })
-        .catch(error => {
+        
+        .catch(error => { // Se houver erro na requisição, exibe mensagem de erro
             console.error('Erro ao buscar os dados:', error);
             dataContainer.textContent = 'Erro ao carregar os dados.';
         });
+    // Função para renderizar os dados no contêiner
+    function renderData(dataToRender) {
+        dataContainer.innerHTML = '';
+        dataToRender.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('item');
+            for (const key in item) {
+                const infoParagraph = document.createElement('p');
+                infoParagraph.innerHTML = `<strong>${key}:</strong> ${item[key]}`;
+                itemDiv.appendChild(infoParagraph);
+            }
+            dataContainer.appendChild(itemDiv);
+        });
+    }
+    // Função para popular os filtros com os dados únicos
+    function populateFilters(data) {
+        if (data.length > 0) {
+            const firstItem = data[0];
+            const headers = Object.keys(firstItem);
+
+            populateSelect(filterTipoSelect, 'Tipo', data);
+            populateSelect(filterAnoSelect, 'Ano', data);
+            populateSelect(filterCategoriaSelect, 'Categoria', data);
+            populateSelect(filterUnidadeSelect, 'Unidade', data);
+        }
+    }
+    // Função para popular um select com valores únicos de um cabeçalho específico
+    function populateSelect(selectElement, header, data) {
+        const values = [...new Set(data.map(item => item[header]))].sort(); // Pega valores únicos e ordena
+        values.forEach(value => {
+            const option = document.createElement('option');
+            option.value = value;
+            option.textContent = value;
+            selectElement.appendChild(option);
+        });
+    }
+    // Adiciona um evento de clique ao botão de pesquisa
+    searchButton.addEventListener('click', function() {
+        const filterTipo = filterTipoSelect.value;
+        const filterAno = filterAnoSelect.value;
+        const filterCategoria = filterCategoriaSelect.value;
+        const filterUnidade = filterUnidadeSelect.value;
+
+        const filteredData = allData.filter(item => {
+            let matchesTipo = true;
+            let matchesAno = true;
+            let matchesCategoria = true;
+            let matchesUnidade = true;
+
+            if (filterTipo && filterTipo !== 'Todos') {
+                matchesTipo = item['Tipo'] === filterTipo;
+            }
+
+            if (filterAno && filterAno !== 'Todos') {
+                matchesAno = item['Ano'] === filterAno;
+            }
+
+            if (filterCategoria && filterCategoria !== 'Todos') {
+                matchesCategoria = item['Categoria'] === filterCategoria;
+            }
+
+            if (filterUnidade && filterUnidade !== 'Todos') {
+                matchesUnidade = item['Unidade'] === filterUnidade;
+            }
+
+            return matchesTipo && matchesAno && matchesCategoria && matchesUnidade;
+        });
+
+        renderData(filteredData);
+    });
 });
