@@ -21,21 +21,68 @@ document.addEventListener('DOMContentLoaded', function() {
             dataContainer.textContent = 'Erro ao carregar os dados.';
         });
      // Função para renderizar os dados no contêiner
-    function renderData(dataToRender) {
+     function renderData(dataToRender) {
         dataContainer.innerHTML = '';
         if (dataToRender.length === 0) {
             const noResultsMessage = document.createElement('p');
             noResultsMessage.textContent = 'Não existem resultados para os filtros selecionados.';
             dataContainer.appendChild(noResultsMessage);
         } else {
+            // Cria um elemento div para cada item e adiciona os detalhes ==> display de resultados da busca
             dataToRender.forEach(item => {
                 const itemDiv = document.createElement('div');
                 itemDiv.classList.add('item');
-                for (const key in item) {
-                    const infoParagraph = document.createElement('p');
-                    infoParagraph.innerHTML = `<strong>${key}:</strong> ${item[key]}`;
-                    itemDiv.appendChild(infoParagraph);
-                }
+    
+                const nome = document.createElement('h2');
+                nome.textContent = item['Nome'];
+                itemDiv.appendChild(nome);
+    
+                const itemContent = document.createElement('div');
+                itemContent.classList.add('item-content');
+    
+                const itemImage = document.createElement('div');
+                itemImage.classList.add('item-image');
+                const img = document.createElement('img');
+                img.src = item['Link da Imagem'];
+                img.alt = item['Link da Imagem'];
+                itemImage.appendChild(img);
+                itemContent.appendChild(itemImage);
+    
+                const itemDetails = document.createElement('div');
+                itemDetails.classList.add('item-details');
+    
+                const anoParagrafo = document.createElement('p');
+                anoParagrafo.textContent = `Ano: ${item['Ano']}`;
+                itemDetails.appendChild(anoParagrafo);
+    
+                const categoriaParagrafo = document.createElement('p');
+                categoriaParagrafo.textContent = `Categoria: ${item['Categoria']}`;
+                itemDetails.appendChild(categoriaParagrafo);
+    
+                const unidadeParagrafo = document.createElement('p');
+                unidadeParagrafo.textContent = `Unidade: ${item['Unidade']}`;
+                itemDetails.appendChild(unidadeParagrafo);
+    
+                const linkParagrafo = document.createElement('p');
+                const linkTexto = document.createTextNode('Link da Matéria: ');
+                const linkElement = document.createElement('a');
+                linkElement.href = item['Link da Matéria'];
+                linkElement.textContent = item['Link da Matéria'];
+                linkElement.target = '_blank';
+    
+                linkParagrafo.appendChild(linkTexto);
+                linkParagrafo.appendChild(linkElement);
+                itemDetails.appendChild(linkParagrafo);
+    
+                itemContent.appendChild(itemDetails);
+    
+                itemDiv.appendChild(itemContent);
+    
+                const descricao = document.createElement('p');
+                descricao.classList.add('item-description');
+                descricao.textContent = item['Descrição'];
+                itemDiv.appendChild(descricao);
+    
                 dataContainer.appendChild(itemDiv);
             });
         }
