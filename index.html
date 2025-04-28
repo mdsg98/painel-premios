@@ -3,21 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Prêmios</title>
-    <style>
-        /* CSS básico para organizar os dados */
-        .item {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
+    <title>Planilha de Prêmios, Reconhecimentos e Destaques da UFMS</title>
+    <link rel="stylesheet" href="style.css"> </head>
 <body>
-    <h1>Dados da Planilha</h1>
-    <div id="data-container">
-        </div>
+    <h1>Planilha de Prêmios, Reconhecimentos e Destaques da UFMS</h1>
 
-    <script src="script.js"></script>
-</body>
+        <div class="filter-container">
+        <label for="filter-tipo">Tipo:</label>
+        <select id="filter-tipo">
+            <option value="">Todos</option>
+        </select>
+
+        <label for="filter-ano">Ano:</label>
+        <select id="filter-ano">
+            <option value="">Todos</option>
+        </select>
+
+        <label for="filter-categoria">Categoria:</label>
+        <select id="filter-categoria">
+            <option value="">Todos</option>
+        </select>
+
+        <label for="filter-unidade">Unidade:</label>
+        <select id="filter-unidade">
+            <option value="">Todos</option>
+        </select>
+
+        <button id="search-button">Buscar Resultados</button>
+        <button id="clear-filters-button">Limpar Filtros</button>
+    </div>
+
+    <div id="data-container">
+    </div>
+
+    <script src="script.js"></script> </body>
 </html>

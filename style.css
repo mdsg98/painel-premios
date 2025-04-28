@@ -1,0 +1,115 @@
+/* Estilos para o layout geral da página */
+body {
+    font-family: sans-serif; /* Define a fonte padrão para a página */
+    margin: 20px; /* Adiciona margem ao redor do conteúdo da página */
+    background-color: #f4f4f4; /* Define a cor de fundo da página */
+    }
+    
+    h1 {
+    color: #333; /* Define a cor do texto do título principal */
+    text-align: center; /* Centraliza o título */
+    margin-bottom: 30px; /* Adiciona espaço abaixo do título */
+    top: 0; /* Define a posição do título no topo da página */
+    left: 50%; /* Centraliza horizontalmente */
+    z-index: 100; /* Garante que o título fique acima de outros elementos */
+    }
+    
+    /* Estilos para o container dos filtros */
+    .filter-container {
+    display: flex; /* Usa flexbox para organizar os elementos */
+    flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha */
+    gap: 20px; /* Adiciona espaço entre os elementos */
+    margin-bottom: 20px; /* Adiciona espaço abaixo do container */
+    align-items: center; /* Alinha os elementos verticalmente */
+    }
+    
+    .filter-container label {
+    font-weight: bold; /* Deixa o texto das labels em negrito */
+    }
+    
+    .filter-container select {
+    padding: 8px; /* Adiciona espaço interno aos selects */
+    border: 1px solid #ccc; /* Define a borda dos selects */
+    border-radius: 5px; /* Arredonda os cantos dos selects */
+    min-width: 150px; /* Define a largura mínima dos selects */
+    }
+    
+    /* Estilos para os botões de busca e limpar filtros */
+    #search-button,
+    #clear-filters-button {
+    padding: 10px 20px; /* Adiciona espaço interno aos botões */
+    border: none; /* Remove a borda dos botões */
+    background-color: #007bff; /* Define a cor de fundo do botão de busca */
+    color: #fff; /* Define a cor do texto dos botões */
+    cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões */
+    border-radius: 5px; /* Arredonda os cantos dos botões */
+    }
+    
+    #clear-filters-button {
+    background-color: #6c757d; /* Define a cor de fundo do botão de limpar filtros */
+    }
+    
+    /* Estilos para o container dos resultados */
+    #data-container {
+    display: flex; /* Usa flexbox para organizar os resultados */
+    flex-direction: column; /* Empilha os resultados verticalmente */
+    gap: 15px; /* Adiciona espaço entre os resultados */
+    max-width: 1200px; /* Define a largura máxima do container */
+    margin: 0 auto; /* Centraliza o container horizontalmente */
+    }
+    
+    /* Estilos para cada item de resultado */
+    .item {
+    background-color: #fff; /* Define a cor de fundo do item */
+    border: 1px solid #ddd; /* Define a borda do item */
+    border-right: 1px solid #ddd; /* Adiciona borda direita */
+    padding: 20px; /* Adiciona espaço interno ao item */
+    border-radius: 8px; /* Arredonda os cantos do item */
+    margin-bottom: 15px; /* Adiciona espaço abaixo do item */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave */
+    width: 100%; /* Faz o item ocupar toda a largura do container */
+    align-items: flex-start; /* Alinha o conteúdo à esquerda dentro do item */
+    }
+    
+    /* Estilos para o título do item */
+    .item h2 {
+    text-align: center; /* Centraliza o título */
+    font-size: 1.5em; /* Define o tamanho da fonte do título */
+    margin-bottom: 40px; /* Adiciona espaço abaixo do título */
+    width: 100%; /* Faz o título ocupar toda a largura do item */
+    }
+    
+    /* Estilos para o container da imagem e detalhes */
+    .item-content {
+    display: flex; /* Usa flexbox para organizar a imagem e os detalhes */
+    width: 100%; /* Faz o container ocupar toda a largura do item */
+    align-items: center; /* Alinha a imagem e os detalhes verticalmente */
+    }
+    
+    /* Estilos para a imagem */
+    .item-image {
+    flex: 0 0 150px; /* Define a largura fixa da imagem */
+    margin-right: 20px; /* Adiciona espaço à direita da imagem */
+    }
+    
+    .item-image img {
+    max-width: 100%; /* Faz a imagem ocupar toda a largura do container */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block; /* Remove espaço extra abaixo da imagem */
+    }
+    
+    /* Estilos para os detalhes do item */
+    .item-details p {
+    margin: 5px 0; /* Adiciona espaço acima e abaixo dos parágrafos */
+    }
+    
+    .item-details p strong {
+    font-weight: bold; /* Deixa o texto em negrito */
+    }
+    
+    /* Estilos para a descrição do item */
+    .item-description {
+    text-align: justify; /* Justifica o texto */
+    margin-top: 40px; /* Adiciona espaço acima da descrição */
+    width: 100%; /* Faz a descrição ocupar toda a largura do item */
+    }
