@@ -12,6 +12,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const spreadsheetUrl = 'https://script.google.com/macros/s/AKfycbzarCfobIMbbgnuVz7Fa4cuutetQ2t78hBVvZJU1GzSNwLfwTZzKbMKG4RULdhPjA/exec';
     let allData = []; // Array para armazenar todos os dados da planilha
     
+    // Variáveis para controle de paginação
+    let currentPage = 1; // Página atual
+    const itemsPerPage = 10; // Definição de quantos resultados exibir por página
+    const paginationContainer = document.getElementById('pagination-container');
+    const prevPageButton = document.getElementById('prev-page');
+    const nextPageButton = document.getElementById('next-page');
+    const pageNumbersContainer = document.getElementById('page-numbers');
+    
     // Faz a requisição para obter os dados da planilha
     fetch(spreadsheetUrl)
         .then(response => response.json()) // Converte a resposta para JSON
@@ -169,6 +177,44 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Função para renderizar a página com os dados filtrados e paginados
+    function renderPage(dataToRender, page) {
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const pageData = dataToRender.slice(startIndex, endIndex);
+        renderData(pageData);
+    }
+
+    // Função para configurar a paginação
+    function setupPagination(data) {
+        const pageCount = Math.ceil(data.length / itemsPerPage); // Calcula o número total de páginas
+        pageNumbersContainer.innerHTML = '';
+
+        for (let i = 1; i <= pageCount; i++) {
+            const pageNumber = document.createElement('button'); // Cria um botão para cada página
+            pageNumber.textContent = i;
+            pageNumber.addEventListener('click', () => {
+                currentPage = i;
+                renderPage(data, currentPage);
+            });
+            pageNumbersContainer.appendChild(pageNumber);
+        }
+
+        prevPageButton.addEventListener('click', () => { // Verifica se a página atual é maior que 1
+            if (currentPage > 1) {
+                currentPage--;
+                renderPage(data, currentPage);
+            }
+        });
+
+        nextPageButton.addEventListener('click', () => { // Verifica se a página atual é menor que o número total de páginas
+            if (currentPage < pageCount) {
+                currentPage++;
+                renderPage(data, currentPage);
+            }
+        });
+    }
+
     // Event listener para o botão de busca
     searchButton.addEventListener('click', function() {
         // Obtém os valores selecionados nos filtros
