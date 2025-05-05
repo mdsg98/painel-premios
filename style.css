@@ -92,6 +92,16 @@ body {
     #pagination-container button:hover:not(:disabled) {
         background-color: #0056b3; /* Muda a cor de fundo ao passar o mouse sobre os botões de paginação */
     }
+
+    #pagination-container button:disabled {
+        background-color: #ccc; /* Define a cor de fundo dos botões desativados */
+        cursor: not-allowed; /* Muda o cursor para indicar que o botão está desativado */
+    }
+
+    #pagination-container #page-info {
+        font-weight: bold; /* Deixa o texto em negrito */
+        font-size: 16px; /* Define o tamanho da fonte do texto de informações da página */
+    }
     
     /* Estilos para cada item de resultado */
     .item {
