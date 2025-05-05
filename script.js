@@ -1,23 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Seleciona os elementos HTML que serão manipulados
+    const searchButton = document.getElementById('search-button');
+    const clearFiltersButton = document.getElementById('clear-filters-button');
     const dataContainer = document.getElementById('data-container');
     const filterTipoSelect = document.getElementById('filter-tipo');
     const filterAnoSelect = document.getElementById('filter-ano');
     const filterCategoriaSelect = document.getElementById('filter-categoria');
     const filterUnidadeSelect = document.getElementById('filter-unidade');
-    const searchButton = document.getElementById('search-button');
-    const clearFiltersButton = document.getElementById('clear-filters-button');
+    
     
     // URL do Apps Script que fornece os dados da planilha
     const spreadsheetUrl = 'https://script.google.com/macros/s/AKfycbzarCfobIMbbgnuVz7Fa4cuutetQ2t78hBVvZJU1GzSNwLfwTZzKbMKG4RULdhPjA/exec';
     let allData = []; // Array para armazenar todos os dados da planilha
+    let currentData = []; // Array para armazenar os dados filtrados
     
     // Variáveis para controle de paginação
     let currentPage = 1; // Página atual
     const itemsPerPage = 10; // Definição de quantos resultados exibir por página
     const paginationContainer = document.getElementById('pagination-container');
-    const prevPageButton = document.getElementById('prev-page');
-    const nextPageButton = document.getElementById('next-page');
+    const prevPageButton = document.getElementById('prev-page-button');
+    const nextPageButton = document.getElementById('next-page-button');
+    const pageInfo = document.getElementById('page-info');
     const pageNumbersContainer = document.getElementById('page-numbers');
     
     // Faz a requisição para obter os dados da planilha
@@ -64,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         itemDetails.classList.add('item-details'); // Adiciona a classe 'item-details'
         itemDetails.innerHTML = `
             <p>Ano: ${item['Ano']}</p>
+            <p>Tipo: ${item['Tipo']}</p>
             <p>Categoria: ${item['Categoria']}</p>
             <p>Unidade: ${item['Unidade']}</p>
             <p>Link da Matéria: <a href="${item['Link da Matéria']}" target="_blank">${item['Link da Matéria']}</a></p>
@@ -178,87 +182,44 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Função para renderizar a página com os dados filtrados e paginados
-    function renderPage(dataToRender, page) {
-        const startIndex = (page - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const pageData = dataToRender.slice(startIndex, endIndex);
-        renderData(pageData);
+    function renderPage(data, page) {
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageData = data.slice(start, end);
+        renderData(pageData); // Renderiza os dados da página atual 
+
+        if (pageData.length === 0) { // Se não houver resultados
+            dataContainer.innerHTML = '<p>Nenhum resultado encontrado.</p>';
+            return;
+        }
     }
 
-    // Função para configurar a paginação
-    function setupPagination(data) {
-        const pageCount = Math.ceil(data.length / itemsPerPage); // Calcula o número total de páginas
-        pageNumbersContainer.innerHTML = '';
-
-        for (let i = 1; i <= pageCount; i++) {
-            const pageNumber = document.createElement('button'); // Cria um botão para cada página
-            pageNumber.textContent = i;
-            pageNumber.addEventListener('click', () => {
-                currentPage = i;
-                renderPage(data, currentPage);
-            });
-            pageNumbersContainer.appendChild(pageNumber);
-        }
-
-        prevPageButton.addEventListener('click', () => { // Verifica se a página atual é maior que 1
-            if (currentPage > 1) {
-                currentPage--;
-                renderPage(data, currentPage);
-            }
-        });
-
-        nextPageButton.addEventListener('click', () => { // Verifica se a página atual é menor que o número total de páginas
-            if (currentPage < pageCount) {
-                currentPage++;
-                renderPage(data, currentPage);
-            }
-        });
+    function updatePaginationUI(data) {
+        const totalPages = Math.ceil(data.length / itemsPerPage); // Calcula o total de páginas
+        pageInfo.textContent = `Página ${currentPage} de ${totalPages}`; // Atualiza o texto da página
+        prevPageButton.disabled = currentPage === 1; // Desabilita o botão "anterior" se estiver na primeira página
+        nextPageButton.disabled = currentPage === totalPages || totalPages === 0; // Desabilita o botão "próximo" se estiver na última página
     }
 
     // Event listener para o botão de busca
-    searchButton.addEventListener('click', function() {
-        // Obtém os valores selecionados nos filtros
-        const filterTipo = filterTipoSelect.value;
-        const filterAno = filterAnoSelect.value;
-        const filterCategoria = filterCategoriaSelect.value;
-        const filterUnidade = filterUnidadeSelect.value;
-    
+    searchButton.addEventListener('click', function() {   
     // Filtra os dados com base nos valores selecionados
+        const tipo = filterTipoSelect.value;
+        const ano = filterAnoSelect.value;
+        const categoria = filterCategoriaSelect.value;
+        const unidade = filterUnidadeSelect.value;
+
         const filteredData = allData.filter(item => {
-            let matchesTipo = true;
-            let matchesAno = true;
-            let matchesCategoria = true;
-            let matchesUnidade = true;
-    
-            if (filterTipo && filterTipo !== 'Todos' && filterTipo !== '') {
-                matchesTipo = item['Tipo'] === filterTipo;
-        }
-    
-            if (filterAno && filterAno !== 'Todos' && filterAno !== '') {
-                matchesAno = String(item['Ano']).trim() === filterAno.trim();
-            }
-    
-            if (filterCategoria && filterCategoria !== 'Todos' && filterCategoria !== '') {
-                matchesCategoria = item['Categoria'] === filterCategoria;
-            }
-    
-            if (filterUnidade && filterUnidade !== 'Todos' && filterUnidade !== '') {
-                matchesUnidade = item['Unidade'] === filterUnidade;
-            }
-    
-            return matchesTipo && matchesAno && matchesCategoria && matchesUnidade;
+            return (tipo === '' || tipo === 'Todos' || item['Tipo'] === tipo) &&
+                   (ano === '' || ano === 'Todos' || item['Ano'] === ano) &&
+                   (categoria === '' || categoria === 'Todos' || item['Categoria'] === categoria) &&
+                   (unidade === '' || unidade === 'Todos' || item['Unidade'] === unidade);
         });
-    
-        // Atualiza o título da página com o número de resultados encontrados
-        const h1Element = document.querySelector('h1');
-        if (filteredData.length > 0) {
-            h1Element.textContent = `Resultados encontrados: ${filteredData.length}`;
-        }
-        else {
-            h1Element.textContent = 'Nenhum resultado encontrado';
-        }
-    
-        renderData(filteredData); // Exibe os resultados filtrados
+
+        currentData = filteredData; // Atualiza os dados atuais com os dados filtrados
+        currentPage = 1; // Reseta a página atual para 1
+        renderPage(currentData, currentPage); // Renderiza a primeira página dos dados filtrados
+        updatePaginationUI(currentData); // Atualiza a UI da paginação
     });
     
     // Event listener para o botão de limpar filtros
