@@ -186,11 +186,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const start = (page - 1) * itemsPerPage;
         const end = start + itemsPerPage;
         const pageData = data.slice(start, end);
-        renderData(pageData); // Renderiza os dados da página atual 
+        renderData(pageData); // Renderiza os dados da página atual
 
         if (pageData.length === 0) { // Se não houver resultados
             dataContainer.innerHTML = '<p>Nenhum resultado encontrado.</p>';
+            paginationContainer.style.display = 'none'; // Esconde a paginação
             return;
+        }
+        else {
+            renderData(pageData); // Renderiza os dados da página atual
+            paginationContainer.style.display = 'flex'; // Exibe a paginação
         }
     }
 
@@ -238,6 +243,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reseta o título da página para o título original
         const h1Element = document.querySelector('h1');
         h1Element.textContent = 'Painel de Prêmios, Reconhecimentos e Destaques da UFMS';
+
+        renderData(pageData); // Renderiza os dados da página atual
+        paginationContainer.style.display = 'flex'; // Exibe a paginação
     });
 
     // Event listener para o botão Página Anterior

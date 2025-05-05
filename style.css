@@ -70,7 +70,7 @@ body {
 
     /* Estilos para o container da paginação */
     #pagination-container {
-        display: flex; /* Usa flexbox para organizar os elementos de paginação */
+        display: none; /* Usa flexbox para organizar os elementos de paginação */
         justify-content: center; /* Centraliza os elementos de paginação */
         align-items: center; /* Alinha os elementos verticalmente */
         margin-top: 20px; /* Adiciona espaço acima do container de paginação */
