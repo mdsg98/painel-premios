@@ -39,6 +39,7 @@ body {
     #clear-filters-button {
     padding: 10px 20px; /* Adiciona espaço interno aos botões */
     border: none; /* Remove a borda dos botões */
+    font-size: 16px; /* Define o tamanho da fonte dos botões de paginação */
     background-color: #007bff; /* Define a cor de fundo do botão de busca */
     color: #fff; /* Define a cor do texto dos botões */
     cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões */
@@ -64,6 +65,18 @@ body {
         justify-content: center; /* Centraliza os elementos de paginação */
         align-items: center; /* Alinha os elementos verticalmente */
         margin-top: 20px; /* Adiciona espaço acima do container de paginação */
+        gap: 12px; /* Adiciona espaço entre os elementos de paginação */
+    }
+
+    #pagination-container button {
+        background-color: #007bff; /* Define a cor de fundo dos botões de paginação */
+        color: white; /* Define a cor do texto dos botões de paginação */
+        border: none; /* Remove a borda dos botões de paginação */
+        padding: 10px 18px; /* Adiciona espaço interno aos botões de paginação */
+        font-size: 16px; /* Define o tamanho da fonte dos botões de paginação */
+        border-radius: 6px; /* Arredonda os cantos dos botões de paginação */
+        cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões de paginação */
+        transition: background-color 0.3s; /* Adiciona uma transição suave para a cor de fundo */
     }
     
     /* Estilos para cada item de resultado */
