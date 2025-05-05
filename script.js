@@ -230,6 +230,10 @@ document.addEventListener('DOMContentLoaded', function() {
         filterCategoriaSelect.value = '';
         filterUnidadeSelect.value = '';
         dataContainer.innerHTML = ''; // Limpa os resultados
+        pageInfo.textContent = `Página 1 de 1`; // Reseta o texto da página
+        prevPageButton.disabled = true; // Desabilita o botão "anterior"
+        nextPageButton.disabled = true; // Desabilita o botão "próximo"
+        currentPage = 1; // Reseta a página atual para 1
     
         // Reseta o título da página para o título original
         const h1Element = document.querySelector('h1');
