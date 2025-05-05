@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Event listener para o botão de busca
-    searchButton.addEventListener('click', function() {   
+    searchButton.addEventListener('click', function() {  
     // Filtra os dados com base nos valores selecionados
         const tipo = filterTipoSelect.value;
         const ano = filterAnoSelect.value;
@@ -238,5 +238,24 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reseta o título da página para o título original
         const h1Element = document.querySelector('h1');
         h1Element.textContent = 'Planilha de Prêmios, Reconhecimentos e Destaques da UFMS';
+    });
+
+    // Event listener para o botão Página Anterior
+    prevPageButton.addEventListener('click', function () {
+    if (currentPage > 1) {
+        currentPage--; // Vai para a página anterior
+        renderPage(currentData, currentPage); // Renderiza a nova página
+        updatePaginationUI(currentData); // Atualiza os controles da paginação
+    }
+    });
+
+    // Event listener para o botão de próxima página
+    nextPageButton.addEventListener('click', function () {
+    const totalPages = Math.ceil(currentData.length / itemsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++; // Vai para a próxima página
+        renderPage(currentData, currentPage); // Renderiza a nova página
+        updatePaginationUI(currentData); // Atualiza os controles da paginação
+    }
     });
     });
