@@ -45,10 +45,19 @@ body {
     cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões */
     border-radius: 5px; /* Arredonda os cantos dos botões */
     }
+
+    #search-button:hover:not(:disabled) {
+        background-color: #0056b3; /* Muda a cor de fundo ao passar o mouse sobre o botão de busca */
+    }
     
     #clear-filters-button {
     background-color: #6c757d; /* Define a cor de fundo do botão de limpar filtros */
     }
+
+    #clear-filters-button:hover:not(:disabled) {
+        background-color: #5a6268; /* Muda a cor de fundo ao passar o mouse sobre o botão de limpar filtros */
+    }
+
     
     /* Estilos para o container dos resultados */
     #data-container {
@@ -66,6 +75,7 @@ body {
         align-items: center; /* Alinha os elementos verticalmente */
         margin-top: 20px; /* Adiciona espaço acima do container de paginação */
         gap: 12px; /* Adiciona espaço entre os elementos de paginação */
+        margin-top: 30px; /* Adiciona espaço acima do container de paginação */
     }
 
     #pagination-container button {
@@ -76,7 +86,11 @@ body {
         font-size: 16px; /* Define o tamanho da fonte dos botões de paginação */
         border-radius: 6px; /* Arredonda os cantos dos botões de paginação */
         cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões de paginação */
-        transition: background-color 0.3s; /* Adiciona uma transição suave para a cor de fundo */
+        transition: background-color 0.3s ease; /* Adiciona uma transição suave para a cor de fundo */
+    }
+
+    #pagination-container button:hover:not(:disabled) {
+        background-color: #0056b3; /* Muda a cor de fundo ao passar o mouse sobre os botões de paginação */
     }
     
     /* Estilos para cada item de resultado */

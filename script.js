@@ -237,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
         // Reseta o título da página para o título original
         const h1Element = document.querySelector('h1');
-        h1Element.textContent = 'Planilha de Prêmios, Reconhecimentos e Destaques da UFMS';
+        h1Element.textContent = 'Painel de Prêmios, Reconhecimentos e Destaques da UFMS';
     });
 
     // Event listener para o botão Página Anterior
