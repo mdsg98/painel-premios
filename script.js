@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // URL do Apps Script que fornece os dados da planilha
     const spreadsheetUrl = 'https://script.google.com/macros/s/AKfycbzarCfobIMbbgnuVz7Fa4cuutetQ2t78hBVvZJU1GzSNwLfwTZzKbMKG4RULdhPjA/exec';
     let allData = []; // Array para armazenar todos os dados da planilha
-    let currentData = []; // Array para armazenar os dados filtrados
+    let data = []; // Array para armazenar os dados filtrados
     
     // Variáveis para controle de paginação
-    let currentPage = 1; // Página atual
+    let page = 1; // Página atual
     const itemsPerPage = 10; // Definição de quantos resultados exibir por página
     const paginationContainer = document.getElementById('pagination-container');
     const prevPageButton = document.getElementById('prev-page-button');
@@ -186,24 +186,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const start = (page - 1) * itemsPerPage;
         const end = start + itemsPerPage;
         const pageData = data.slice(start, end);
-        renderData(pageData); // Renderiza os dados da página atual
+        const totalPages = Math.ceil(data.length / itemsPerPage); // Calcula o total de páginas
+
+        dataContainer.innerHTML = ''; // Limpa o contêiner de dados
 
         if (pageData.length === 0) { // Se não houver resultados
             dataContainer.innerHTML = '<p>Nenhum resultado encontrado.</p>';
-            paginationContainer.style.display = 'none'; // Esconde a paginação
+            paginationContainer.style.display = 'flex'; // Exibe a paginação
+            pageInfo.textContent = `Página 1 de 1`; // Atualiza o texto da página
+            prevPageButton.disabled = true; // Desabilita o botão "anterior"
+            nextPageButton.disabled = true; // Desabilita o botão "próximo"
             return;
         }
-        else {
-            renderData(pageData); // Renderiza os dados da página atual
-            paginationContainer.style.display = 'flex'; // Exibe a paginação
-        }
-    }
 
-    function updatePaginationUI(data) {
-        const totalPages = Math.ceil(data.length / itemsPerPage); // Calcula o total de páginas
-        pageInfo.textContent = `Página ${currentPage} de ${totalPages}`; // Atualiza o texto da página
-        prevPageButton.disabled = currentPage === 1; // Desabilita o botão "anterior" se estiver na primeira página
-        nextPageButton.disabled = currentPage === totalPages || totalPages === 0; // Desabilita o botão "próximo" se estiver na última página
+        renderData(pageData); // Renderiza os dados da página atual
+        paginationContainer.style.display = 'flex'; // Exibe a paginação
+        pageInfo.textContent = `Página ${page} de ${totalPages}`; // Atualiza o texto da página
+        prevPageButton.disabled = page === 1; // Desabilita o botão "anterior" se estiver na primeira página
+        nextPageButton.disabled = page === totalPages; // Desabilita o botão "próximo" se estiver na última página
+        
     }
 
     // Event listener para o botão de busca
@@ -221,10 +222,10 @@ document.addEventListener('DOMContentLoaded', function() {
                    (unidade === '' || unidade === 'Todos' || item['Unidade'] === unidade);
         });
 
-        currentData = filteredData; // Atualiza os dados atuais com os dados filtrados
-        currentPage = 1; // Reseta a página atual para 1
-        renderPage(currentData, currentPage); // Renderiza a primeira página dos dados filtrados
-        updatePaginationUI(currentData); // Atualiza a UI da paginação
+        data = filteredData; // Atualiza os dados atuais com os dados filtrados
+        page = 1; // Reseta a página atual para 1
+        renderPage(data, page); // Renderiza a primeira página dos dados filtrados
+        updatePaginationUI(data); // Atualiza a UI da paginação
     });
     
     // Event listener para o botão de limpar filtros
@@ -234,36 +235,33 @@ document.addEventListener('DOMContentLoaded', function() {
         filterAnoSelect.value = '';
         filterCategoriaSelect.value = '';
         filterUnidadeSelect.value = '';
-        dataContainer.innerHTML = ''; // Limpa os resultados
-        pageInfo.textContent = `Página 1 de 1`; // Reseta o texto da página
-        prevPageButton.disabled = true; // Desabilita o botão "anterior"
-        nextPageButton.disabled = true; // Desabilita o botão "próximo"
-        currentPage = 1; // Reseta a página atual para 1
+
+        dataContainer.innerHTML = ''; // Limpa o contâiner de resultados
+        pageInfo.textContent = ''; // Reseta o texto da página
+        paginationContainer.style.display = 'none'; // Esconde a paginação
     
         // Reseta o título da página para o título original
         const h1Element = document.querySelector('h1');
         h1Element.textContent = 'Painel de Prêmios, Reconhecimentos e Destaques da UFMS';
 
-        renderData(pageData); // Renderiza os dados da página atual
-        paginationContainer.style.display = 'flex'; // Exibe a paginação
     });
 
     // Event listener para o botão Página Anterior
     prevPageButton.addEventListener('click', function () {
-    if (currentPage > 1) {
-        currentPage--; // Vai para a página anterior
-        renderPage(currentData, currentPage); // Renderiza a nova página
-        updatePaginationUI(currentData); // Atualiza os controles da paginação
+    if (page > 1) {
+        page--; // Vai para a página anterior
+        renderPage(data, page); // Renderiza a nova página
+        updatePaginationUI(data); // Atualiza os controles da paginação
     }
     });
 
     // Event listener para o botão de próxima página
     nextPageButton.addEventListener('click', function () {
-    const totalPages = Math.ceil(currentData.length / itemsPerPage);
-    if (currentPage < totalPages) {
-        currentPage++; // Vai para a próxima página
-        renderPage(currentData, currentPage); // Renderiza a nova página
-        updatePaginationUI(currentData); // Atualiza os controles da paginação
+    const totalPages = Math.ceil(data.length / itemsPerPage);
+    if (page < totalPages) {
+        page++; // Vai para a próxima página
+        renderPage(data, page); // Renderiza a nova página
+        updatePaginationUI(data); // Atualiza os controles da paginação
     }
     });
     });
