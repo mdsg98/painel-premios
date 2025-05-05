@@ -205,6 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
         prevPageButton.disabled = page === 1; // Desabilita o botão "anterior" se estiver na primeira página
         nextPageButton.disabled = page === totalPages; // Desabilita o botão "próximo" se estiver na última página
         
+        document.getElementById("data-container").scrollIntoView({ behavior: "smooth" }); // Rola suavemente para o contêiner de dados
     }
 
     // Event listener para o botão de busca
