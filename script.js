@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Seleciona os elementos HTML que serão manipulados
-    const searchButton = document.getElementById('search-button'); // Botão de busca
-    const clearFiltersButton = document.getElementById('clear-filters-button'); // Botão de limpar filtros
-    const dataContainer = document.getElementById('data-container'); // Container onde os resultados serão exibidos
-    const filterTipoSelect = document.getElementById('filter-tipo'); // Select para o filtro de tipo
-    const filterAnoSelect = document.getElementById('filter-ano'); // Select para o filtro de ano
-    const filterCategoriaSelect = document.getElementById('filter-categoria'); // Select para o filtro de categoria
-    const filterUnidadeSelect = document.getElementById('filter-unidade'); // Select para o filtro de unidade
-    
+    const searchButton = document.getElementById('search-button');
+    const clearFiltersButton = document.getElementById('clear-filters-button');
+    const dataContainer = document.getElementById('data-container');
+    const filterTipoSelect = document.getElementById('filter-tipo');
+    const filterAnoSelect = document.getElementById('filter-ano');
+    const filterCategoriaSelect = document.getElementById('filter-categoria');
+    const filterUnidadeSelect = document.getElementById('filter-unidade');
     
     
     // URL do Apps Script que fornece os dados da planilha
@@ -25,9 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const pageNumbersContainer = document.getElementById('page-numbers');
 
     // Variáveis para controle de exibição dos filtros
-    const toggleFiltersButton = document.getElementById('toggle-filters-button'); // Botão para mostrar/ocultar filtros
-    const filtersContainer = document.getElementById('filter-container-toggle'); // Container dos filtros
-    let filtersVisible = true; // Controle de visibilidade dos filtros
+    const toggleFiltersButton = document.getElementById('toggle-filters-button');
     
     // Faz a requisição para obter os dados da planilha
     fetch(spreadsheetUrl)
@@ -214,12 +211,17 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("data-container").scrollIntoView({ behavior: "smooth" }); // Rola suavemente para o contêiner de dados
     }
 
-    // Função para ocultar os filtros quando a busca for realizada
-    function hideFiltersOnSearch() {
-        filtersContainer.classList.remove('visible');  // Remove a classe 'visible' para ocultar os filtros
-        filtersContainer.classList.add('hidden'); // Adiciona a classe 'hidden' para ocultar os filtros
-        toggleFiltersButton.textContent = 'Mostrar Filtros'; // Atualiza o texto do botão de filtros
-        filtersVisible = false; // Atualiza o estado de visibilidade dos filtros
+    function filterToggle() {
+        const wrapper = document.getElementById('filter-wrapper');
+        const toggleButton = document.getElementById('toggle-filters-button');
+
+        if (wrapper.style.display === 'none') { // Se os filtros estão escondidos
+            wrapper.style.display = 'block'; // Exibe os filtros
+            toggleButton.textContent = 'Esconder Filtros'; // Altera o texto do botão
+        } else { // Se os filtros estão visíveis
+            wrapper.style.display = 'none'; // Esconde os filtros
+            toggleButton.textContent = 'Mostrar Filtros'; // Altera o texto do botão
+        }
     }
 
     // Event listener para o botão de busca
@@ -279,18 +281,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updatePaginationUI(data); // Atualiza os controles da paginação
     }
     });
-
-    // Event listener para o botão de mostrar/ocultar filtros -> alterna a visibilidade dos filtros manualmente
-    toggleFiltersButton.addEventListener('click', () => {
-        filtersVisible = !filtersVisible; // Alterna o estado de visibilidade dos filtros
-        if (filtersVisible) {
-            filtersContainer.classList.remove('hidden'); // Remove a classe 'hidden' para mostrar os filtros
-            filtersContainer.classList.add('visible'); // Adiciona a classe 'visible' para mostrar os filtros
-            toggleFiltersButton.textContent = 'Ocultar Filtros'; // Atualiza o texto do botão de filtros
-        } else {
-            filtersContainer.classList.remove('visible'); // Remove a classe 'visible' para ocultar os filtros
-            filtersContainer.classList.add('hidden'); // Adiciona a classe 'hidden' para ocultar os filtros
-            toggleFiltersButton.textContent = 'Mostrar Filtros'; // Atualiza o texto do botão de filtros
-        }
-    });
+    // Event listener para o botão de mostrar/esconder filtros
+    toggleFiltersButton.addEventListener('click', filterToggle); // Adiciona evento de clique para mostrar/esconder filtros
     });

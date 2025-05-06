@@ -68,62 +68,6 @@ body {
     margin: 0 auto; /* Centraliza o container horizontalmente */
     }
 
-    /* Estilos para cada item de resultado */
-    .item {
-        background-color: #fff; /* Define a cor de fundo do item */
-        border: 1px solid #ddd; /* Define a borda do item */
-        border-right: 1px solid #ddd; /* Adiciona borda direita */
-        padding: 20px; /* Adiciona espaço interno ao item */
-        border-radius: 8px; /* Arredonda os cantos do item */
-        margin-bottom: 15px; /* Adiciona espaço abaixo do item */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave */
-        width: 100%; /* Faz o item ocupar toda a largura do container */
-        align-items: flex-start; /* Alinha o conteúdo à esquerda dentro do item */
-        }
-        
-        /* Estilos para o título do item */
-        .item h2 {
-        text-align: center; /* Centraliza o título */
-        font-size: 1.5em; /* Define o tamanho da fonte do título */
-        margin-bottom: 40px; /* Adiciona espaço abaixo do título */
-        width: 100%; /* Faz o título ocupar toda a largura do item */
-        }
-        
-        /* Estilos para o container da imagem e detalhes */
-        .item-content {
-        display: flex; /* Usa flexbox para organizar a imagem e os detalhes */
-        width: 100%; /* Faz o container ocupar toda a largura do item */
-        align-items: center; /* Alinha a imagem e os detalhes verticalmente */
-        }
-        
-        /* Estilos para a imagem */
-        .item-image {
-        flex: 0 0 150px; /* Define a largura fixa da imagem */
-        margin-right: 20px; /* Adiciona espaço à direita da imagem */
-        }
-        
-        .item-image img {
-        max-width: 100%; /* Faz a imagem ocupar toda a largura do container */
-        height: auto; /* Mantém a proporção da imagem */
-        display: block; /* Remove espaço extra abaixo da imagem */
-        }
-        
-        /* Estilos para os detalhes do item */
-        .item-details p {
-        margin: 5px 0; /* Adiciona espaço acima e abaixo dos parágrafos */
-        }
-        
-        .item-details p strong {
-        font-weight: bold; /* Deixa o texto em negrito */
-        }
-        
-        /* Estilos para a descrição do item */
-        .item-description {
-        text-align: justify; /* Justifica o texto */
-        margin-top: 40px; /* Adiciona espaço acima da descrição */
-        width: 100%; /* Faz a descrição ocupar toda a largura do item */
-        }
-
     /* Estilos para o container da paginação */
     #pagination-container {
         display: none; /* Usa flexbox para organizar os elementos de paginação */
@@ -158,32 +102,59 @@ body {
         font-weight: bold; /* Deixa o texto em negrito */
         font-size: 16px; /* Define o tamanho da fonte do texto de informações da página */
     }
-
-    #filter-container-toggle {
-        position: fixed; /* Fixa o botão no canto inferior direito da tela */
-        top: 10px; /* Define a distância do topo da tela */
-        right: 10px; /* Define a distância da direita da tela */
-        z-index: 1000; /* Garante que o botão fique acima de outros elementos */
-        padding: 8px 16px; /* Adiciona espaço interno ao botão */
-        background-color: #007bff; /* Define a cor de fundo do botão */
-        color: #fff; /* Define a cor do texto do botão */
-        border: none; /* Remove a borda do botão */
-        border-radius: 5px; /* Arredonda os cantos do botão */
-        cursor: pointer; /* Muda o cursor ao passar o mouse sobre o botão */
-        transition: max-height 0.3s ease; /* Adiciona uma transição suave para a altura máxima */
-        overflow: hidden; /* Esconde o conteúdo que ultrapassa a altura máxima */
+    
+    /* Estilos para cada item de resultado */
+    .item {
+    background-color: #fff; /* Define a cor de fundo do item */
+    border: 1px solid #ddd; /* Define a borda do item */
+    border-right: 1px solid #ddd; /* Adiciona borda direita */
+    padding: 20px; /* Adiciona espaço interno ao item */
+    border-radius: 8px; /* Arredonda os cantos do item */
+    margin-bottom: 15px; /* Adiciona espaço abaixo do item */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave */
+    width: 100%; /* Faz o item ocupar toda a largura do container */
+    align-items: flex-start; /* Alinha o conteúdo à esquerda dentro do item */
     }
-
-    .hidden {
-        max-height: 0; /* Define a altura máxima como 0 para esconder o conteúdo */
-        padding: 0; /* Remove o preenchimento do container escondido */
-        opacity: 0; /* Define a opacidade como 0 para esconder o conteúdo */
-        pointer-events: none; /* Desabilita eventos de ponteiro no container escondido */
+    
+    /* Estilos para o título do item */
+    .item h2 {
+    text-align: center; /* Centraliza o título */
+    font-size: 1.5em; /* Define o tamanho da fonte do título */
+    margin-bottom: 40px; /* Adiciona espaço abaixo do título */
+    width: 100%; /* Faz o título ocupar toda a largura do item */
     }
-
-    .visible {
-        max-height: 500px; /* Define a altura máxima como 500px para mostrar o conteúdo */
-        padding: 20px; /* Adiciona preenchimento ao container visível */
-        opacity: 1; /* Define a opacidade como 1 para mostrar o conteúdo */
-        pointer-events: auto; /* Habilita eventos de ponteiro no container visível */
+    
+    /* Estilos para o container da imagem e detalhes */
+    .item-content {
+    display: flex; /* Usa flexbox para organizar a imagem e os detalhes */
+    width: 100%; /* Faz o container ocupar toda a largura do item */
+    align-items: center; /* Alinha a imagem e os detalhes verticalmente */
+    }
+    
+    /* Estilos para a imagem */
+    .item-image {
+    flex: 0 0 150px; /* Define a largura fixa da imagem */
+    margin-right: 20px; /* Adiciona espaço à direita da imagem */
+    }
+    
+    .item-image img {
+    max-width: 100%; /* Faz a imagem ocupar toda a largura do container */
+    height: auto; /* Mantém a proporção da imagem */
+    display: block; /* Remove espaço extra abaixo da imagem */
+    }
+    
+    /* Estilos para os detalhes do item */
+    .item-details p {
+    margin: 5px 0; /* Adiciona espaço acima e abaixo dos parágrafos */
+    }
+    
+    .item-details p strong {
+    font-weight: bold; /* Deixa o texto em negrito */
+    }
+    
+    /* Estilos para a descrição do item */
+    .item-description {
+    text-align: justify; /* Justifica o texto */
+    margin-top: 40px; /* Adiciona espaço acima da descrição */
+    width: 100%; /* Faz a descrição ocupar toda a largura do item */
     }
