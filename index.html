@@ -8,35 +8,39 @@
 <body>
     <h1>Painel de Prêmios, Reconhecimentos e Destaques da UFMS</h1>
 
+        <!--Implementação da funcionalidade de filtros-->
         <div class="filter-container">
-        <label for="filter-tipo">Tipo:</label>
-        <select id="filter-tipo">
-            <option value="">Todos</option>
-        </select>
+            <div classe="filter-wrapper">
+                <label for="filter-tipo">Tipo:</label>
+                <select id="filter-tipo">
+                    <option value="">Todos</option>
+                </select>
 
-        <label for="filter-ano">Ano:</label>
-        <select id="filter-ano">
-            <option value="">Todos</option>
-        </select>
+                <label for="filter-ano">Ano:</label>
+                <select id="filter-ano">
+                    <option value="">Todos</option>
+                </select>
 
-        <label for="filter-categoria">Categoria:</label>
-        <select id="filter-categoria">
-            <option value="">Todos</option>
-        </select>
+                <label for="filter-categoria">Categoria:</label>
+                <select id="filter-categoria">
+                    <option value="">Todos</option>
+                </select>
 
-        <label for="filter-unidade">Unidade:</label>
-        <select id="filter-unidade">
-            <option value="">Todos</option>
-        </select>
+                <label for="filter-unidade">Unidade:</label>
+                <select id="filter-unidade">
+                    <option value="">Todos</option>
+                </select>
 
-        <button id="search-button">Buscar Resultados</button>
-        <button id="clear-filters-button">Limpar Filtros</button>
+                <button id="search-button">Buscar Resultados</button>
+                <button id="clear-filters-button">Limpar Filtros</button>
+            </div>
+        </div>
 
-        <button id="toggle-filters-button">Mostrar Filtros</button>
-    </div>
-
-    <div id="data-container">
-    </div>
+    <!--Implementação da funcionalidade de mostrar/ocultar filtros-->    
+    <button id="toggle-filters-button">Ocultar Filtros</button>
+    
+    <!-- Implementação da funcionalidade de mostrar resultados da pesquisa-->
+    <div id="data-container"></div>
 
     <!--Implementação da funcionalidade de paginação-->
     <div id="pagination-container">
@@ -45,11 +49,6 @@
         <button id="next-page-button">Próxima Página</button>
     </div>
 
-    <!--Implementação da funcionalidade de minimizar/expandir filtros-->
-    <div id="filter-container-toggle">
-        <input type="text" placeholder="Filtro 1">
-        <input type="text" placeholder="Filtro 2">
-    </div>
-
-    <script src="script.js"></script> </body>
+    <script src="script.js"></script>
+</body>
 </html>
