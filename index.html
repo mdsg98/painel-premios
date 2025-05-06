@@ -3,38 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planilha de Prêmios, Reconhecimentos e Destaques da UFMS</title>
+    <title>Painel de Prêmios, Reconhecimentos e Destaques da UFMS</title>
     <link rel="stylesheet" href="style.css"> </head>
 <body>
-    <h1>Planilha de Prêmios, Reconhecimentos e Destaques da UFMS</h1>
+    <h1>Painel de Prêmios, Reconhecimentos e Destaques da UFMS</h1>
 
+        <!--Implementação da funcionalidade de filtros-->
         <div class="filter-container">
-        <label for="filter-tipo">Tipo:</label>
-        <select id="filter-tipo">
-            <option value="">Todos</option>
-        </select>
+            <div class="filter-wrapper" id="filter-wrapper">
+                <label for="filter-tipo">Tipo:</label>
+                <select id="filter-tipo">
+                    <option value="">Todos</option>
+                </select>
 
-        <label for="filter-ano">Ano:</label>
-        <select id="filter-ano">
-            <option value="">Todos</option>
-        </select>
+                <label for="filter-ano">Ano:</label>
+                <select id="filter-ano">
+                    <option value="">Todos</option>
+                </select>
 
-        <label for="filter-categoria">Categoria:</label>
-        <select id="filter-categoria">
-            <option value="">Todos</option>
-        </select>
+                <label for="filter-categoria">Categoria:</label>
+                <select id="filter-categoria">
+                    <option value="">Todos</option>
+                </select>
 
-        <label for="filter-unidade">Unidade:</label>
-        <select id="filter-unidade">
-            <option value="">Todos</option>
-        </select>
+                <label for="filter-unidade">Unidade:</label>
+                <select id="filter-unidade">
+                    <option value="">Todos</option>
+                </select>
 
-        <button id="search-button">Buscar Resultados</button>
-        <button id="clear-filters-button">Limpar Filtros</button>
+                <button id="search-button">Buscar Resultados</button>
+                <button id="clear-filters-button">Limpar Filtros</button>
+            </div>
+        </div>
+
+    <!--Implementação da funcionalidade de mostrar/ocultar filtros-->    
+    <button id="toggle-filters-button">Ocultar Filtros</button>
+    
+    <!-- Implementação da funcionalidade de mostrar resultados da pesquisa-->
+    <div id="data-container"></div>
+
+    <!--Implementação da funcionalidade de paginação-->
+    <div id="pagination-container">
+        <button id="prev-page-button">Página Anterior</button>
+        <span id="page-info"></span>
+        <button id="next-page-button">Próxima Página</button>
     </div>
 
-    <div id="data-container">
-    </div>
-
-    <script src="script.js"></script> </body>
+    <script src="script.js"></script>
+</body>
 </html>

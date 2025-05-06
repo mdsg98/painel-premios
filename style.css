@@ -39,15 +39,25 @@ body {
     #clear-filters-button {
     padding: 10px 20px; /* Adiciona espaço interno aos botões */
     border: none; /* Remove a borda dos botões */
+    font-size: 16px; /* Define o tamanho da fonte dos botões de paginação */
     background-color: #007bff; /* Define a cor de fundo do botão de busca */
     color: #fff; /* Define a cor do texto dos botões */
     cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões */
     border-radius: 5px; /* Arredonda os cantos dos botões */
     }
+
+    #search-button:hover:not(:disabled) {
+        background-color: #0056b3; /* Muda a cor de fundo ao passar o mouse sobre o botão de busca */
+    }
     
     #clear-filters-button {
     background-color: #6c757d; /* Define a cor de fundo do botão de limpar filtros */
     }
+
+    #clear-filters-button:hover:not(:disabled) {
+        background-color: #5a6268; /* Muda a cor de fundo ao passar o mouse sobre o botão de limpar filtros */
+    }
+
     
     /* Estilos para o container dos resultados */
     #data-container {
@@ -56,6 +66,41 @@ body {
     gap: 15px; /* Adiciona espaço entre os resultados */
     max-width: 1200px; /* Define a largura máxima do container */
     margin: 0 auto; /* Centraliza o container horizontalmente */
+    }
+
+    /* Estilos para o container da paginação */
+    #pagination-container {
+        display: none; /* Usa flexbox para organizar os elementos de paginação */
+        justify-content: center; /* Centraliza os elementos de paginação */
+        align-items: center; /* Alinha os elementos verticalmente */
+        margin-top: 20px; /* Adiciona espaço acima do container de paginação */
+        gap: 12px; /* Adiciona espaço entre os elementos de paginação */
+        margin-top: 30px; /* Adiciona espaço acima do container de paginação */
+    }
+
+    #pagination-container button {
+        background-color: #007bff; /* Define a cor de fundo dos botões de paginação */
+        color: white; /* Define a cor do texto dos botões de paginação */
+        border: none; /* Remove a borda dos botões de paginação */
+        padding: 10px 18px; /* Adiciona espaço interno aos botões de paginação */
+        font-size: 16px; /* Define o tamanho da fonte dos botões de paginação */
+        border-radius: 6px; /* Arredonda os cantos dos botões de paginação */
+        cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões de paginação */
+        transition: background-color 0.3s ease; /* Adiciona uma transição suave para a cor de fundo */
+    }
+
+    #pagination-container button:hover:not(:disabled) {
+        background-color: #0056b3; /* Muda a cor de fundo ao passar o mouse sobre os botões de paginação */
+    }
+
+    #pagination-container button:disabled {
+        background-color: #ccc; /* Define a cor de fundo dos botões desativados */
+        cursor: not-allowed; /* Muda o cursor para indicar que o botão está desativado */
+    }
+
+    #pagination-container #page-info {
+        font-weight: bold; /* Deixa o texto em negrito */
+        font-size: 16px; /* Define o tamanho da fonte do texto de informações da página */
     }
     
     /* Estilos para cada item de resultado */

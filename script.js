@@ -1,16 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Seleciona os elementos HTML que serão manipulados
+    const searchButton = document.getElementById('search-button');
+    const clearFiltersButton = document.getElementById('clear-filters-button');
     const dataContainer = document.getElementById('data-container');
     const filterTipoSelect = document.getElementById('filter-tipo');
     const filterAnoSelect = document.getElementById('filter-ano');
     const filterCategoriaSelect = document.getElementById('filter-categoria');
     const filterUnidadeSelect = document.getElementById('filter-unidade');
-    const searchButton = document.getElementById('search-button');
-    const clearFiltersButton = document.getElementById('clear-filters-button');
+    
     
     // URL do Apps Script que fornece os dados da planilha
     const spreadsheetUrl = 'https://script.google.com/macros/s/AKfycbzarCfobIMbbgnuVz7Fa4cuutetQ2t78hBVvZJU1GzSNwLfwTZzKbMKG4RULdhPjA/exec';
     let allData = []; // Array para armazenar todos os dados da planilha
+    let data = []; // Array para armazenar os dados filtrados
+    
+    // Variáveis para controle de paginação
+    let page = 1; // Página atual
+    const itemsPerPage = 10; // Definição de quantos resultados exibir por página
+    const paginationContainer = document.getElementById('pagination-container');
+    const prevPageButton = document.getElementById('prev-page-button');
+    const nextPageButton = document.getElementById('next-page-button');
+    const pageInfo = document.getElementById('page-info');
+    const pageNumbersContainer = document.getElementById('page-numbers');
+
+    // Variáveis para controle de exibição dos filtros
+    const toggleFiltersButton = document.getElementById('toggle-filters-button');
     
     // Faz a requisição para obter os dados da planilha
     fetch(spreadsheetUrl)
@@ -56,10 +70,11 @@ document.addEventListener('DOMContentLoaded', function() {
         itemDetails.classList.add('item-details'); // Adiciona a classe 'item-details'
         itemDetails.innerHTML = `
             <p>Ano: ${item['Ano']}</p>
+            <p>Tipo: ${item['Tipo']}</p>
             <p>Categoria: ${item['Categoria']}</p>
             <p>Unidade: ${item['Unidade']}</p>
-            <p>Link da Matéria: <a href="${item['Link da Matéria']}" target="_blank">${item['Link da Matéria']}</a></p>
-    `; // Exibe ano, categoria, unidade e link da matéria
+            <p>Link da Matéria: <a href="${item['Link da Matéria']}" target="_blank">${item['Link da Matéria']}</a></p>`;
+        // Exibe ano, categoria, unidade e link da matéria
         itemContent.appendChild(itemDetails);
     
         itemDiv.appendChild(itemContent);
@@ -169,50 +184,65 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
+    // Função para renderizar a página com os dados filtrados e paginados
+    function renderPage(data, page) {
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageData = data.slice(start, end);
+        const totalPages = Math.ceil(data.length / itemsPerPage); // Calcula o total de páginas
+
+        dataContainer.innerHTML = ''; // Limpa o contêiner de dados
+
+        if (pageData.length === 0) { // Se não houver resultados
+            dataContainer.innerHTML = '<p>Nenhum resultado encontrado.</p>';
+            paginationContainer.style.display = 'flex'; // Exibe a paginação
+            pageInfo.textContent = `Página 1 de 1`; // Atualiza o texto da página
+            prevPageButton.disabled = true; // Desabilita o botão "anterior"
+            nextPageButton.disabled = true; // Desabilita o botão "próximo"
+            return;
+        }
+
+        renderData(pageData); // Renderiza os dados da página atual
+        paginationContainer.style.display = 'flex'; // Exibe a paginação
+        pageInfo.textContent = `Página ${page} de ${totalPages}`; // Atualiza o texto da página
+        prevPageButton.disabled = page === 1; // Desabilita o botão "anterior" se estiver na primeira página
+        nextPageButton.disabled = page === totalPages; // Desabilita o botão "próximo" se estiver na última página
+        
+        document.getElementById("data-container").scrollIntoView({ behavior: "smooth" }); // Rola suavemente para o contêiner de dados
+    }
+
+    function filterToggle() {
+        const wrapper = document.getElementById('filter-wrapper');
+        const toggleButton = document.getElementById('toggle-filters-button');
+
+        if (wrapper.style.display === 'none') { // Se os filtros estão escondidos
+            wrapper.style.display = 'block'; // Exibe os filtros
+            toggleButton.textContent = 'Esconder Filtros'; // Altera o texto do botão
+        } else { // Se os filtros estão visíveis
+            wrapper.style.display = 'none'; // Esconde os filtros
+            toggleButton.textContent = 'Mostrar Filtros'; // Altera o texto do botão
+        }
+    }
+
     // Event listener para o botão de busca
-    searchButton.addEventListener('click', function() {
-        // Obtém os valores selecionados nos filtros
-        const filterTipo = filterTipoSelect.value;
-        const filterAno = filterAnoSelect.value;
-        const filterCategoria = filterCategoriaSelect.value;
-        const filterUnidade = filterUnidadeSelect.value;
-    
+    searchButton.addEventListener('click', function() {  
     // Filtra os dados com base nos valores selecionados
+        const tipo = filterTipoSelect.value;
+        const ano = filterAnoSelect.value;
+        const categoria = filterCategoriaSelect.value;
+        const unidade = filterUnidadeSelect.value;
+
         const filteredData = allData.filter(item => {
-            let matchesTipo = true;
-            let matchesAno = true;
-            let matchesCategoria = true;
-            let matchesUnidade = true;
-    
-            if (filterTipo && filterTipo !== 'Todos' && filterTipo !== '') {
-                matchesTipo = item['Tipo'] === filterTipo;
-        }
-    
-            if (filterAno && filterAno !== 'Todos' && filterAno !== '') {
-                matchesAno = String(item['Ano']).trim() === filterAno.trim();
-            }
-    
-            if (filterCategoria && filterCategoria !== 'Todos' && filterCategoria !== '') {
-                matchesCategoria = item['Categoria'] === filterCategoria;
-            }
-    
-            if (filterUnidade && filterUnidade !== 'Todos' && filterUnidade !== '') {
-                matchesUnidade = item['Unidade'] === filterUnidade;
-            }
-    
-            return matchesTipo && matchesAno && matchesCategoria && matchesUnidade;
+            return (tipo === '' || tipo === 'Todos' || item['Tipo'] === tipo) &&
+                   (ano === '' || ano === 'Todos' || item['Ano'] === ano) &&
+                   (categoria === '' || categoria === 'Todos' || item['Categoria'] === categoria) &&
+                   (unidade === '' || unidade === 'Todos' || item['Unidade'] === unidade);
         });
-    
-        // Atualiza o título da página com o número de resultados encontrados
-        const h1Element = document.querySelector('h1');
-        if (filteredData.length > 0) {
-            h1Element.textContent = `Resultados encontrados: ${filteredData.length}`;
-        }
-        else {
-            h1Element.textContent = 'Nenhum resultado encontrado';
-        }
-    
-        renderData(filteredData); // Exibe os resultados filtrados
+
+        data = filteredData; // Atualiza os dados atuais com os dados filtrados
+        page = 1; // Reseta a página atual para 1
+        renderPage(data, page); // Renderiza a primeira página dos dados filtrados
+        updatePaginationUI(data); // Atualiza a UI da paginação
     });
     
     // Event listener para o botão de limpar filtros
@@ -222,10 +252,35 @@ document.addEventListener('DOMContentLoaded', function() {
         filterAnoSelect.value = '';
         filterCategoriaSelect.value = '';
         filterUnidadeSelect.value = '';
-        dataContainer.innerHTML = ''; // Limpa os resultados
+
+        dataContainer.innerHTML = ''; // Limpa o contâiner de resultados
+        pageInfo.textContent = ''; // Reseta o texto da página
+        paginationContainer.style.display = 'none'; // Esconde a paginação
     
         // Reseta o título da página para o título original
         const h1Element = document.querySelector('h1');
-        h1Element.textContent = 'Planilha de Prêmios, Reconhecimentos e Destaques da UFMS';
+        h1Element.textContent = 'Painel de Prêmios, Reconhecimentos e Destaques da UFMS';
+
     });
+
+    // Event listener para o botão Página Anterior
+    prevPageButton.addEventListener('click', function () {
+    if (page > 1) {
+        page--; // Vai para a página anterior
+        renderPage(data, page); // Renderiza a nova página
+        updatePaginationUI(data); // Atualiza os controles da paginação
+    }
+    });
+
+    // Event listener para o botão de próxima página
+    nextPageButton.addEventListener('click', function () {
+    const totalPages = Math.ceil(data.length / itemsPerPage);
+    if (page < totalPages) {
+        page++; // Vai para a próxima página
+        renderPage(data, page); // Renderiza a nova página
+        updatePaginationUI(data); // Atualiza os controles da paginação
+    }
+    });
+    // Event listener para o botão de mostrar/esconder filtros
+    toggleFiltersButton.addEventListener('click', filterToggle); // Adiciona evento de clique para mostrar/esconder filtros
     });
