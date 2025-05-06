@@ -73,8 +73,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <p>Tipo: ${item['Tipo']}</p>
             <p>Categoria: ${item['Categoria']}</p>
             <p>Unidade: ${item['Unidade']}</p>
-            <p>Link da Matéria: <a href="${item['Link da Matéria']}" target="_blank">${item['Link da Matéria']}</a></p>
-    `; // Exibe ano, categoria, unidade e link da matéria
+            <p>Link da Matéria: <a href="${item['Link da Matéria']}" target="_blank">${item['Link da Matéria']}</a></p>`;
+        // Exibe ano, categoria, unidade e link da matéria
         itemContent.appendChild(itemDetails);
     
         itemDiv.appendChild(itemContent);
