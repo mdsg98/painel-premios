@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Variáveis para controle de exibição dos filtros
     const toggleFiltersButton = document.getElementById('toggle-filters-button');
+
+    // Variáveis para controle de ordenação por ano dos resultados
+    const sortYearButton = document.getElementById('sort-year-button');
     
     // Faz a requisição para obter os dados da planilha
     fetch(spreadsheetUrl)
@@ -283,4 +286,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     // Event listener para o botão de mostrar/esconder filtros
     toggleFiltersButton.addEventListener('click', filterToggle); // Adiciona evento de clique para mostrar/esconder filtros
+
+    // Event listener para o botão de ordenação por ano
+    sortYearButton.addEventListener('click', function() {
+        const sortedData = [...data].sort((a, b) => b['Ano'] - a['Ano']); // Ordena os dados por ano em ordem decrescente
+        data = sortedData; // Atualiza os dados atuais com os dados ordenados
+        renderPage(data, page); // Renderiza a primeira página dos dados ordenados
+    });
     });
