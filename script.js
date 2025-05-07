@@ -27,7 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleFiltersButton = document.getElementById('toggle-filters-button');
 
     // Variáveis para controle de ordenação por ano dos resultados
-    const sortYearButton = document.getElementById('sort-year-button');
+    const sortYearAscButton = document.getElementById('sort-year-asc-button'); // Botão para ordenar por ano crescente
+    const sortYearDescButton = document.getElementById('sort-year-desc-button'); // Botão para ordenar por ano decrescente
     
     // Faz a requisição para obter os dados da planilha
     fetch(spreadsheetUrl)
@@ -287,10 +288,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listener para o botão de mostrar/esconder filtros
     toggleFiltersButton.addEventListener('click', filterToggle); // Adiciona evento de clique para mostrar/esconder filtros
 
-    // Event listener para o botão de ordenação por ano
-    sortYearButton.addEventListener('click', function() {
-        const sortedData = [...data].sort((a, b) => b['Ano'] - a['Ano']); // Ordena os dados por ano em ordem decrescente
-        data = sortedData; // Atualiza os dados atuais com os dados ordenados
+    // Event listener para o botão de ordenação por ano (crescente)
+    sortYearAscButton.addEventListener('click', function() {
+        data.sort((a, b) => a['Ano'] - b['Ano']); // Ordena os dados por ano em ordem crescente
+        page = 1; // Reseta a página atual para 1
         renderPage(data, page); // Renderiza a primeira página dos dados ordenados
+        if (data.lenght > 0) {
+            paginationContainer.style.display = 'flex'; // Exibe a paginação se houver dados
+            updatePaginationUI(data); // Atualiza a UI da paginação
+        } else {
+            paginationContainer.style.display = 'none'; // Esconde a paginação se não houver dados
+        }
+    });
+    sortYearDescButton.addEventListener('click', function() {
+        data.sort((a, b) => b['Ano'] - a['Ano']); // Ordena os dados por ano em ordem decrescente
+        page = 1; // Reseta a página atual para 1
+        renderPage(data, page); // Renderiza a primeira página dos dados ordenados
+        if (data.lenght > 0) {
+            paginationContainer.style.display = 'flex'; // Exibe a paginação se houver dados
+            updatePaginationUI(data); // Atualiza a UI da paginação
+        } else {
+            paginationContainer.style.display = 'none'; // Esconde a paginação se não houver dados
+        }
     });
     });
