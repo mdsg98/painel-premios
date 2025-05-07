@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const filteredData = allData.filter(item => {
             return (tipo === '' || tipo === 'Todos' || item['Tipo'] === tipo) &&
-                   (ano === '' || ano === 'Todos' || item['Ano'] === ano) &&
+                   (ano === '' || ano === 'Todos' || String(item['Ano']) === String(ano)) &&
                    (categoria === '' || categoria === 'Todos' || item['Categoria'] === categoria) &&
                    (unidade === '' || unidade === 'Todos' || item['Unidade'] === unidade);
         });
