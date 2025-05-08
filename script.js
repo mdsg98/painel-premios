@@ -239,12 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
             renderData(pageData); // Renderiza os dados da página atual
         }
 
-        renderData(pageData); // Renderiza os dados da página atual
-        paginationContainer.style.display = 'flex'; // Exibe a paginação
-        pageInfo.textContent = `Página ${page} de ${totalPages}`; // Atualiza o texto da página
-        prevPageButton.disabled = page === 1; // Desabilita o botão "anterior" se estiver na primeira página
-        nextPageButton.disabled = page === totalPages; // Desabilita o botão "próximo" se estiver na última página
-        
+        updateAllPaginationControls(page, data.length, itemsPerPage); // Atualiza os controles de paginação        
         document.getElementById("data-container").scrollIntoView({ behavior: "smooth" }); // Rola suavemente para o contêiner de dados
     }
 
