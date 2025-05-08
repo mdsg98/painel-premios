@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Função para renderizar a página com os dados filtrados e paginados
+    // Função para renderizar a página com os dados filtrados e paginados test
     function renderPage(data, page) {
         const start = (page - 1) * itemsPerPage;
         const end = start + itemsPerPage;
