@@ -294,22 +294,10 @@ document.addEventListener('DOMContentLoaded', function() {
         data.sort((a, b) => a['Ano'] - b['Ano']); // Ordena os dados por ano em ordem crescente
         page = 1; // Reseta a página atual para 1
         renderPage(data, page); // Renderiza a primeira página dos dados ordenados
-        if (data.lenght > 0) {
-            paginationContainer.style.display = 'flex'; // Exibe a paginação se houver dados
-            updatePaginationUI(data); // Atualiza a UI da paginação
-        } else {
-            paginationContainer.style.display = 'none'; // Esconde a paginação se não houver dados
-        }
     });
     sortYearDescButton.addEventListener('click', function() {
         data.sort((a, b) => b['Ano'] - a['Ano']); // Ordena os dados por ano em ordem decrescente
         page = 1; // Reseta a página atual para 1
         renderPage(data, page); // Renderiza a primeira página dos dados ordenados
-        if (data.lenght > 0) {
-            paginationContainer.style.display = 'flex'; // Exibe a paginação se houver dados
-            updatePaginationUI(data); // Atualiza a UI da paginação
-        } else {
-            paginationContainer.style.display = 'none'; // Esconde a paginação se não houver dados
-        }
     });
     });
