@@ -214,12 +214,8 @@ document.addEventListener('DOMContentLoaded', function() {
         nextPageButtonTop.disabled = page === totalPages || noResults; // Desabilita o botão "próximo" se estiver na última página
 
         if (noResults && dataContainer.innerHTML.includes('Nenhum resultado encontrado')) {
-            pageInfo.textContent = `Página 1 de ${totalPages}`; // Atualiza o texto da página (rodapé)
-            pageInfoTop.textContent = `Página 1 de ${totalPages}`; // Atualiza o texto da página (topo)
-            prevPageButton.disabled = true; // Desabilita o botão "anterior" (rodapé)
-            nextPageButton.disabled = true; // Desabilita o botão "próximo" (rodapé)
-            prevPageButtonTop.disabled = true; // Desabilita o botão "anterior" (topo)
-            nextPageButtonTop.disabled = true; // Desabilita o botão "próximo" (topo)
+            paginationContainer.style.display = 'none'; // Esconde a paginação
+            paginationContainerTop.style.display = 'none'; // Esconde a paginação superior
         }
     }
     
