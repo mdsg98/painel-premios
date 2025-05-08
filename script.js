@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const filteredData = allData.filter(item => {
             return (tipo === '' || tipo === 'Todos' || item['Tipo'] === tipo) &&
-                   (ano === '' || ano === 'Todos' || String(item['Ano']) === String(ano)) &&
+                   (ano === '' || ano === 'Todos' || String(item['Ano']) === String(ano)) && // Converte ano para string
                    (categoria === '' || categoria === 'Todos' || item['Categoria'] === categoria) &&
                    (unidade === '' || unidade === 'Todos' || item['Unidade'] === unidade);
         });
@@ -260,10 +260,6 @@ document.addEventListener('DOMContentLoaded', function() {
         dataContainer.innerHTML = ''; // Limpa o contâiner de resultados
         pageInfo.textContent = ''; // Reseta o texto da página
         paginationContainer.style.display = 'none'; // Esconde a paginação
-    
-        // Reseta o título da página para o título original
-        const h1Element = document.querySelector('h1');
-        h1Element.textContent = 'Painel de Prêmios, Reconhecimentos e Destaques da UFMS';
 
     });
 
