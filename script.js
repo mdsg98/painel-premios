@@ -201,17 +201,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const start = (page - 1) * itemsPerPage;
         const end = start + itemsPerPage;
         const pageData = data.slice(start, end);
-        const totalPages = Math.ceil(data.length / itemsPerPage); // Calcula o total de páginas
 
         dataContainer.innerHTML = ''; // Limpa o contêiner de dados
 
-        if (pageData.length === 0) { // Se não houver resultados
+        if (data.length === 0) { // Se não houver resultados
             dataContainer.innerHTML = '<p>Nenhum resultado encontrado.</p>';
-            paginationContainer.style.display = 'flex'; // Exibe a paginação
-            pageInfo.textContent = `Página 1 de 1`; // Atualiza o texto da página
-            prevPageButton.disabled = true; // Desabilita o botão "anterior"
-            nextPageButton.disabled = true; // Desabilita o botão "próximo"
-            return;
+        }
+        else { // Se houver resultados
+            renderData(pageData); // Renderiza os dados da página atual
         }
 
         renderData(pageData); // Renderiza os dados da página atual
