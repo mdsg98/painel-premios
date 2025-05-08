@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const prevPageButton = document.getElementById('prev-page-button');
     const nextPageButton = document.getElementById('next-page-button');
     const pageInfo = document.getElementById('page-info');
-    const pageNumbersContainer = document.getElementById('page-numbers');
 
     //Variáveis para controle de paginação superior (topo)
     const paginationContainerTop = document.getElementById('pagination-container-top');
@@ -102,36 +101,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Função para preencher os filtros com os dados da planilha
-    function populateFilters(data) {
-        if (data.length > 0) { // Se houver dados
-        populateSelectTipoOrder(filterTipoSelect, 'Tipo', data);
-        populateSelectAnoDescending(filterAnoSelect, 'Ano', data);
-        populateSelect(filterCategoriaSelect, 'Categoria', data);
-        populateSelect(filterUnidadeSelect, 'Unidade', data);
+    function populateFilters(dataToPopulate) {
+        if (dataToPopulate.length > 0) { // Se houver dados
+        populateSelectTipoOrder(filterTipoSelect, 'Tipo', dataToPopulate); // Preenche o filtro de tipo
+        populateSelectAnoDescending(filterAnoSelect, 'Ano', dataToPopulate); // Preenche o filtro de ano
+        populateSelect(filterCategoriaSelect, 'Categoria', dataToPopulate); // Preenche o filtro de categoria
+        populateSelect(filterUnidadeSelect, 'Unidade', dataToPopulate); // Preenche o filtro de unidade
         }
     }
     
     // Função para preencher um select (lista suspensa) com os valores únicos de uma coluna
-    function populateSelect(selectElement, header, data) {
-        const uniqueValues = [...new Set(data.map(item => item[header]))].sort(); // Obtém valores únicos e os ordena
+    function populateSelect(selectElement, header, dataToPopulate) {
+        const uniqueValues = [...new Set(dataToPopulate.map(item => item[header]))].sort(); // Obtém valores únicos e os ordena
         selectElement.innerHTML = ''; // Limpa as opções existentes
     
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = '';
+        const defaultOption = document.createElement('option'); // Cria uma opção padrão vazia
+        defaultOption.value = ''; // Define o valor como vazio
+        defaultOption.textContent = ''; // Define o texto como vazio
         defaultOption.selected = true; // Define como selecionado inicialmente
         selectElement.appendChild(defaultOption); // Adiciona a opção vazia padrão
     
-        const todosOption = document.createElement('option');
-        todosOption.value = 'Todos';
-        todosOption.textContent = 'Todos';
+        const todosOption = document.createElement('option'); // Cria a opção "Todos"
+        todosOption.value = 'Todos'; // Define o valor como "Todos"
+        todosOption.textContent = 'Todos'; // Define o texto como "Todos"
         selectElement.appendChild(todosOption); // Adiciona a opção "Todos"
     
         uniqueValues.forEach(value => { // Adiciona cada valor único como uma opção
-            const option = document.createElement('option');
-            option.value = value;
-            option.textContent = value;
-            selectElement.appendChild(option);
+            const option = document.createElement('option'); // Cria uma nova opção
+            option.value = value; // Define o valor da opção
+            option.textContent = value; // Define o texto da opção
+            selectElement.appendChild(option); // Adiciona a opção ao select
         });
     }
     
@@ -140,15 +139,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const uniqueValues = [...new Set(data.map(item => item[header]))].sort((a, b) => b - a); // Obtém valores únicos e os ordena em ordem decrescente
         selectElement.innerHTML = ''; // Limpa as opções existentes
     
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.textContent = '';
+        const defaultOption = document.createElement('option'); // Cria uma opção padrão vazia
+        defaultOption.value = ''; // Define o valor como vazio
+        defaultOption.textContent = ''; // Define o texto como vazio
         defaultOption.selected = true; // Define como selecionado inicialmente
         selectElement.appendChild(defaultOption); // Adiciona a opção vazia padrão
     
-        const todosOption = document.createElement('option');
-        todosOption.value = 'Todos';
-        todosOption.textContent = 'Todos';
+        const todosOption = document.createElement('option'); // Cria a opção "Todos"
+        todosOption.value = 'Todos'; // Define o valor como "Todos"
+        todosOption.textContent = 'Todos'; // Define o texto como "Todos"
         selectElement.appendChild(todosOption); // Adiciona a opção "Todos"
     
         uniqueValues.forEach(value => { // Adiciona cada valor único como uma opção
@@ -197,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateAllPaginationControls(page, totalItems, itemsPerPage) {
-        const totalPages = Math.ceil(totalItems / itemsperPage) || 1; // Calcula o total de páginas
+        const totalPages = Math.ceil(totalItems / itemsPerPage) || 1; // Calcula o total de páginas
         const noResults = totalItems === 0; // Verifica se não há resultados
 
         const displayStyle = noResults ? 'flex' : (totalItems > 0 ? 'flex' : 'none'); // Define o estilo de exibição
