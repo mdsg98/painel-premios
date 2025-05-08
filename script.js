@@ -213,9 +213,21 @@ document.addEventListener('DOMContentLoaded', function() {
         prevPageButtonTop.disabled = page === 1; // Desabilita o botão "anterior" se estiver na primeira página
         nextPageButtonTop.disabled = page === totalPages || noResults; // Desabilita o botão "próximo" se estiver na última página
 
-        if (noResults && dataContainer.innerHTML.includes('Nenhum resultado encontrado')) {
-            paginationContainer.style.display = 'none'; // Esconde a paginação
-            paginationContainerTop.style.display = 'none'; // Esconde a paginação superior
+        if (noResults) { // Se não houver resultados
+            pageInfo.textContent = ''; // Limpa o texto da página
+            pageInfoTop.textContent = ''; // Limpa o texto da página
+            prevPageButton.disabled = true; // Desabilita o botão "anterior"
+            nextPageButton.disabled = true; // Desabilita o botão "próximo"
+            prevPageButtonTop.disabled = true; // Desabilita o botão "anterior" do topo
+            nextPageButtonTop.disabled = true; // Desabilita o botão "próximo" do topo
+        }
+
+        if (totalItems > 0) { // Se houver resultados
+            sortYearAscButton.style.display = 'block'; // Exibe o botão de ordenação crescente
+            sortYearDescButton.style.display = 'block'; // Exibe o botão de ordenação decrescente
+        } else {
+            sortYearAscButton.style.display = 'none'; // Esconde o botão de ordenação crescente
+            sortYearDescButton.style.display = 'none'; // Esconde o botão de ordenação decrescente            
         }
     }
     
