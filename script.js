@@ -195,6 +195,34 @@ document.addEventListener('DOMContentLoaded', function() {
             selectElement.appendChild(option);
         });
     }
+
+    function updateAllPaginationControls(page, totalItems, itemsPerPage) {
+        const totalPages = Math.ceil(totalItems / itemsperPage) || 1; // Calcula o total de páginas
+        const noResults = totalItems === 0; // Verifica se não há resultados
+
+        const displayStyle = noResults ? 'flex' : (totalItems > 0 ? 'flex' : 'none'); // Define o estilo de exibição
+
+        // Paginação inferior (rodapé)
+        paginationContainer.style.display = displayStyle; // Exibe ou esconde a paginação inferior
+        pageInfo.textContent = `Página ${page} de ${totalPages}`; // Atualiza o texto da página
+        prevPageButton.disabled = page === 1; // Desabilita o botão "anterior" se estiver na primeira página
+        nextPageButton.disabled = page === totalPages || noResults; // Desabilita o botão "próximo" se estiver na última página
+
+        // Paginação superior (topo)
+        paginationContainerTop.style.display = displayStyle; // Exibe ou esconde a paginação superior
+        pageInfoTop.textContent = `Página ${page} de ${totalPages}`; // Atualiza o texto da página
+        prevPageButtonTop.disabled = page === 1; // Desabilita o botão "anterior" se estiver na primeira página
+        nextPageButtonTop.disabled = page === totalPages || noResults; // Desabilita o botão "próximo" se estiver na última página
+
+        if (noResults && dataContainer.innerHTML.includes('Nenhum resultado encontrado')) {
+            pageInfo.textContent = `Página 1 de ${totalPages}`; // Atualiza o texto da página (rodapé)
+            pageInfoTop.textContent = `Página 1 de ${totalPages}`; // Atualiza o texto da página (topo)
+            prevPageButton.disabled = true; // Desabilita o botão "anterior" (rodapé)
+            nextPageButton.disabled = true; // Desabilita o botão "próximo" (rodapé)
+            prevPageButtonTop.disabled = true; // Desabilita o botão "anterior" (topo)
+            nextPageButtonTop.disabled = true; // Desabilita o botão "próximo" (topo)
+        }
+    }
     
     // Função para renderizar a página com os dados filtrados e paginados
     function renderPage(data, page) {
