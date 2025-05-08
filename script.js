@@ -218,8 +218,8 @@ document.addEventListener('DOMContentLoaded', function() {
             pageInfoTop.textContent = `Página 1 de ${totalPages}`; // Atualiza o texto da página (topo)
             prevPageButton.disabled = true; // Desabilita o botão "anterior" (rodapé)
             nextPageButton.disabled = true; // Desabilita o botão "próximo" (rodapé)
-            prevPageButtonTop.disabled = true; // Desabilita o botão "anterior" (topo)
-            nextPageButtonTop.disabled = true; // Desabilita o botão "próximo" (topo)
+            prevPageButtonTop.hidden = true; // Desabilita o botão "anterior" (topo)
+            nextPageButtonTop.hidden = true; // Desabilita o botão "próximo" (topo)
         }
     }
     
