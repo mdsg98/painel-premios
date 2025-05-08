@@ -98,7 +98,7 @@ body {
         cursor: not-allowed; /* Muda o cursor para indicar que o botão está desativado */
     }
 
-    #pagination-container #page-info {
+    .pagination-controls span {
         font-weight: bold; /* Deixa o texto em negrito */
         font-size: 16px; /* Define o tamanho da fonte do texto de informações da página */
     }
