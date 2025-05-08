@@ -68,6 +68,11 @@ body {
     margin: 0 auto; /* Centraliza o container horizontalmente */
     }
 
+    /* Adicionado para esconder botões de ordenação inicialmente */
+    #sort-year-asc-button, #sort-year-desc-button {
+        display: none;
+    }
+
     /* Estilos para o container da paginação */
     .pagination-controls {
         display: none; /* Usa flexbox para organizar os elementos de paginação */
