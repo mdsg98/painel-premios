@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         updateAllPaginationControls(page, data.length, itemsPerPage); // Atualiza os controles de paginação        
-        document.getElementById("data-container").scrollIntoView({ behavior: "smooth" }); // Rola suavemente para o contêiner de dados
+        document.querySelector("h1").scrollIntoView({ behavior: "smooth" }); // Rola suavemente para o título do projeto
     }
 
     function filterToggle() {
