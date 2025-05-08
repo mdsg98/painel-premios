@@ -287,7 +287,6 @@ document.addEventListener('DOMContentLoaded', function() {
         pageInfo.textContent = ''; // Reseta o texto da página
         paginationContainer.style.display = 'none'; // Esconde a paginação
         paginationContainerTop.style.display = 'none'; // Esconde a paginação superior
-        allData = []; // Reseta os dados
     });
 
     // Event listener para o botão Página Anterior do rodapé
