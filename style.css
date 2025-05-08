@@ -68,7 +68,7 @@ body {
     margin: 0 auto; /* Centraliza o container horizontalmente */
     }
 
-    /* Adicionado para esconder botões de ordenação inicialmente */
+    /* Esconder botões de ordenação inicialmente */
     #sort-year-asc-button, #sort-year-desc-button {
         display: none;
     }
