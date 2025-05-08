@@ -218,8 +218,8 @@ document.addEventListener('DOMContentLoaded', function() {
             pageInfoTop.textContent = `Página 1 de ${totalPages}`; // Atualiza o texto da página (topo)
             prevPageButton.disabled = true; // Desabilita o botão "anterior" (rodapé)
             nextPageButton.disabled = true; // Desabilita o botão "próximo" (rodapé)
-            prevPageButtonTop.hidden = true; // Desabilita o botão "anterior" (topo)
-            nextPageButtonTop.hidden = true; // Desabilita o botão "próximo" (topo)
+            prevPageButtonTop.disabled = true; // Desabilita o botão "anterior" (topo)
+            nextPageButtonTop.disabled = true; // Desabilita o botão "próximo" (topo)
         }
     }
     
@@ -289,15 +289,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
 
-    // Event listener para o botão Página Anterior
+    // Event listener para o botão Página Anterior do rodapé
     prevPageButton.addEventListener('click', function () {
-    if (page > 1) {
-        page--; // Vai para a página anterior
-        renderPage(data, page); // Renderiza a nova página
-    }
+        if (page > 1) {
+            page--; // Vai para a página anterior
+            renderPage(data, page); // Renderiza a nova página
+        }
     });
 
-    // Event listener para o botão de próxima página
+    // Event listener para o botão Página Anterior do topo
+    prevPageButtonTop.addEventListener('click', function () {
+        if (page > 1) {
+            page--; // Vai para a página anterior
+            renderPage(data, page); // Renderiza a nova página
+        }
+    });    
+
+    // Event listener para o botão de Próxima Página do rodapé
     nextPageButton.addEventListener('click', function () {
     const totalPages = Math.ceil(data.length / itemsPerPage);
     if (page < totalPages) {
@@ -305,6 +313,14 @@ document.addEventListener('DOMContentLoaded', function() {
         renderPage(data, page); // Renderiza a nova página
     }
     });
+
+    nextPageButtonTop.addEventListener('click', function () {
+        if (page > 1) {
+            page--; // Vai para a página anterior
+            renderPage(data, page); // Renderiza a nova página
+        }
+    });
+
     // Event listener para o botão de mostrar/esconder filtros
     toggleFiltersButton.addEventListener('click', filterToggle); // Adiciona evento de clique para mostrar/esconder filtros
 
