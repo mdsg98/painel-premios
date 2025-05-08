@@ -307,16 +307,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event listener para o botão de Próxima Página do rodapé
     nextPageButton.addEventListener('click', function () {
-    const totalPages = Math.ceil(data.length / itemsPerPage);
-    if (page < totalPages) {
-        page++; // Vai para a próxima página
-        renderPage(data, page); // Renderiza a nova página
-    }
+        const totalPages = Math.ceil(data.length / itemsPerPage); // Calcula o total de páginas
+        if (page < totalPages) {
+            page++; // Vai para a próxima página
+            renderPage(data, page); // Renderiza a nova página
+        }
     });
 
     nextPageButtonTop.addEventListener('click', function () {
-        if (page > 1) {
-            page--; // Vai para a página anterior
+        const totalPages = Math.ceil(data.length / itemsPerPage); // Calcula o total de páginas
+        if (page < totalPages) {
+            page++; // Vai para a próxima página
             renderPage(data, page); // Renderiza a nova página
         }
     });
