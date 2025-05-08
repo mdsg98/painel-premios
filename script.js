@@ -254,7 +254,6 @@ document.addEventListener('DOMContentLoaded', function() {
         data = filteredData; // Atualiza os dados atuais com os dados filtrados
         page = 1; // Reseta a página atual para 1
         renderPage(data, page); // Renderiza a primeira página dos dados filtrados
-        updatePaginationUI(data); // Atualiza a UI da paginação
     });
     
     // Event listener para o botão de limpar filtros
@@ -276,7 +275,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (page > 1) {
         page--; // Vai para a página anterior
         renderPage(data, page); // Renderiza a nova página
-        updatePaginationUI(data); // Atualiza os controles da paginação
     }
     });
 
@@ -286,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (page < totalPages) {
         page++; // Vai para a próxima página
         renderPage(data, page); // Renderiza a nova página
-        updatePaginationUI(data); // Atualiza os controles da paginação
     }
     });
     // Event listener para o botão de mostrar/esconder filtros
