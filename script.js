@@ -17,11 +17,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Variáveis para controle de paginação
     let page = 1; // Página atual
     const itemsPerPage = 10; // Definição de quantos resultados exibir por página
+
+    // Variáveis para controle de paginação inferior (rodapé)
     const paginationContainer = document.getElementById('pagination-container');
     const prevPageButton = document.getElementById('prev-page-button');
     const nextPageButton = document.getElementById('next-page-button');
     const pageInfo = document.getElementById('page-info');
     const pageNumbersContainer = document.getElementById('page-numbers');
+
+    //Variáveis para controle de paginação superior (topo)
+    const paginationContainerTop = document.getElementById('pagination-container-top');
+    const prevPageButtonTop = document.getElementById('prev-page-button-top');
+    const nextPageButtonTop = document.getElementById('next-page-button-top');
+    const pageInfoTop = document.getElementById('page-info-top');
 
     // Variáveis para controle de exibição dos filtros
     const toggleFiltersButton = document.getElementById('toggle-filters-button');
