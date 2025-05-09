@@ -2,7 +2,7 @@
 body {
     font-family: sans-serif; /* Define a fonte padrão para a página */
     margin: 20px; /* Adiciona margem ao redor do conteúdo da página */
-    background-color: #f4f4f4; /* Define a cor de fundo da página */
+    background-color: #eeeeee; /* Define a cor de fundo da página */
     }
     
     h1 {
@@ -40,7 +40,7 @@ body {
     padding: 10px 20px; /* Adiciona espaço interno aos botões */
     border: none; /* Remove a borda dos botões */
     font-size: 16px; /* Define o tamanho da fonte dos botões de paginação */
-    background-color: #007bff; /* Define a cor de fundo do botão de busca */
+    background-color: #1887b4; /* Define a cor de fundo do botão de busca */
     color: #fff; /* Define a cor do texto dos botões */
     cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões */
     border-radius: 5px; /* Arredonda os cantos dos botões */
@@ -84,7 +84,7 @@ body {
     }
 
     .pagination-controls button {
-        background-color: #007bff; /* Define a cor de fundo dos botões de paginação */
+        background-color: #1887b4; /* Define a cor de fundo dos botões de paginação */
         color: white; /* Define a cor do texto dos botões de paginação */
         border: none; /* Remove a borda dos botões de paginação */
         padding: 10px 18px; /* Adiciona espaço interno aos botões de paginação */
