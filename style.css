@@ -77,10 +77,10 @@ body {
     .pagination-controls {
         display: none; /* Usa flexbox para organizar os elementos de paginação */
         justify-content: center; /* Centraliza os elementos de paginação */
-        align-items: center; /* Alinha os elementos verticalmente */
-        margin-top: 20px; /* Adiciona espaço acima do container de paginação */
+        align-items: baseline; /* Alinha os elementos de paginação verticalmente */
         gap: 12px; /* Adiciona espaço entre os elementos de paginação */
         margin-top: 30px; /* Adiciona espaço acima do container de paginação */
+        margin-bottom: 20px; /* Adiciona espaço abaixo do container de paginação */
     }
 
     .pagination-controls button {
