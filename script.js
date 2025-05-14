@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Faz a requisição para obter os dados da planilha
     fetch(spreadsheetUrl)
         .then(response => response.json()) // Converte a resposta para JSON
-        .then(fecthedData => {
+        .then(fetchedData => {
             allData = fetchedData; // Armazena os dados
             populateFilters(allData); // Preenche os filtros com os dados
 
