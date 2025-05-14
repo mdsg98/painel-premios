@@ -316,16 +316,41 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Event listener para o botão de limpar filtros
     clearFiltersButton.addEventListener('click', function() {
-        // Limpa os valores dos filtros
-        filterTipoSelect.value = '';
-        filterAnoSelect.value = '';
-        filterCategoriaSelect.value = '';
-        filterUnidadeSelect.value = '';
+       
+        // Limpa os filtros selecionados e traz os dados padrão
+        if (filterTipoSelect) filterTipoSelect.value = 'Todos';
+        if (filterAnoSelect) filterAnoSelect.value = 'Todos';
+        if (filterCategoriaSelect) filterCategoriaSelect.value = 'Todos';
+        if (filterUnidadeSelect) filterUnidadeSelect.value = 'Todos';
 
-        dataContainer.innerHTML = ''; // Limpa o contâiner de resultados
-        pageInfo.textContent = ''; // Reseta o texto da página
-        paginationContainer.style.display = 'none'; // Esconde a paginação
-        paginationContainerTop.style.display = 'none'; // Esconde a paginação superior
+        // Recarrega e exibe os dados padrão com a ordenação inicial
+        if (allData && allData.length > 0) {
+            data = [...allData]; 
+
+            data.sort((a, b) => {
+                const anoA = parseInt(a['Ano'], 10);
+                const anoB = parseInt(b['Ano'], 10);
+
+                if (isNaN(anoA) && isNaN(anoB)) return 0;
+                if (isNaN(anoA)) return 1; 
+                if (isNaN(anoB)) return -1; 
+                
+                return anoB - anoA; // Ordenação decrescente
+            });
+
+            page = 1; 
+            renderPage(data, page);
+        } else {
+            if(dataContainer) dataContainer.textContent = 'Nenhum prêmio, reconhecimento ou destaque encontrado.';
+            if (typeof updateAllPaginationControls === "function") {
+                updateAllPaginationControls(1, 0, itemsPerPage);
+            } else {
+                if(paginationContainer) paginationContainer.style.display = 'none';
+                if(paginationContainerTop) paginationContainerTop.style.display = 'none';
+                if(sortYearAscButton) sortYearAscButton.style.display = 'none';
+                if(sortYearDescButton) sortYearDescButton.style.display = 'none';
+            }
+        }
     });
 
     // Event listener para o botão Página Anterior do rodapé
