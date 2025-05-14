@@ -43,6 +43,37 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(fecthedData => {
             allData = fetchedData; // Armazena os dados
             populateFilters(allData); // Preenche os filtros com os dados
+
+            // Verifica se há dados para renderizar
+            if (allData && allData.length > 0) {
+                data = [...allData]; // Inicializa os dados com todos os dados
+                
+                data.sort((a, b) => {
+                    const yearA = parseInt(a['Ano'], 10); // Converte o ano para inteiro
+                    const yearB = parseInt(b['Ano'], 10); // Converte o ano para inteiro
+                    
+                    if (isNaN(yearA) && isNaN(yearB)) return 0; // Se ambos os anos não forem números, retorna 0
+                    if (isNaN(yearA)) return 1; // Se o ano A não for número, coloca B antes
+                    if (isNaN(yearB)) return -1; // Se o ano B não for número, coloca A antes
+
+                    return yearB - yearA; // Ordena em ordem decrescente
+                });
+            
+                page = 1; // Garante que a página comece em 1
+                renderPage(data, page); // Renderiza a primeira página dos dados
+            } else { // Condicional para quando não há dados trazidos
+                dataContainer.textContent = 'Nenhum dado encontrado.'; // Exibe mensagem de erro
+
+                // Atualiza os controles de paginação
+                if (typeof updateAllPaginationControls === 'function') {
+                    updateAllPaginationControls(1, 0, itemsPerPage); // Atualiza os controles de paginação
+                } else { // Fallback para quando a função não está definida
+                    if(paginationContainer) paginationContainer.style.display = 'none'; // Esconde a paginação inferior
+                    if(paginationContainerTop) paginationContainerTop.style.display = 'none'; // Esconde a paginação superior
+                    if(sortYearAscButton) sortYearAscButton.style.display = 'none'; // Esconde o botão de ordenação crescente
+                    if(sortYearDescButton) sortYearDescButton.style.display = 'none'; // Esconde o botão de ordenação decrescente
+                }
+            }
     })
     .catch(error => { // Captura erros na requisição
         console.error('Erro ao buscar os dados:', error);
