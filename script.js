@@ -356,10 +356,10 @@ document.addEventListener('DOMContentLoaded', function() {
     clearFiltersButton.addEventListener('click', function() {
        
         // Limpa os filtros selecionados e traz os dados padrão
-        if (filterTipoSelect) filterTipoSelect.value = 'Todos';
-        if (filterAnoSelect) filterAnoSelect.value = 'Todos';
-        if (filterCategoriaSelect) filterCategoriaSelect.value = 'Todos';
-        if (filterUnidadeSelect) filterUnidadeSelect.value = 'Todos';
+        if (filterTipoSelect) filterTipoSelect.value = '';
+        if (filterAnoSelect) filterAnoSelect.value = '';
+        if (filterCategoriaSelect) filterCategoriaSelect.value = '';
+        if (filterUnidadeSelect) filterUnidadeSelect.value = '';
 
         // Recarrega e exibe os dados padrão com a ordenação inicial
         if (allData && allData.length > 0) {
