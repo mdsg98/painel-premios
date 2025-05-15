@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterAnoSelect = document.getElementById('filter-ano');
     const filterCategoriaSelect = document.getElementById('filter-categoria');
     const filterUnidadeSelect = document.getElementById('filter-unidade');
+    const keywordSearchInput = document.getElementById('keyword-search');
     
     
     // URL do Apps Script que fornece os dados da planilha
@@ -323,7 +324,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const ano = filterAnoSelect.value;
         const categoria = filterCategoriaSelect.value;
         const unidade = filterUnidadeSelect.value;
+        const keyword = keywordSearchInput ? keywordSearchInput.value.trim().toLowerCase() : ''; // Obtém o valor da pesquisa por palavra-chave
 
+        let keywordMatch = true; // Inicializa a variável de correspondência de palavra-chave como verdadeira
+        if (keyword !== "") { // Se houver uma palavra-chave
+            const searchableText = `
+                ${(item['Nome'] || '').toLowerCase()}
+                ${(item['Descrição'] || '').toLowerCase()}
+                ${(item['Tipo'] || '').toLowerCase()}
+                ${(item['Categoria'] || '').toLowerCase()}
+                ${(item['Unidade'] || '').toLowerCase()}
+            `;
+            keywordMatch = searchableText.includes(keyword); // Verifica se a palavra-chave está presente
+        }
+        return tipoMatch && anoMatch && categoriaMatch && unidadeMatch && keywordMatch; // Retorna verdadeiro se todas as condições forem atendidas
+        
         const filteredData = allData.filter(item => {
             return (tipo === '' || tipo === 'Todos' || item['Tipo'] === tipo) &&
                    (ano === '' || ano === 'Todos' || String(item['Ano']) === String(ano)) && // Converte ano para string
