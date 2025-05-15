@@ -82,9 +82,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Função para exibir os dados na página
     function renderData(dataToRender) {
+        if (!dataContainer) return; // Verifica se o container de dados existe
         dataContainer.innerHTML = ''; // Limpa o container de dados
     
-    if (dataToRender.length === 0) { // Se não houver resultados
+    if (!dataToRender || dataToRender.length === 0) { // Se não houver resultados para renderizar
         const noResultsMessage = document.createElement('p');
         noResultsMessage.textContent = 'Não existem resultados para os filtros selecionados.';
         dataContainer.appendChild(noResultsMessage);
@@ -110,13 +111,33 @@ document.addEventListener('DOMContentLoaded', function() {
     
         const itemDetails = document.createElement('div');
         itemDetails.classList.add('item-details'); // Adiciona a classe 'item-details'
-        itemDetails.innerHTML = `
-            <p>Ano: ${item['Ano']}</p>
-            <p>Tipo: ${item['Tipo']}</p>
-            <p>Categoria: ${item['Categoria']}</p>
-            <p>Unidade: ${item['Unidade']}</p>
-            <p>Link da Matéria: <a href="${item['Link da Matéria']}" target="_blank">${item['Link da Matéria']}</a></p>`;
-        // Exibe ano, categoria, unidade e link da matéria
+        
+        // Construção do HTML de detalhes sem os campos vazios
+        let detailsHTML = ''; // Adiciona os detalhes
+        if (item['Ano']) {
+            detailsHTML += `<p>Ano: ${item['Ano']}</p>`;
+        }
+        if (item['Tipo']) {
+            detailsHTML += `<p>Tipo: ${item['Tipo']}</p>`;
+        }
+        if (item['Categoria']) {
+            detailsHTML += `<p>Categoria: ${item['Categoria']}</p>`;
+        }
+        if (item['Unidade']) {
+            detailsHTML += `<p>Unidade: ${item['Unidade']}</p>`;
+        }
+
+        // Condicional para ocultar o link da matéria se estiver vazio
+        const linkMateria = item['Link da Matéria'];
+        if (linkMateria && typeof linkMateria === 'string' && linkMateria.trim() !== "") {
+            try {
+                new URL(linkMateria); // Verifica se o link é válido
+                detailsHTML += `<p>Link da Matéria: <a href="${linkMateria.trim()}" target="_blank" rel="noopener noreferrer">${linkMateria.trim()}</a></p>`;
+            } catch (_) {
+                console.warn(`Link da Matéria inválido para '${item['Nome']}': ${linkMateria}`);
+            }
+        }
+        
         itemContent.appendChild(itemDetails);
     
         itemDiv.appendChild(itemContent);
