@@ -138,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
+        itemDetails.innerHTML = detailsHTML; // Adiciona os detalhes ao elemento p/ renderização
         itemContent.appendChild(itemDetails);
     
         itemDiv.appendChild(itemContent);
