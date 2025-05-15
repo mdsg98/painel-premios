@@ -326,25 +326,26 @@ document.addEventListener('DOMContentLoaded', function() {
         const unidade = filterUnidadeSelect.value;
         const keyword = keywordSearchInput ? keywordSearchInput.value.trim().toLowerCase() : ''; // Obtém o valor da pesquisa por palavra-chave
 
-        let keywordMatch = true; // Inicializa a variável de correspondência de palavra-chave como verdadeira
-        if (keyword !== "") { // Se houver uma palavra-chave
-            const searchableText = `
-                ${(item['Nome'] || '').toLowerCase()}
-                ${(item['Descrição'] || '').toLowerCase()}
-                ${(item['Tipo'] || '').toLowerCase()}
-                ${(item['Categoria'] || '').toLowerCase()}
-                ${(item['Unidade'] || '').toLowerCase()}
-            `;
-            keywordMatch = searchableText.includes(keyword); // Verifica se a palavra-chave está presente
+        const filteredData = allData.filter(item => {
+            const tipoMatch = tipo === '' || (item['Tipo'] && item['Tipo'] === tipo); // Verifica se o tipo é igual ao selecionado
+            const anoMatch = ano === '' || (item['Ano'] && String(item['Ano']) === String(ano)); // Verifica se o ano é igual ao selecionado
+            const categoriaMatch = categoria === '' || ( item['Categoria'] && item['Categoria'] === categoria); // Verifica se a categoria é igual ao selecionado
+            const unidadeMatch = unidade === '' || (item['Unidade'] && item['Unidade'] === unidade); // Verifica se a unidade é igual ao selecionado
+        
+
+            let keywordMatch = true; // Inicializa a variável de correspondência de palavra-chave como verdadeira
+            if (keyword !== "") { // Se houver uma palavra-chave
+                const searchableText = `
+                    ${(item['Nome'] || '').toLowerCase()}
+                    ${(item['Descrição'] || '').toLowerCase()}
+                    ${(item['Tipo'] || '').toLowerCase()}
+                    ${(item['Categoria'] || '').toLowerCase()}
+                    ${(item['Unidade'] || '').toLowerCase()}
+                `;
+                keywordMatch = searchableText.includes(keyword); // Verifica se a palavra-chave está presente
         }
         return tipoMatch && anoMatch && categoriaMatch && unidadeMatch && keywordMatch; // Retorna verdadeiro se todas as condições forem atendidas
-        
-        const filteredData = allData.filter(item => {
-            return (tipo === '' || tipo === 'Todos' || item['Tipo'] === tipo) &&
-                   (ano === '' || ano === 'Todos' || String(item['Ano']) === String(ano)) && // Converte ano para string
-                   (categoria === '' || categoria === 'Todos' || item['Categoria'] === categoria) &&
-                   (unidade === '' || unidade === 'Todos' || item['Unidade'] === unidade);
-        });
+    });       
 
         data = filteredData; // Atualiza os dados atuais com os dados filtrados
         page = 1; // Reseta a página atual para 1
