@@ -346,7 +346,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return tipoMatch && anoMatch && categoriaMatch && unidadeMatch && keywordMatch; // Retorna verdadeiro se todas as condições forem atendidas
     });       
+        // Aplicada a lógica da ordenação decrescente por ano
+        if (filteredData && filteredData.length > 0) {
+            filteredData.sort((a, b) => {
+                const anoA = parseInt(a['Ano'], 10); // Converte o ano A para inteiro
+                const anoB = parseInt(b['Ano'], 10); // Converte o ano B para inteiro
 
+                if (isNaN(anoA) && isNaN(anoB)) return 0; // Se ambos os anos não forem números, retorna 0
+                if (isNaN(anoA)) return 1; // Se o ano A não for número, coloca B antes
+                if (isNaN(anoB)) return -1; // Se o ano B não for número, coloca A antes
+
+                return anoB - anoA; // Ordena em ordem decrescente
+            });
+        }
         data = filteredData; // Atualiza os dados atuais com os dados filtrados
         page = 1; // Reseta a página atual para 1
         renderPage(data, page); // Renderiza a primeira página dos dados filtrados
@@ -376,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return anoB - anoA; // Ordenação decrescente
             });
 
-            page = 1; 
+            page = 1;
             renderPage(data, page);
         } else {
             if(dataContainer) dataContainer.textContent = 'Nenhum prêmio, reconhecimento ou destaque encontrado.';
