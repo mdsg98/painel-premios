@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (wrapper.style.display === 'none') { // Se os filtros estão escondidos
             wrapper.style.display = 'block'; // Exibe os filtros
-            toggleButton.textContent = 'Esconder Filtros'; // Altera o texto do botão
+            toggleButton.textContent = 'Ocultar Filtros'; // Altera o texto do botão
         } else { // Se os filtros estão visíveis
             wrapper.style.display = 'none'; // Esconde os filtros
             toggleButton.textContent = 'Mostrar Filtros'; // Altera o texto do botão
@@ -325,10 +325,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const dataContainerTop = dataContainer ? dataContainer.getBoundingClientRect().top : Infinity; // Obtém a posição do contêiner de dados
             const windowHeight = window.innerHeight; // Obtém a altura da janela
 
-            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200 || (dataContainerTop < windowHeight && dataContainerTop > - (dataContainer ? dataContainer.offsetHeight : 0) + 100)) {
-                backToTopButton.style.display = 'block'; // Exibe o botão de voltar ao topo
+            // Mostra o botão de voltar ao topo se a página estiver rolada para baixo
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                backToTopButton.style.display = 'block';
             } else {
-                backToTopButton.style.display = 'none'; // Esconde o botão de voltar ao topo
+                backToTopButton.style.display = 'none';
             }
         }
     }
@@ -467,8 +468,9 @@ document.addEventListener('DOMContentLoaded', function() {
         renderPage(data, page); // Renderiza a primeira página dos dados ordenados
     });
 
-    // Mostra/esconde o botão ao rolar a página
+    // Mostra o botão ao rolar a página
     window.addEventListener('scroll', scrollToTop);
+    
     // Evento de clique para voltar ao topo
     if (backToTopButton) {
         backToTopButton.addEventListener('click', function() {
