@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
             selectElement.appendChild(option);
         });
     }
-
+    // Função para atualizar todos os controles de paginação
     function updateAllPaginationControls(page, totalItems, itemsPerPage) {
         const totalPages = Math.ceil(totalItems / itemsPerPage) || 1; // Calcula o total de páginas
         const noResults = totalItems === 0; // Verifica se não há resultados
@@ -305,6 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector("h1").scrollIntoView({ behavior: "smooth" }); // Rola suavemente para o título do projeto
     }
 
+    // Função para esconder/exibir os filtros
     function filterToggle() {
         const wrapper = document.getElementById('filter-wrapper');
         const toggleButton = document.getElementById('toggle-filters-button');
@@ -315,6 +316,20 @@ document.addEventListener('DOMContentLoaded', function() {
         } else { // Se os filtros estão visíveis
             wrapper.style.display = 'none'; // Esconde os filtros
             toggleButton.textContent = 'Mostrar Filtros'; // Altera o texto do botão
+        }
+    }
+
+    // Função para voltar ao topo da página
+    function scrollToTop() {
+        if (backToTopButton) {
+            const dataContainerTop = dataContainer ? dataContainer.getBoundingClientRect().top : Infinity; // Obtém a posição do contêiner de dados
+            const windowHeight = window.innerHeight; // Obtém a altura da janela
+
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200 || (dataContainerTop < windowHeight && dataContainerTop > - (dataContainer ? dataContainer.offsetHeight : 0) + 100)) {
+                backToTopButton.style.display = 'block'; // Exibe o botão de voltar ao topo
+            } else {
+                backToTopButton.style.display = 'none'; // Esconde o botão de voltar ao topo
+            }
         }
     }
 
