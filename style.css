@@ -34,6 +34,26 @@ body {
     min-width: 150px; /* Define a largura mínima dos selects */
     }
 
+    .keyword-search-container {
+        display: flex; /* Usa flexbox para organizar os elementos */
+        align-items: center; /* Alinha os elementos verticalmente */
+        gap: 5px; /* Adiciona espaço entre os elementos */
+        flex-basis: 100%; /* Faz o container ocupar toda a largura disponível */
+        margin-top: 10px; /* Adiciona espaço acima do container */
+        margin-bottom: 10px; /* Adiciona espaço abaixo do container */
+    }
+
+    .keyword-search-container label {
+        font-weight: bold; /* Deixa o texto da label em negrito */
+    }
+
+    .keyword-search-container input[type="text"] {
+        padding: 8px; /* Adiciona espaço interno ao campo de texto */
+        border: 1px solid #ccc; /* Define a borda do campo de texto */
+        border-radius: 5px; /* Arredonda os cantos do campo de texto */
+        min-width: 150px; /* Define a largura mínima do campo de texto */
+    }
+
     
     /* Estilos para os botões de busca e limpar filtros */
     #search-button,
