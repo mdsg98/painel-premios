@@ -15,7 +15,7 @@ body {
     }
     
     /* Estilos para o container dos filtros */
-    .filter-container {
+    .filter-wrapper {
     display: flex; /* Usa flexbox para organizar os elementos */
     flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha */
     gap: 20px; /* Adiciona espaço entre os elementos */
@@ -23,16 +23,17 @@ body {
     align-items: center; /* Alinha os elementos verticalmente */
     }
     
-    .filter-container label {
+    .filter-wrapper label {
     font-weight: bold; /* Deixa o texto das labels em negrito */
     }
     
-    .filter-container select {
+    .filter-wrapper select {
     padding: 8px; /* Adiciona espaço interno aos selects */
     border: 1px solid #ccc; /* Define a borda dos selects */
     border-radius: 5px; /* Arredonda os cantos dos selects */
     min-width: 150px; /* Define a largura mínima dos selects */
     }
+
     
     /* Estilos para os botões de busca e limpar filtros */
     #search-button,
