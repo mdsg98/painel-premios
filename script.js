@@ -466,4 +466,13 @@ document.addEventListener('DOMContentLoaded', function() {
         page = 1; // Reseta a página atual para 1
         renderPage(data, page); // Renderiza a primeira página dos dados ordenados
     });
+
+    // Mostra/esconde o botão ao rolar a página
+    window.addEventListener('scroll', scrollToTop);
+    // Evento de clique para voltar ao topo
+    if (backToTopButton) {
+        backToTopButton.addEventListener('click', function() {
+            document.querySelector("h1").scrollIntoView({ behavior: "smooth" });
+        });
+    }
     });
