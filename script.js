@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterCategoriaSelect = document.getElementById('filter-categoria');
     const filterUnidadeSelect = document.getElementById('filter-unidade');
     const keywordSearchInput = document.getElementById('keyword-search');
+    const backToTopButton = document.getElementById('back-to-top-button');
     
     
     // URL do Apps Script que fornece os dados da planilha

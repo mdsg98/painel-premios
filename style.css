@@ -74,7 +74,7 @@ body {
     }
 
     /* Estilos para o botão de voltar ao topo */
-    #backToTopBtn {
+    #back-to-top-button {
         display: none; /* Inicialmente escondido */
         position: fixed; /* Posição fixa na tela */
         bottom: 20px; /* Distância do rodapé */
@@ -92,7 +92,7 @@ body {
         transition: background-color 0.3s ease, opacity 0.3s ease; /* Transições suaves */
     }
 
-    #backToTopBtn:hover {
+    #back-to-top-button:hover {
         background-color: #0056b3; /* Cor de fundo ao passar o mouse */
     }
 
