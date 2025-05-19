@@ -89,9 +89,26 @@ body {
     margin: 0 auto; /* Centraliza o container horizontalmente */
     }
 
-    /* Esconder botões de ordenação inicialmente */
+    /* Estilos para os botões de ordenação */
     #sort-year-asc-button, #sort-year-desc-button {
-        display: none;
+        border: none;
+        font-size: 1em; /* A fonte ainda pode influenciar o tamanho base do 'em' para o ícone */
+        color: #fff; /* Para o caso de algum texto de fallback ou se o ícone usar currentColor */
+        cursor: pointer;
+        border-radius: 5px;
+        display: none; 
+        align-items: center;  
+        justify-content: center; /* Centraliza a imagem dentro do botão */
+        padding: 8px;
+        width: 36px;
+        height: 36px;
+        gap: 0;
+    }
+
+    .sort-icon {
+        width: 18px;
+        height: 18px;
+        display: block; /* Para garantir que a imagem não tenha espaço extra */
     }
 
     /* Estilos para o botão de voltar ao topo */
@@ -207,3 +224,4 @@ body {
     margin-top: 40px; /* Adiciona espaço acima da descrição */
     width: 100%; /* Faz a descrição ocupar toda a largura do item */
     }
+
