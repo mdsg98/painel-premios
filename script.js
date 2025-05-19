@@ -389,7 +389,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (filterAnoSelect) filterAnoSelect.value = '';
         if (filterCategoriaSelect) filterCategoriaSelect.value = '';
         if (filterUnidadeSelect) filterUnidadeSelect.value = '';
-
+        if (keywordSearchInput) keywordSearchInput.value = ''; // Limpa o campo de pesquisa por palavra-chave
+        
         // Recarrega e exibe os dados padrão com a ordenação inicial
         if (allData && allData.length > 0) {
             data = [...allData]; 
