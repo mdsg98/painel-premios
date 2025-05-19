@@ -39,26 +39,44 @@ body {
         align-items: center; /* Alinha os elementos verticalmente */
         gap: 5px; /* Adiciona espaço entre os elementos */
         flex-basis: 100%; /* Faz o container ocupar toda a largura disponível */
-        margin-top: 10px; /* Adiciona espaço acima do container */
-        margin-bottom: 10px; /* Adiciona espaço abaixo do container */
     }
 
     .keyword-search-container label {
         font-weight: bold; /* Deixa o texto da label em negrito */
+        margin-right: 5px; /* Adiciona espaço à direita entre o label e o container do input */
+    }
+
+    .input-with-clear-container {
+        position: relative; /* Permite posicionar o ícone de limpar dentro do container */
+        display: flex; /* Usa flexbox para organizar os elementos */
+        align-items: center; /* Alinha os elementos verticalmente */
+        min-width: 200px; /* Define a largura mínima do container */
     }
 
     .keyword-search-container input[type="text"] {
-        padding: 8px; /* Adiciona espaço interno ao campo de texto */
-        border: 1px solid #ccc; /* Define a borda do campo de texto */
-        border-radius: 5px; /* Arredonda os cantos do campo de texto */
-        min-width: 150px; /* Define a largura mínima do campo de texto */
+        padding: 8px;    /* Adiciona padding à direita para não sobrepor o 'X' */
+        padding-right: 30px; /* Ajuste este valor conforme o tamanho do seu 'X' + espaçamento */
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        flex-grow: 1; /* Faz o input ocupar o espaço no .input-with-clear-container */
+        box-sizing: border-box; /* Para que padding e borda não aumentem a largura total */
     }
 
-    .clear-icon {
-        width: 38px; /* Define a largura do ícone */
-        height: 20px; /* Define a altura do ícone */
-        cursor: pointer; /* Muda o cursor ao passar o mouse sobre o ícone */
-        opacity: 0.7;
+    /* Estilo para o ícone/botão de limpar 'X' */
+    .clear-keyword-icon {
+        position: absolute; /* Posicionamento absoluto em relação ao .input-with-clear-container */
+        right: 8px; /* Distância da borda direita do input */
+        top: 50%; /* Centraliza verticalmente */
+        transform: translateY(-50%); /* Ajuste fino para centralização vertical perfeita */
+        cursor: pointer;
+        font-size: 20px; /* Tamanho do '×' */
+        color: #999; /* Cor do '×' */
+        display: none; /* Começa escondido, JS mostra quando há texto */
+        line-height: 1; /* Para melhor controle vertical do caractere '×' */
+    }
+
+    .clear-keyword-icon:hover {
+        color: #333; /* Cor do '×' ao passar o mouse */
     }
 
     

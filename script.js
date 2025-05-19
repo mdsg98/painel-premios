@@ -375,6 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (filterCategoriaSelect) filterCategoriaSelect.value = '';
         if (filterUnidadeSelect) filterUnidadeSelect.value = '';
         if (keywordSearchInput) keywordSearchInput.value = ''; // Limpa o campo de pesquisa por palavra-chave
+        if (clearKeywordButton) clearKeywordButton.style.display = 'none'; // Esconde o botão 'X'
 
         // Recarrega e exibe os dados padrão com a ordenação inicial
         if (allData && allData.length > 0) {
@@ -465,7 +466,18 @@ document.addEventListener('DOMContentLoaded', function() {
     if (clearKeywordButton && keywordSearchInput) {
         clearKeywordButton.addEventListener('click', function() {
             keywordSearchInput.value = ''; // Limpa o campo de pesquisa por palavra-chave
-            keywordSearchInput.focus(); // Foca no campo de pesquisa
+            keywordSearchInput.focus(); // Opcional: Foca no campo de pesquisa
+            clearKeywordButton.style.display = 'none'; // Esconde o botão 'X'
+            // Opcional: Se quiser que limpar o campo dispare uma nova busca (para atualizar os resultados)
+            // searchButton.click(); // Simula um clique no botão de busca principal
+        });
+
+        keywordSearchInput.addEventListener('input', function() {
+            if (keywordSearchInput.value.trim() !== '') {
+                clearKeywordButton.style.display = 'inline'; // Mostra o 'X'
+            } else {
+                clearKeywordButton.style.display = 'none'; // Esconde o 'X'
+            }
         });
     }
     });

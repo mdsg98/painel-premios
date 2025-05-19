@@ -40,10 +40,12 @@
                     <img id="sort-year-desc-button" src="images/Descending.png" alt="Decrescente" class="sort-icon">
                 </div>
 
-                <!--Implementação da funcionalidade de pesquisa por palavra-chave-->
+                <!--Implementação da funcionalidade de pesquisa por palavra-chave, com funcionalidade de apagar-->
                 <div class="keyword-search-container"> <label for="keyword-search">Pesquisar:</label>
-                    <input type="text" id="keyword-search" placeholder="Digite para buscar...">
-                    <img src = "images/Erase.png" id="clear-keyword-button" alt="Limpar pesquisa" class="clear-icon">
+                    <div class="input-with-clear-container">
+                        <input type="text" id="keyword-search" placeholder="Digite para buscar...">
+                        <span id="clear-keyword-button" class="clear-keyword-icon" title="Limpar pesquisa">&times;</span>
+                    </div>
                 </div>
             </div>
 
