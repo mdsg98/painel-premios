@@ -32,8 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextPageButtonTop = document.getElementById('next-page-button-top');
     const pageInfoTop = document.getElementById('page-info-top');
 
-    // Variáveis para controle de exibição dos filtros
-    const toggleFiltersButton = document.getElementById('toggle-filters-button');
 
     // Variáveis para controle de ordenação por ano dos resultados
     const sortYearAscButton = document.getElementById('sort-year-asc-button'); // Botão para ordenar por ano crescente
@@ -305,20 +303,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector("h1").scrollIntoView({ behavior: "smooth" }); // Rola suavemente para o título do projeto
     }
 
-    // Função para esconder/exibir os filtros
-    function filterToggle() {
-        const wrapper = document.getElementById('filter-wrapper');
-        const toggleButton = document.getElementById('toggle-filters-button');
-
-        if (wrapper.style.display === 'none') { // Se os filtros estão escondidos
-            wrapper.style.display = 'block'; // Exibe os filtros
-            toggleButton.textContent = 'Ocultar Filtros'; // Altera o texto do botão
-        } else { // Se os filtros estão visíveis
-            wrapper.style.display = 'none'; // Esconde os filtros
-            toggleButton.textContent = 'Mostrar Filtros'; // Altera o texto do botão
-        }
-    }
-
     // Função para voltar ao topo da página
     function scrollToTop() {
         if (backToTopButton) {
@@ -390,7 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (filterCategoriaSelect) filterCategoriaSelect.value = '';
         if (filterUnidadeSelect) filterUnidadeSelect.value = '';
         if (keywordSearchInput) keywordSearchInput.value = ''; // Limpa o campo de pesquisa por palavra-chave
-        
+
         // Recarrega e exibe os dados padrão com a ordenação inicial
         if (allData && allData.length > 0) {
             data = [...allData]; 
@@ -453,9 +437,6 @@ document.addEventListener('DOMContentLoaded', function() {
             renderPage(data, page); // Renderiza a nova página
         }
     });
-
-    // Event listener para o botão de mostrar/esconder filtros
-    toggleFiltersButton.addEventListener('click', filterToggle); // Adiciona evento de clique para mostrar/esconder filtros
 
     // Event listener para o botão de ordenação por ano (crescente)
     sortYearAscButton.addEventListener('click', function() {
