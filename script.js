@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterUnidadeSelect = document.getElementById('filter-unidade');
     const keywordSearchInput = document.getElementById('keyword-search');
     const backToTopButton = document.getElementById('back-to-top-button');
+    const clearKeywordButton = document.getElementById('clear-keyword-button');
     
     
     // URL do Apps Script que fornece os dados da planilha
@@ -457,6 +458,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (backToTopButton) {
         backToTopButton.addEventListener('click', function() {
             document.querySelector("h1").scrollIntoView({ behavior: "smooth" });
+        });
+    }
+
+    // Event listener para o botão de limpar pesquisa por palavra-chave
+    if (clearKeywordButton && keywordSearchInput) {
+        clearKeywordButton.addEventListener('click', function() {
+            keywordSearchInput.value = ''; // Limpa o campo de pesquisa por palavra-chave
+            keywordSearchInput.focus(); // Foca no campo de pesquisa
         });
     }
     });

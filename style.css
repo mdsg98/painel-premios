@@ -54,6 +54,13 @@ body {
         min-width: 150px; /* Define a largura mínima do campo de texto */
     }
 
+    .clear-icon {
+        width: 38px; /* Define a largura do ícone */
+        height: 20px; /* Define a altura do ícone */
+        cursor: pointer; /* Muda o cursor ao passar o mouse sobre o ícone */
+        opacity: 0.7;
+    }
+
     
     /* Estilos para os botões de busca e limpar filtros */
     #search-button,
@@ -100,8 +107,8 @@ body {
         align-items: center;  
         justify-content: center; /* Centraliza a imagem dentro do botão */
         padding: 8px;
-        width: 36px;
-        height: 36px;
+        width: 30px;
+        height: 20px;
         gap: 0;
     }
 
