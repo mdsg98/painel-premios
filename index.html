@@ -36,8 +36,11 @@
 
                  <!--Implementação da funcionalidade de ordenação por ano-->
                 <div class="sort-buttons-container" id="sort-buttons-container">
-                    <img id="sort-year-asc-button" src="images/Ascending.png" alt="Crescente" class="sort-icon">
-                    <img id="sort-year-desc-button" src="images/Descending.png" alt="Decrescente" class="sort-icon">
+                    <select id="sort-order-select">
+                        <option value="placeholder" selected disabled>Ordenar resultados por ordem:</option>
+                        <option value="desc">Decrescente por Ano</option>
+                        <option value="asc">Crescente por Ano</option>
+                    </select>
                 </div>
 
                 <!--Implementação da funcionalidade de pesquisa por palavra-chave, com funcionalidade de apagar-->

@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const keywordSearchInput = document.getElementById('keyword-search');
     const backToTopButton = document.getElementById('back-to-top-button');
     const clearKeywordButton = document.getElementById('clear-keyword-button');
+
     
     
     // URL do Apps Script que fornece os dados da planilha
@@ -35,8 +36,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Variáveis para controle de ordenação por ano dos resultados
-    const sortYearAscButton = document.getElementById('sort-year-asc-button'); // Botão para ordenar por ano crescente
-    const sortYearDescButton = document.getElementById('sort-year-desc-button'); // Botão para ordenar por ano decrescente
+    const sortOrderSelect = document.getElementById('sort-order-select');
+    let currentYearSortState = 'desc'; // Padrão de ordenação inicial (decrescente)
+
+    function updateSortDropdownState() {
+        if (sortOrderSelect) {
+            if (currentYearSortState === 'asc' || currentYearSortState === 'desc') {
+                sortOrderSelect.value = currentYearSortState; // Atualiza o valor do dropdown
+            } else {
+                sortOrderSelect.value = 'placeholder'; // Define como placeholder se o estado não for reconhecido (asc ou desc)
+            }
+        }
+    }
     
     // Faz a requisição para obter os dados da planilha
     fetch(spreadsheetUrl)
@@ -59,7 +70,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     return yearB - yearA; // Ordena em ordem decrescente
                 });
-            
+                
+                currentYearSortState = 'desc'; // Define o estado atual da ordenação como decrescente
                 page = 1; // Garante que a página comece em 1
                 renderPage(data, page); // Renderiza a primeira página dos dados
             } else { // Condicional para quando não há dados trazidos
@@ -68,12 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Atualiza os controles de paginação
                 if (typeof updateAllPaginationControls === 'function') {
                     updateAllPaginationControls(1, 0, itemsPerPage); // Atualiza os controles de paginação
-                } else { // Fallback para quando a função não está definida
-                    if(paginationContainer) paginationContainer.style.display = 'none'; // Esconde a paginação inferior
-                    if(paginationContainerTop) paginationContainerTop.style.display = 'none'; // Esconde a paginação superior
-                    if(sortYearAscButton) sortYearAscButton.style.display = 'none'; // Esconde o botão de ordenação crescente
-                    if(sortYearDescButton) sortYearDescButton.style.display = 'none'; // Esconde o botão de ordenação decrescente
-                }
+                } 
             }
     })
     .catch(error => { // Captura erros na requisição
@@ -265,6 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
             selectElement.appendChild(option);
         });
     }
+
     // Função para atualizar todos os controles de paginação
     function updateAllPaginationControls(page, totalItems, itemsPerPage) {
         const totalPages = Math.ceil(totalItems / itemsPerPage) || 1; // Calcula o total de páginas
@@ -293,13 +301,16 @@ document.addEventListener('DOMContentLoaded', function() {
             nextPageButtonTop.disabled = true; // Desabilita o botão "próximo" do topo
         }
 
-        if (totalItems > 0) { // Se houver resultados
-            sortYearAscButton.style.display = 'block'; // Exibe o botão de ordenação crescente
-            sortYearDescButton.style.display = 'block'; // Exibe o botão de ordenação decrescente
-        } else {
-            sortYearAscButton.style.display = 'none'; // Esconde o botão de ordenação crescente
-            sortYearDescButton.style.display = 'none'; // Esconde o botão de ordenação decrescente            
+        // Exibe ou esconde o botão de ordenação por ano
+        const sortOrderSelect = document.getElementById('sort-order-select');
+        if (sortOrderSelect) {
+            if (totalItems > 0) {
+                sortOrderSelect.style.display = 'block'; // Exibe o dropdown de ordenação
+            } else {
+                sortOrderSelect.style.display = 'none'; // Esconde o dropdown de ordenação
+            }
         }
+        if(searchButton) searchButton.dataset.clickedClear = 'false'; // Reseta o estado do botão de busca
     }
     
     // Função para renderizar a página com os dados filtrados e paginados test
@@ -317,9 +328,47 @@ document.addEventListener('DOMContentLoaded', function() {
             renderData(pageData); // Renderiza os dados da página atual
         }
 
-        updateAllPaginationControls(page, data.length, itemsPerPage); // Atualiza os controles de paginação        
+        updateAllPaginationControls(page, data.length, itemsPerPage); // Atualiza os controles de paginação
+        updateSortDropdownState();  // Atualiza a função do dropdown de ordenação por ano após renderizar
         document.querySelector("h1").scrollIntoView({ behavior: "smooth" }); // Rola suavemente para o título do projeto
     }
+
+    // Event listener para o dropdown de ordenação por ano
+    sortOrderSelect.addEventListener('change', function() {
+        if (!data || data.length === 0) {
+            this.value = 'placeholder'; // Reseta o valor do dropdown se não houver dados
+            return;
+
+            const sortValue = this.value;
+            // Condicional para valor crescente
+            if (sortValue === 'asc') {
+                data.sort((a, b) => {
+                    const yearA = parseInt(a['Ano'], 10);
+                    const yearB = parseInt(b['Ano'], 10);
+                    if (isNaN(yearA) && isNaN(yearB)) return 0;
+                    if (isNaN(yearA)) return 1;
+                    if (isNaN(yearB)) return -1;
+                    return yearA - yearB; // Crescente
+                });
+                currentYearSortState = 'asc';
+            } else if (sortValue === 'desc') { // Condicional para valor decrescente
+                data.sort((a, b) => {
+                    const yearA = parseInt(a['Ano'], 10);
+                    const yearB = parseInt(b['Ano'], 10);
+                    if (isNaN(yearA) && isNaN(yearB)) return 0;
+                    if (isNaN(yearA)) return 1;
+                    if (isNaN(yearB)) return -1;
+                    return yearB - yearA; // Decrescente
+                });
+                currentYearSortState = 'desc';
+            } else { // Caso selecione o placeholder (não deveria ser possível se estiver desabilitado)
+                return;
+            }
+            page = 1;
+            renderPage(data, page);
+        }
+    });
+
 
     // Função para voltar ao topo da página
     function scrollToTop() {
@@ -378,6 +427,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return anoB - anoA; // Ordena em ordem decrescente
             });
         }
+        updateSortDropdownState(); // Atualiza o estado da função dropdown de ordenação por ano
         data = filteredData; // Atualiza os dados atuais com os dados filtrados
         page = 1; // Reseta a página atual para 1
         renderPage(data, page); // Renderiza a primeira página dos dados filtrados
@@ -418,8 +468,6 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 if(paginationContainer) paginationContainer.style.display = 'none';
                 if(paginationContainerTop) paginationContainerTop.style.display = 'none';
-                if(sortYearAscButton) sortYearAscButton.style.display = 'none';
-                if(sortYearDescButton) sortYearDescButton.style.display = 'none';
             }
         }
     });
@@ -455,18 +503,6 @@ document.addEventListener('DOMContentLoaded', function() {
             page++; // Vai para a próxima página
             renderPage(data, page); // Renderiza a nova página
         }
-    });
-
-    // Event listener para o botão de ordenação por ano (crescente)
-    sortYearAscButton.addEventListener('click', function() {
-        data.sort((a, b) => a['Ano'] - b['Ano']); // Ordena os dados por ano em ordem crescente
-        page = 1; // Reseta a página atual para 1
-        renderPage(data, page); // Renderiza a primeira página dos dados ordenados
-    });
-    sortYearDescButton.addEventListener('click', function() {
-        data.sort((a, b) => b['Ano'] - a['Ano']); // Ordena os dados por ano em ordem decrescente
-        page = 1; // Reseta a página atual para 1
-        renderPage(data, page); // Renderiza a primeira página dos dados ordenados
     });
 
     // Mostra o botão ao rolar a página
