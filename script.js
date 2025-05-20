@@ -443,6 +443,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (filterUnidadeSelect) filterUnidadeSelect.value = '';
         if (keywordSearchInput) keywordSearchInput.value = ''; // Limpa o campo de pesquisa por palavra-chave
         if (clearKeywordButton) clearKeywordButton.style.display = 'none'; // Esconde o botão 'X'
+        
+        // Limpa o dropdown de ordenação por ano
+        if (sortOrderSelect) {
+            sortOrderSelect.value = 'placeholder'; // Reseta o valor do dropdown de ordenação
+        }
+        currentYearSortState = 'placeholder'; // Reseta o estado atual da ordenação
 
         // Recarrega e exibe os dados padrão com a ordenação inicial
         if (allData && allData.length > 0) {
