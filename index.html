@@ -34,14 +34,27 @@
                 <button id="search-button">Buscar Resultados</button>
                 <button id="clear-filters-button">Limpar Filtros</button>
 
-                <!--Implementação da funcionalidade de ordenação por ano-->
-                <button id="sort-year-asc-button">Crescente</button>
-                <button id="sort-year-desc-button">Decrescente</button>
-            </div>
-        </div>
+                 <!--Implementação da funcionalidade de ordenação por ano-->
+                <div class="sort-buttons-container" id="sort-buttons-container">
+                    <select id="sort-order-select">
+                        <option value="placeholder" selected disabled>Ordenar resultados por ordem:</option>
+                        <option value="desc">Decrescente por Ano</option>
+                        <option value="asc">Crescente por Ano</option>
+                    </select>
+                </div>
 
-    <!--Implementação da funcionalidade de mostrar/ocultar filtros-->    
-    <button id="toggle-filters-button">Ocultar Filtros</button>
+                <!--Implementação da funcionalidade de pesquisa por palavra-chave, com funcionalidade de apagar-->
+                <div class="keyword-search-container"> <label for="keyword-search">Pesquisar:</label>
+                    <div class="input-with-clear-container">
+                        <input type="text" id="keyword-search" placeholder="Digite para buscar...">
+                        <span id="clear-keyword-button" class="clear-keyword-icon" title="Limpar pesquisa">&times;</span>
+                    </div>
+                </div>
+            </div>
+
+            <!--Implementação de botão para voltar ao início-->
+            <button id="back-to-top-button" title="Voltar ao topo">↑</button>
+        </div>
 
     <!--Implementação de funcionaliadade de paginação na parte superior (topo) dos resultados-->
     <div id="pagination-container-top" class="pagination-controls">
