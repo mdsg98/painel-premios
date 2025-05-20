@@ -86,70 +86,87 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!dataContainer) return; // Verifica se o container de dados existe
         dataContainer.innerHTML = ''; // Limpa o container de dados
     
-    if (!dataToRender || dataToRender.length === 0) { // Se não houver resultados para renderizar
-        const noResultsMessage = document.createElement('p');
-        noResultsMessage.textContent = 'Não existem resultados para os filtros selecionados.';
-        dataContainer.appendChild(noResultsMessage);
-    } else { // Se houver resultados
-    dataToRender.forEach(item => { // Itera por cada item (linha da planilha)
-        const itemDiv = document.createElement('div');
-        itemDiv.classList.add('item'); // Adiciona a classe 'item' para estilização
-    
-        const nome = document.createElement('h2');
-        nome.textContent = item['Nome']; // Exibe o nome
-        itemDiv.appendChild(nome);
-    
-        const itemContent = document.createElement('div');
-        itemContent.classList.add('item-content'); // Adiciona a classe 'item-content'
-    
-        const itemImage = document.createElement('div');
-        itemImage.classList.add('item-image'); // Adiciona a classe 'item-image'
-        const img = document.createElement('img');
-        img.src = item['Link da Imagem']; // Exibe a imagem
-        img.alt = item['Link da Imagem']; // Adiciona texto alternativo para a imagem
-        itemImage.appendChild(img);
-        itemContent.appendChild(itemImage);
-    
-        const itemDetails = document.createElement('div');
-        itemDetails.classList.add('item-details'); // Adiciona a classe 'item-details'
+        if (!dataToRender || dataToRender.length === 0) { // Se não houver resultados para renderizar
+            const noResultsMessage = document.createElement('p');
+            noResultsMessage.textContent = 'Não existem resultados para os filtros selecionados.';
+            dataContainer.appendChild(noResultsMessage);
+        } else { // Se houver resultados
+        dataToRender.forEach(item => { // Itera por cada item (linha da planilha)
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('item'); // Adiciona a classe 'item' para estilização
         
-        // Construção do HTML de detalhes sem os campos vazios
-        let detailsHTML = ''; // Adiciona os detalhes
-        if (item['Ano']) {
-            detailsHTML += `<p>Ano: ${item['Ano']}</p>`;
-        }
-        if (item['Tipo']) {
-            detailsHTML += `<p>Tipo: ${item['Tipo']}</p>`;
-        }
-        if (item['Categoria']) {
-            detailsHTML += `<p>Categoria: ${item['Categoria']}</p>`;
-        }
-        if (item['Unidade']) {
-            detailsHTML += `<p>Unidade: ${item['Unidade']}</p>`;
-        }
-
-        // Condicional para ocultar o link da matéria se estiver vazio
-        const linkMateria = item['Link da Matéria'];
-        if (linkMateria && typeof linkMateria === 'string' && linkMateria.trim() !== "") {
-            try {
-                new URL(linkMateria); // Verifica se o link é válido
-                detailsHTML += `<p>Link da Matéria: <a href="${linkMateria.trim()}" target="_blank" rel="noopener noreferrer">${linkMateria.trim()}</a></p>`;
-            } catch (_) {
-                console.warn(`Link da Matéria inválido para '${item['Nome']}': ${linkMateria}`);
+            const nome = document.createElement('h2');
+            nome.textContent = item['Nome']; // Exibe o nome
+            itemDiv.appendChild(nome);
+        
+            const itemContent = document.createElement('div');
+            itemContent.classList.add('item-content'); // Adiciona a classe 'item-content'
+        
+            const itemImage = document.createElement('div');
+            itemImage.classList.add('item-image'); // Adiciona a classe 'item-image'
+            const img = document.createElement('img');
+            img.src = item['Link da Imagem']; // Exibe a imagem
+            img.alt = item['Link da Imagem']; // Adiciona texto alternativo para a imagem
+            itemImage.appendChild(img);
+            itemContent.appendChild(itemImage);
+        
+            const itemDetails = document.createElement('div');
+            itemDetails.classList.add('item-details'); // Adiciona a classe 'item-details'
+            
+            // Construção do HTML de detalhes sem os campos vazios
+            let detailsHTML = ''; // Adiciona os detalhes
+            if (item['Ano']) {
+                detailsHTML += `<p>Ano: ${item['Ano']}</p>`;
             }
-        }
+            if (item['Tipo']) {
+                detailsHTML += `<p>Tipo: ${item['Tipo']}</p>`;
+            }
+            if (item['Categoria']) {
+                detailsHTML += `<p>Categoria: ${item['Categoria']}</p>`;
+            }
+            if (item['Unidade']) {
+                detailsHTML += `<p>Unidade: ${item['Unidade']}</p>`;
+            }
+
+            // Condicional para ocultar o link da matéria se estiver vazio
+            const linkMateria = item['Link da Matéria']; // Usando o nome da sua variável original
+            if (linkMateria && typeof linkMateria === 'string' && linkMateria.trim() !== "") {
+                // Divide a string de links pela vírgula, remove espaços extras de cada link, e filtra quaisquer strings vazias que possam surgir (ex: "link1,,link2")
+                const linksArray = linkMateria.split(',')
+                                      .map(link => link.trim())
+                                      .filter(link => link !== "");
+
+                if (linksArray.length > 0) {
+                    // Inicia o parágrafo. Usa "Link(s)" para indicar que pode haver mais de um.
+                    detailsHTML += `<p>Link(s) da Matéria: `;
+
+                    linksArray.forEach((link, index) => {
+                        try {
+                            new URL(link); // Valida cada URL
+                            detailsHTML += `<a href="${link}" target="_blank" rel="noopener noreferrer">${link}</a>`;
+                            // Adiciona um separador (vírgula) entre os links, exceto para o último
+                            if (index < linksArray.length - 1) {
+                                detailsHTML += `, `;
+                            }
+                        } catch (_) {
+                            console.warn(`Link da Matéria (múltiplo) inválido [${index}] para '${item['Nome']}': ${link}`);
+                        }
+                    });
+                    detailsHTML += `</p>`; // Fecha o parágrafo
+                }
+            }
+            
+            itemDetails.innerHTML = detailsHTML; // Adiciona os detalhes ao elemento p/ renderização
+            itemContent.appendChild(itemDetails);
         
-        itemDetails.innerHTML = detailsHTML; // Adiciona os detalhes ao elemento p/ renderização
-        itemContent.appendChild(itemDetails);
-    
-        itemDiv.appendChild(itemContent);
-    
-        const descricao = document.createElement('p');
-        descricao.classList.add('item-description'); // Adiciona a classe 'item-description'
-        descricao.textContent = item['Descrição']; // Exibe a descrição
-        itemDiv.appendChild(descricao);
-    
-        dataContainer.appendChild(itemDiv); // Adiciona o item completo ao container
+            itemDiv.appendChild(itemContent);
+        
+            const descricao = document.createElement('p');
+            descricao.classList.add('item-description'); // Adiciona a classe 'item-description'
+            descricao.textContent = item['Descrição']; // Exibe a descrição
+            itemDiv.appendChild(descricao);
+        
+            dataContainer.appendChild(itemDiv); // Adiciona o item completo ao container
     });
     }
     }
