@@ -83,13 +83,13 @@ body {
     /* Estilos para os botões de busca e limpar filtros */
     #search-button,
     #clear-filters-button {
-    padding: 10px 20px; /* Adiciona espaço interno aos botões */
-    border: none; /* Remove a borda dos botões */
-    font-size: 16px; /* Define o tamanho da fonte dos botões de paginação */
-    background-color: #1887b4; /* Define a cor de fundo do botão de busca */
-    color: #fff; /* Define a cor do texto dos botões */
-    cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões */
-    border-radius: 5px; /* Arredonda os cantos dos botões */
+        padding: 10px 20px; /* Adiciona espaço interno aos botões */
+        border: none; /* Remove a borda dos botões */
+        font-size: 16px; /* Define o tamanho da fonte dos botões de paginação */
+        background-color: #1887b4; /* Define a cor de fundo do botão de busca */
+        color: #fff; /* Define a cor do texto dos botões */
+        cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões */
+        border-radius: 5px; /* Arredonda os cantos dos botões */
     }
 
     #search-button:hover:not(:disabled) {
