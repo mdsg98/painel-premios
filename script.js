@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             itemDiv.classList.add('item'); // Adiciona a classe 'item' para estilização
         
             const nome = document.createElement('h2');
-            nome.textContent = item['Nome']; // Exibe o nome
+            nome.textContent = item['Nome do Prêmio']; // Exibe o nome
             itemDiv.appendChild(nome);
         
             const itemContent = document.createElement('div');
