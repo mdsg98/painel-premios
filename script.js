@@ -338,35 +338,35 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!data || data.length === 0) {
             this.value = 'placeholder'; // Reseta o valor do dropdown se não houver dados
             return;
-
-            const sortValue = this.value;
-            // Condicional para valor crescente
-            if (sortValue === 'asc') {
-                data.sort((a, b) => {
-                    const yearA = parseInt(a['Ano'], 10);
-                    const yearB = parseInt(b['Ano'], 10);
-                    if (isNaN(yearA) && isNaN(yearB)) return 0;
-                    if (isNaN(yearA)) return 1;
-                    if (isNaN(yearB)) return -1;
-                    return yearA - yearB; // Crescente
-                });
-                currentYearSortState = 'asc';
-            } else if (sortValue === 'desc') { // Condicional para valor decrescente
-                data.sort((a, b) => {
-                    const yearA = parseInt(a['Ano'], 10);
-                    const yearB = parseInt(b['Ano'], 10);
-                    if (isNaN(yearA) && isNaN(yearB)) return 0;
-                    if (isNaN(yearA)) return 1;
-                    if (isNaN(yearB)) return -1;
-                    return yearB - yearA; // Decrescente
-                });
-                currentYearSortState = 'desc';
-            } else { // Caso selecione o placeholder (não deveria ser possível se estiver desabilitado)
-                return;
-            }
-            page = 1;
-            renderPage(data, page);
         }
+
+        const sortValue = this.value;
+        // Condicional para valor crescente
+        if (sortValue === 'asc') {
+            data.sort((a, b) => {
+                const yearA = parseInt(a['Ano'], 10);
+                const yearB = parseInt(b['Ano'], 10);
+                if (isNaN(yearA) && isNaN(yearB)) return 0;
+                if (isNaN(yearA)) return 1;
+                if (isNaN(yearB)) return -1;
+                return yearA - yearB; // Crescente
+            });
+            currentYearSortState = 'asc';
+        } else if (sortValue === 'desc') { // Condicional para valor decrescente
+            data.sort((a, b) => {
+                const yearA = parseInt(a['Ano'], 10);
+                const yearB = parseInt(b['Ano'], 10);
+                if (isNaN(yearA) && isNaN(yearB)) return 0;
+                if (isNaN(yearA)) return 1;
+                if (isNaN(yearB)) return -1;
+                return yearB - yearA; // Decrescente
+            });
+            currentYearSortState = 'desc';
+        } else { // Caso selecione o placeholder
+            return;
+        }
+        page = 1;
+        renderPage(data, page);
     });
 
 
