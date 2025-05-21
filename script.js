@@ -39,6 +39,33 @@ document.addEventListener('DOMContentLoaded', function() {
     const sortOrderSelect = document.getElementById('sort-order-select');
     let currentYearSortState = 'desc'; // Padrão de ordenação inicial (decrescente)
 
+    // Função para carregar e exibir os dados padrão
+    function loadAndDisplayDefaultData() {
+        if (allData && allData.length > 0) {
+            data = [...allData];
+            data.sort((a, b) => {
+                const anoA = parseInt(a['Ano'], 10);
+                const anoB = parseInt(b['Ano'], 10);
+                if (isNaN(anoA) && isNaN(anoB)) return 0;
+                if (isNaN(anoA)) return 1;
+                if (isNaN(anoB)) return -1;
+                return anoB - anoA;
+            });
+            currentYearSortState = 'desc'; // Mantém o estado lógico como 'desc' para a ordenação dos dados
+            // O dropdown será explicitamente setado para 'placeholder' no clearFiltersButton
+            page = 1;
+            renderPage(data, page); // renderPage chamará updateSortDropdownState, que o colocaria em 'desc'
+                                    // mas o clearFiltersButton vai sobrescrever para 'placeholder'
+        } else {
+            if(dataContainer) dataContainer.textContent = 'Nenhum prêmio, reconhecimento ou destaque encontrado.';
+            if (typeof updateAllPaginationControls === "function") {
+                 updateAllPaginationControls(1, 0, itemsPerPage);
+            }
+            if (sortOrderSelect) sortOrderSelect.value = 'placeholder';
+        }
+    }
+
+    // Função para atualizar o estado do dropdown de ordenação por ano
     function updateSortDropdownState() {
         if (sortOrderSelect) {
             if (currentYearSortState === 'asc' || currentYearSortState === 'desc') {
@@ -48,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+
     
     // Faz a requisição para obter os dados da planilha
     fetch(spreadsheetUrl)
@@ -55,33 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(fetchedData => {
             allData = fetchedData; // Armazena os dados
             populateFilters(allData); // Preenche os filtros com os dados
-
-            // Verifica se há dados para renderizar
-            if (allData && allData.length > 0) {
-                data = [...allData]; // Inicializa os dados com todos os dados
-                
-                data.sort((a, b) => {
-                    const yearA = parseInt(a['Ano'], 10); // Converte o ano para inteiro
-                    const yearB = parseInt(b['Ano'], 10); // Converte o ano para inteiro
-                    
-                    if (isNaN(yearA) && isNaN(yearB)) return 0; // Se ambos os anos não forem números, retorna 0
-                    if (isNaN(yearA)) return 1; // Se o ano A não for número, coloca B antes
-                    if (isNaN(yearB)) return -1; // Se o ano B não for número, coloca A antes
-
-                    return yearB - yearA; // Ordena em ordem decrescente
-                });
-                
-                currentYearSortState = 'desc'; // Define o estado atual da ordenação como decrescente
-                page = 1; // Garante que a página comece em 1
-                renderPage(data, page); // Renderiza a primeira página dos dados
-            } else { // Condicional para quando não há dados trazidos
-                dataContainer.textContent = 'Nenhum dado encontrado.'; // Exibe mensagem de erro
-
-                // Atualiza os controles de paginação
-                if (typeof updateAllPaginationControls === 'function') {
-                    updateAllPaginationControls(1, 0, itemsPerPage); // Atualiza os controles de paginação
-                } 
-            }
+            loadAndDisplayDefaultData(); // Carrega e exibe os dados padrão
     })
     .catch(error => { // Captura erros na requisição
         console.error('Erro ao buscar os dados:', error);
@@ -450,32 +452,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         currentYearSortState = 'placeholder'; // Reseta o estado atual da ordenação
 
-        // Recarrega e exibe os dados padrão com a ordenação inicial
-        if (allData && allData.length > 0) {
-            data = [...allData]; 
-
-            data.sort((a, b) => {
-                const anoA = parseInt(a['Ano'], 10);
-                const anoB = parseInt(b['Ano'], 10);
-
-                if (isNaN(anoA) && isNaN(anoB)) return 0;
-                if (isNaN(anoA)) return 1; 
-                if (isNaN(anoB)) return -1; 
-                
-                return anoB - anoA; // Ordenação decrescente
-            });
-
-            page = 1;
-            renderPage(data, page);
-        } else {
-            if(dataContainer) dataContainer.textContent = 'Nenhum prêmio, reconhecimento ou destaque encontrado.';
-            if (typeof updateAllPaginationControls === "function") {
-                updateAllPaginationControls(1, 0, itemsPerPage);
-            } else {
-                if(paginationContainer) paginationContainer.style.display = 'none';
-                if(paginationContainerTop) paginationContainerTop.style.display = 'none';
-            }
-        }
+        loadAndDisplayDefaultData(); // Carrega e exibe os dados padrão
     });
 
     // Event listener para o botão Página Anterior do rodapé

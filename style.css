@@ -97,7 +97,7 @@ body {
     }
     
     #clear-filters-button {
-    background-color: #6c757d; /* Define a cor de fundo do botão de limpar filtros */
+        background-color: #6c757d; /* Define a cor de fundo do botão de limpar filtros */
     }
 
     #clear-filters-button:hover:not(:disabled) {
