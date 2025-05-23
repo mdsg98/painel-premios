@@ -1,0 +1,10 @@
+# Ambiente Virtual
+venv/
+.venv/
+
+# Ambiente Local
+.env
+
+# Configurações de IDE
+.vscode/
+.idea/
