@@ -516,4 +516,12 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // Event listener para o campo de pesquisa por palavra-chave ao pressionar 'Enter'
+    keywordSearchInput.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') { // Verifica se a tecla pressionada é 'Enter'
+            event.preventDefault(); // Previne o comportamento padrão do Enter
+            searchButton.click(); // Simula um clique no botão de busca
+        }
+    });
     });
