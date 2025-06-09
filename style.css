@@ -61,9 +61,8 @@ body {
         display: flex; /* Usa flexbox para organizar os elementos */
         align-items: center; /* Alinha os elementos verticalmente */
         gap: 5px; /* Adiciona espaço entre os elementos */
-        flex-basis: 100%; /* Faz o container ocupar toda a largura disponível */
-        margin:20px;
-        justify-content: center;
+        margin: 0;                 /* Remove margem lateral */
+        justify-content: center;   /* Centraliza o conteúdo */
     }
 
     .keyword-search-container label {
@@ -158,6 +157,7 @@ body {
         cursor: pointer;
         font-size: 1em; /* Ajuste conforme o tamanho dos outros filtros */
         min-width: 220px; /* Largura mínima para acomodar o texto das opções */
+        margin-right: 16px; /* Espaçamento à direita para não colar o seletor de ordenação*/
     }
 
     #sort-order-select:focus {
@@ -226,7 +226,6 @@ body {
     }
 
     .pagination-controls span {
-        font-weight: bold; /* Deixa o texto em negrito */
         font-size: 16px; /* Define o tamanho da fonte do texto de informações da página */
     }
     
@@ -308,4 +307,26 @@ body {
     text-align: justify; /* Justifica o texto */
     margin-top: 40px; /* Adiciona espaço acima da descrição */
     width: 100%; /* Faz a descrição ocupar toda a largura do item */
+    }
+
+    .sort-order-wrapper {
+        position: absolute; /* Posicionamento absoluto em relação ao pai */
+        right: 30px; /* Distância da borda direita */
+        top: 50%; /* Alinha ao meio verticalmente */
+        transform: translateY(-50%); /* Ajuste para centralização vertical */
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        width: auto;
+    }
+
+    .search-sort-bar {
+        position: relative;
+        display: flex;
+        justify-content: center; /* Centraliza o campo de pesquisa */
+        align-items: center; /* Alinha verticalmente */
+        margin: 8px 0 16px 0;
+        width: 100%;
+        height: 60px; /* Define uma altura fixa para ajudar no alinhamento */
     }
