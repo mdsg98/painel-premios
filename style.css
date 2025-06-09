@@ -1,26 +1,49 @@
 /* Estilos para o layout geral da página */
+:root{
+   --scroll-height:5px; 
+}
 body {
     font-family: sans-serif; /* Define a fonte padrão para a página */
-    margin: 20px; /* Adiciona margem ao redor do conteúdo da página */
-    background-color: #eeeeee; /* Define a cor de fundo da página */
+    background-color: #eee; /* Define a cor de fundo da página */
+    margin: 0;  /* Remove a margem padrão do navegador */
+    padding: 0; /* Garante que não há preenchimento no body */
     }
     
-    h1 {
-    color: #333; /* Define a cor do texto do título principal */
-    text-align: center; /* Centraliza o título */
-    margin-bottom: 30px; /* Adiciona espaço abaixo do título */
-    top: 0; /* Define a posição do título no topo da página */
-    left: 50%; /* Centraliza horizontalmente */
-    z-index: 100; /* Garante que o título fique acima de outros elementos */
-    }
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: #fff;
+  margin: 0;
+}
+
+.cabecalho img {
+  width: 250px;
+  height: auto;
+  margin-right: 20px;
+}
+
+.titulo h1 {
+  color: #2596BE;
+  font-size: 40px;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.2;
+}
     
     /* Estilos para o container dos filtros */
-    .filter-wrapper {
+    .filter-wrapper{
+    background-color:#2596BE;
+    border-top: 4px solid #c4c4c4; /* Borda superior de 1px, sólida, na cor #eee */
     display: flex; /* Usa flexbox para organizar os elementos */
     flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha */
     gap: 20px; /* Adiciona espaço entre os elementos */
-    margin-bottom: 20px; /* Adiciona espaço abaixo do container */
     align-items: center; /* Alinha os elementos verticalmente */
+    justify-content:center;/* centraliza todos os elementos*/
+    padding: 15px;
+    color: #fff;
     }
     
     .filter-wrapper label {
@@ -39,6 +62,8 @@ body {
         align-items: center; /* Alinha os elementos verticalmente */
         gap: 5px; /* Adiciona espaço entre os elementos */
         flex-basis: 100%; /* Faz o container ocupar toda a largura disponível */
+        margin:20px;
+        justify-content: center;
     }
 
     .keyword-search-container label {
@@ -60,6 +85,7 @@ body {
         border-radius: 5px;
         flex-grow: 1; /* Faz o input ocupar o espaço no .input-with-clear-container */
         box-sizing: border-box; /* Para que padding e borda não aumentem a largura total */
+        font-size: 16px;
     }
 
     /* Estilo para o ícone/botão de limpar 'X' */
@@ -86,22 +112,22 @@ body {
         padding: 10px 20px; /* Adiciona espaço interno aos botões */
         border: none; /* Remove a borda dos botões */
         font-size: 16px; /* Define o tamanho da fonte dos botões de paginação */
-        background-color: #1887b4; /* Define a cor de fundo do botão de busca */
+        background-color: #69c4e0; /* Define a cor de fundo do botão de busca */
         color: #fff; /* Define a cor do texto dos botões */
         cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões */
         border-radius: 5px; /* Arredonda os cantos dos botões */
     }
 
     #search-button:hover:not(:disabled) {
-        background-color: #0056b3; /* Muda a cor de fundo ao passar o mouse sobre o botão de busca */
+        background-color: #313333; /* Muda a cor de fundo ao passar o mouse sobre o botão de busca */
     }
     
     #clear-filters-button {
-        background-color: #6c757d; /* Define a cor de fundo do botão de limpar filtros */
+        background-color: #c8c8c8; /* Define a cor de fundo do botão de limpar filtros */
     }
 
     #clear-filters-button:hover:not(:disabled) {
-        background-color: #5a6268; /* Muda a cor de fundo ao passar o mouse sobre o botão de limpar filtros */
+        background-color: #313333; /* Muda a cor de fundo ao passar o mouse sobre o botão de limpar filtros */
     }
 
     
@@ -112,6 +138,7 @@ body {
         gap: 15px; /* Adiciona espaço entre os resultados */
         max-width: 1200px; /* Define a largura máxima do container */
         margin: 0 auto; /* Centraliza o container horizontalmente */
+        
     }
 
     /* Estilos para o dropdown de ordenação */
@@ -135,7 +162,7 @@ body {
 
     #sort-order-select:focus {
         outline: none;
-        border-color: #007bff; /* Destaque ao focar */
+        border-color: #2596BE; /* Destaque ao focar */
         box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); /* Sombra ao focar */
     }
 
@@ -154,7 +181,7 @@ body {
         z-index: 99; /* Para ficar sobre outros elementos */
         border: none; /* Sem borda */
         outline: none; /* Sem outline ao focar */
-        background-color: #1887b4; /* Cor de fundo (exemplo, igual aos botões de paginação) */
+        background-color: #2596BE; /* Cor de fundo (exemplo, igual aos botões de paginação) */
         color: white; /* Cor do texto */
         cursor: pointer; /* Cursor de mãozinha */
         padding: 12px 15px; /* Espaçamento interno */
@@ -165,7 +192,7 @@ body {
     }
 
     #back-to-top-button:hover {
-        background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+        background-color: #69c4e0; /* Cor de fundo ao passar o mouse */
     }
 
     /* Estilos para o container da paginação */
@@ -179,7 +206,7 @@ body {
     }
 
     .pagination-controls button {
-        background-color: #1887b4; /* Define a cor de fundo dos botões de paginação */
+        background-color: #2596BE; /* Define a cor de fundo dos botões de paginação */
         color: white; /* Define a cor do texto dos botões de paginação */
         border: none; /* Remove a borda dos botões de paginação */
         padding: 10px 18px; /* Adiciona espaço interno aos botões de paginação */
@@ -190,7 +217,7 @@ body {
     }
 
     .pagination-controls button:hover:not(:disabled) {
-        background-color: #0056b3; /* Muda a cor de fundo ao passar o mouse sobre os botões de paginação */
+        background-color: #69c4e0; /* Muda a cor de fundo ao passar o mouse sobre os botões de paginação */
     }
 
     .pagination-controls button:disabled {
@@ -206,14 +233,38 @@ body {
     /* Estilos para cada item de resultado */
     .item {
     background-color: #fff; /* Define a cor de fundo do item */
-    border: 1px solid #ddd; /* Define a borda do item */
-    border-right: 1px solid #ddd; /* Adiciona borda direita */
+    border: 1px solid #048cb4; /* Define a borda do item */
+    border-right: 1px solid #048cb4; /* Adiciona borda direita */
     padding: 20px; /* Adiciona espaço interno ao item */
     border-radius: 8px; /* Arredonda os cantos do item */
     margin-bottom: 15px; /* Adiciona espaço abaixo do item */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave */
-    width: 100%; /* Faz o item ocupar toda a largura do container */
+    width:100%; /* Faz o item ocupar toda a largura do container */
     align-items: flex-start; /* Alinha o conteúdo à esquerda dentro do item */
+    }
+    /* os Keyframes são responsavel pela animação, do ".item" e do c-indicador */
+   
+     /* keyframes, faz a animação da barra de rolagem da pagina. */
+    @keyframes scroll{
+        from{
+            scale:0 1;
+        }
+        to{
+            scale:1 1;
+        }
+    }
+
+    
+    .c-indicador{   /*o Indicador é o nome da div criada para fazer a barra de rolagem lateral*/
+       animation:scroll 1ms ease-in-out; 
+       animation-timeline:scroll();
+       background-color:#048cb4;
+       transform-origin:left;
+       height:10px;
+       inset:0;
+       position:fixed;
+       border-radius:2px;
+       height:var(--scroll-height); 
     }
     
     /* Estilos para o título do item */
@@ -258,4 +309,3 @@ body {
     margin-top: 40px; /* Adiciona espaço acima da descrição */
     width: 100%; /* Faz a descrição ocupar toda a largura do item */
     }
-

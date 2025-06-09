@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Prêmios, Reconhecimentos e Destaques da UFMS</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+    
 <body>
-    <h1>Painel de Prêmios, Reconhecimentos e Destaques da UFMS</h1>
+   <div class="cabecalho">
+    <img src="images/Logo_def.png" alt="Logo da UFMS">
+    <div class="titulo">
+      <h1>Painel de Prêmios,<br>Reconhecimentos e Destaques da UFMS</h1>
+    </div>
+  </div>
 
         <!--Implementação da funcionalidade de filtros-->
         <div class="filter-container">
@@ -31,8 +38,8 @@
                     <option value="">Todos</option>
                 </select>
 
-                <button id="search-button">Buscar Resultados</button>
                 <button id="clear-filters-button">Limpar Filtros</button>
+                <button id="search-button">Buscar Resultados</button>
 
                  <!--Implementação da funcionalidade de ordenação por ano-->
                 <div class="sort-buttons-container" id="sort-buttons-container">
@@ -42,13 +49,13 @@
                         <option value="asc">Crescente por Ano</option>
                     </select>
                 </div>
+            </div>
 
-                <!--Implementação da funcionalidade de pesquisa por palavra-chave, com funcionalidade de apagar-->
-                <div class="keyword-search-container"> <label for="keyword-search">Pesquisar:</label>
-                    <div class="input-with-clear-container">
-                        <input type="text" id="keyword-search" placeholder="Digite para buscar...">
-                        <span id="clear-keyword-button" class="clear-keyword-icon" title="Limpar pesquisa">&times;</span>
-                    </div>
+            <!--Implementação da funcionalidade de pesquisa por palavra-chave, com funcionalidade de apagar-->
+            <div class="keyword-search-container"> <label for="keyword-search">Pesquisar:</label>
+                <div class="input-with-clear-container">
+                    <input type="text" id="keyword-search" placeholder="Digite para buscar...">
+                    <span id="clear-keyword-button" class="clear-keyword-icon" title="Limpar pesquisa">&times;</span>
                 </div>
             </div>
 
@@ -73,8 +80,8 @@
         <button id="next-page-button">Próxima Página</button>
     </div>
 
-
+    <div class="c-indicador"></div><!--Classe criada para fazer a barra de rolagem lateral-->
 
     <script src="script.js"></script>
-</body>
+    </body>
 </html>
