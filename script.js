@@ -11,6 +11,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const backToTopButton = document.getElementById('back-to-top-button');
     const clearKeywordButton = document.getElementById('clear-keyword-button');
 
+    // --- INICIALIZAÇÃO DA ROLAGEM SUAVE (LENIS) ---
+    const lenis = new Lenis({
+    lerp: 0.1, // Controla a "suavidade". Valores menores são mais suaves.
+    smoothWheel: true,
+    });
+
+    function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+    // --- FIM DA INICIALIZAÇÃO ---
     
     
     // URL do Apps Script que fornece os dados da planilha
@@ -37,25 +50,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Variáveis para controle de ordenação por ano dos resultados
     const sortOrderSelect = document.getElementById('sort-order-select');
-    let currentYearSortState = 'desc'; // Padrão de ordenação inicial (decrescente)
+    let currentSortState = 'desc'; // Padrão de ordenação inicial (decrescente)
 
     // Função para carregar e exibir os dados padrão
     function loadAndDisplayDefaultData() {
         if (allData && allData.length > 0) {
             data = [...allData];
             data.sort((a, b) => {
-                const anoA = parseInt(a['Ano'], 10);
-                const anoB = parseInt(b['Ano'], 10);
-                if (isNaN(anoA) && isNaN(anoB)) return 0;
-                if (isNaN(anoA)) return 1;
-                if (isNaN(anoB)) return -1;
-                return anoB - anoA;
+                const codA = parseInt(a['Cod'], 10);
+                const codB = parseInt(b['Cod'], 10);
+                if (isNaN(codA) && isNaN(anoB)) return 0;
+                if (isNaN(codA)) return 1;
+                if (isNaN(codB)) return -1;
+                return codB - codA;
             });
-            currentYearSortState = 'desc'; // Mantém o estado lógico como 'desc' para a ordenação dos dados
+            currentSortState = 'desc'; // Mantém o estado lógico como 'desc' para a ordenação dos dados
             // O dropdown será explicitamente setado para 'placeholder' no clearFiltersButton
             page = 1;
             renderPage(data, page); // renderPage chamará updateSortDropdownState, que o colocaria em 'desc'
-                                    // mas o clearFiltersButton vai sobrescrever para 'placeholder'
         } else {
             if(dataContainer) dataContainer.textContent = 'Nenhum prêmio, reconhecimento ou destaque encontrado.';
             if (typeof updateAllPaginationControls === "function") {
@@ -68,8 +80,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Função para atualizar o estado do dropdown de ordenação por ano
     function updateSortDropdownState() {
         if (sortOrderSelect) {
-            if (currentYearSortState === 'asc' || currentYearSortState === 'desc') {
-                sortOrderSelect.value = currentYearSortState; // Atualiza o valor do dropdown
+            if (currentSortState === 'asc' || currentSortState === 'desc') {
+                sortOrderSelect.value = currentSortState; // Atualiza o valor do dropdown
             } else {
                 sortOrderSelect.value = 'placeholder'; // Define como placeholder se o estado não for reconhecido (asc ou desc)
             }
@@ -332,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         updateAllPaginationControls(page, data.length, itemsPerPage); // Atualiza os controles de paginação
         updateSortDropdownState();  // Atualiza a função do dropdown de ordenação por ano após renderizar
-        document.querySelector("h1").scrollIntoView({ behavior: "smooth" }); // Rola suavemente para o título do projeto
+        lenis.scrollTo(0, { duration: 2 });
     }
 
     // Event listener para o dropdown de ordenação por ano
@@ -346,24 +358,24 @@ document.addEventListener('DOMContentLoaded', function() {
         // Condicional para valor crescente
         if (sortValue === 'asc') {
             data.sort((a, b) => {
-                const yearA = parseInt(a['Ano'], 10);
-                const yearB = parseInt(b['Ano'], 10);
-                if (isNaN(yearA) && isNaN(yearB)) return 0;
-                if (isNaN(yearA)) return 1;
-                if (isNaN(yearB)) return -1;
-                return yearA - yearB; // Crescente
+                const codA = parseInt(a['Cod'], 10);
+                const codB = parseInt(b['Cod'], 10);
+                if (isNaN(codA) && isNaN(codB)) return 0;
+                if (isNaN(codA)) return 1;
+                if (isNaN(codB)) return -1;
+                return codA - codB; // Crescente
             });
-            currentYearSortState = 'asc';
+            currentSortState = 'asc';
         } else if (sortValue === 'desc') { // Condicional para valor decrescente
             data.sort((a, b) => {
-                const yearA = parseInt(a['Ano'], 10);
-                const yearB = parseInt(b['Ano'], 10);
-                if (isNaN(yearA) && isNaN(yearB)) return 0;
-                if (isNaN(yearA)) return 1;
-                if (isNaN(yearB)) return -1;
-                return yearB - yearA; // Decrescente
+                const codA = parseInt(a['Cod'], 10);
+                const codB = parseInt(b['Cod'], 10);
+                if (isNaN(codA) && isNaN(codB)) return 0;
+                if (isNaN(codA)) return 1;
+                if (isNaN(codB)) return -1;
+                return codB - codA; // Decrescente
             });
-            currentYearSortState = 'desc';
+            currentSortState = 'desc';
         } else { // Caso selecione o placeholder
             return;
         }
@@ -374,16 +386,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Função para voltar ao topo da página
     function scrollToTop() {
-        if (backToTopButton) {
-            const dataContainerTop = dataContainer ? dataContainer.getBoundingClientRect().top : Infinity; // Obtém a posição do contêiner de dados
-            const windowHeight = window.innerHeight; // Obtém a altura da janela
-
-            // Mostra o botão de voltar ao topo se a página estiver rolada para baixo
-            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-                backToTopButton.style.display = 'block';
-            } else {
-                backToTopButton.style.display = 'none';
-            }
+        if (window.scrollY > 300) {
+            backToTopButton.classList.add("show");  
+        } else {
+            backToTopButton.classList.remove("show");
         }
     }
 
@@ -419,14 +425,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // Aplicada a lógica da ordenação decrescente por ano
         if (filteredData && filteredData.length > 0) {
             filteredData.sort((a, b) => {
-                const anoA = parseInt(a['Ano'], 10); // Converte o ano A para inteiro
-                const anoB = parseInt(b['Ano'], 10); // Converte o ano B para inteiro
+                const anoA = parseInt(a['Cod'], 10); // Converte o código A para inteiro
+                const anoB = parseInt(b['Cod'], 10); // Converte o código B para inteiro
 
-                if (isNaN(anoA) && isNaN(anoB)) return 0; // Se ambos os anos não forem números, retorna 0
-                if (isNaN(anoA)) return 1; // Se o ano A não for número, coloca B antes
-                if (isNaN(anoB)) return -1; // Se o ano B não for número, coloca A antes
+                if (isNaN(codA) && isNaN(codB)) return 0; // Se ambos os códigos não forem números, retorna 0
+                if (isNaN(codA)) return 1; // Se o código A não for número, coloca B antes
+                if (isNaN(codB)) return -1; // Se o código B não for número, coloca A antes
 
-                return anoB - anoA; // Ordena em ordem decrescente
+                return codB - codA; // Ordena em ordem decrescente
             });
         }
         updateSortDropdownState(); // Atualiza o estado da função dropdown de ordenação por ano
@@ -434,25 +440,23 @@ document.addEventListener('DOMContentLoaded', function() {
         page = 1; // Reseta a página atual para 1
         renderPage(data, page); // Renderiza a primeira página dos dados filtrados
     });
-    
-    // Event listener para o botão de limpar filtros
-    clearFiltersButton.addEventListener('click', function() {
-       
-        // Limpa os filtros selecionados e traz os dados padrão
-        if (filterTipoSelect) filterTipoSelect.value = '';
-        if (filterAnoSelect) filterAnoSelect.value = '';
-        if (filterCategoriaSelect) filterCategoriaSelect.value = '';
-        if (filterUnidadeSelect) filterUnidadeSelect.value = '';
-        if (keywordSearchInput) keywordSearchInput.value = ''; // Limpa o campo de pesquisa por palavra-chave
-        if (clearKeywordButton) clearKeywordButton.style.display = 'none'; // Esconde o botão 'X'
-        
-        // Limpa o dropdown de ordenação por ano
-        if (sortOrderSelect) {
-            sortOrderSelect.value = 'placeholder'; // Reseta o valor do dropdown de ordenação
-        }
-        currentYearSortState = 'placeholder'; // Reseta o estado atual da ordenação
 
-        loadAndDisplayDefaultData(); // Carrega e exibe os dados padrão
+    clearFiltersButton.addEventListener('click', () => {
+        filterTipoSelect.value = '';
+        filterAnoSelect.value = '';
+        filterCategoriaSelect.value = '';
+        filterUnidadeSelect.value = '';
+        keywordSearchInput.value = '';
+
+        // Esconde o botão 'X' da barra de busca, se estiver visível
+        if (clearKeywordButton) {
+            clearKeywordButton.style.display = 'none';
+        }
+
+        // Carrega e exibe a lista de dados padrão (sem filtros)
+        loadAndDisplayDefaultData();
+
+        lenis.scrollTo(0, { duration: 2 }); // Rola suavemente para o topo da página
     });
 
     // Event listener para o botão Página Anterior do rodapé
@@ -488,15 +492,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Mostra o botão ao rolar a página
-    window.addEventListener('scroll', scrollToTop);
     
     // Evento de clique para voltar ao topo
-    if (backToTopButton) {
-        backToTopButton.addEventListener('click', function() {
-            document.querySelector("h1").scrollIntoView({ behavior: "smooth" });
-        });
-    }
+    window.addEventListener('scroll', scrollToTop);
+    backToTopButton.addEventListener('click',() => {
+        lenis.scrollTo(0, { duration: 2 }); // Rola suavemente para o topo da página
+    });
 
     // Event listener para o botão de limpar pesquisa por palavra-chave
     if (clearKeywordButton && keywordSearchInput) {
@@ -504,8 +505,6 @@ document.addEventListener('DOMContentLoaded', function() {
             keywordSearchInput.value = ''; // Limpa o campo de pesquisa por palavra-chave
             keywordSearchInput.focus(); // Opcional: Foca no campo de pesquisa
             clearKeywordButton.style.display = 'none'; // Esconde o botão 'X'
-            // Opcional: Se quiser que limpar o campo dispare uma nova busca (para atualizar os resultados)
-            // searchButton.click(); // Simula um clique no botão de busca principal
         });
 
         keywordSearchInput.addEventListener('input', function() {

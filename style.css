@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Oswald:wght@700&display=swap');
+
 /* Estilos para o layout geral da página */
 :root{
    --scroll-height:5px; 
@@ -8,85 +11,122 @@ body {
     margin: 0;  /* Remove a margem padrão do navegador */
     padding: 0; /* Garante que não há preenchimento no body */
     }
+
+    .header {
+        padding-top: 35px;
+        background-color: #fff;
+        width: 100%; 
+        padding-bottom: 35px;
+    }
+
+    .header-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        min-height: 100px;
+        padding: 0 20px;
+        gap: 30px;
+    }
     
-.cabecalho {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  background-color: #fff;
-  margin: 0;
-}
+    #header-left-logo {
+        width: 150px;
+        height: auto;
+    }
 
-.cabecalho img {
-  width: 250px;
-  height: auto;
-  margin-right: 20px;
-}
+    .titulo {
+        width: 100%;
+        display: flex;
+        justify-content: center; /* Centraliza o H1 e a imagem horizontalmente */
+        align-items: center;     /* Alinha ambos verticalmente */
+        gap: 30px;               /* Espaço entre o título e a imagem da direita */
+    }
 
-.titulo h1 {
-  color: #2596BE;
-  font-size: 40px;
-  margin: 0;
-  font-family: Arial, sans-serif;
-  line-height: 1.2;
-}
+    .header-content h1{
+        color: #2596BE;
+        font-size: 50px;
+        text-align: center;
+        line-height: 1.2;
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        margin: 0;
+        flex-grow: 1;
+
+    }
+
+    #header-right-logo {
+        width: 150px;
+        height: auto;
+    }
+
+
     
     /* Estilos para o container dos filtros */
     .filter-wrapper{
-    background-color:#2596BE;
-    border-top: 4px solid #c4c4c4; /* Borda superior de 1px, sólida, na cor #eee */
-    display: flex; /* Usa flexbox para organizar os elementos */
-    flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha */
-    gap: 20px; /* Adiciona espaço entre os elementos */
-    align-items: center; /* Alinha os elementos verticalmente */
-    justify-content:center;/* centraliza todos os elementos*/
-    padding: 15px;
-    color: #fff;
+        background-color:#2596BE;
+        display: flex; /* Usa flexbox para organizar os elementos */
+        flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha */
+        gap: 20px; /* Adiciona espaço entre os elementos */
+        align-items: center; /* Alinha os elementos verticalmente */
+        justify-content:center;/* centraliza todos os elementos*/
+        padding: 13px;
+        color: #fff;
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
     }
     
     .filter-wrapper label {
-    font-weight: bold; /* Deixa o texto das labels em negrito */
+        font-weight: bold; /* Deixa o texto das labels em negrito */
     }
     
     .filter-wrapper select {
-    padding: 8px; /* Adiciona espaço interno aos selects */
-    border: 1px solid #ccc; /* Define a borda dos selects */
-    border-radius: 5px; /* Arredonda os cantos dos selects */
-    min-width: 150px; /* Define a largura mínima dos selects */
+        padding: 8px; /* Adiciona espaço interno aos selects */
+        border: 1px solid #ccc; /* Define a borda dos selects */
+        border-radius: 5px; /* Arredonda os cantos dos selects */
+        min-width: 150px; /* Define a largura mínima dos selects */
     }
 
     .keyword-search-container {
-        display: flex; /* Usa flexbox para organizar os elementos */
-        align-items: center; /* Alinha os elementos verticalmente */
-        gap: 5px; /* Adiciona espaço entre os elementos */
-        margin: 0;                 /* Remove margem lateral */
-        justify-content: center;   /* Centraliza o conteúdo */
-    }
-
-    .keyword-search-container label {
-        font-weight: bold; /* Deixa o texto da label em negrito */
-        margin-right: 5px; /* Adiciona espaço à direita entre o label e o container do input */
+        display: flex;
+        align-items: center;
+        max-width: 600px;
+        width: 100%;
+        border: 1px solid #d1d5db; /* Borda cinza clara e sutil */
+        border-radius: 9999px;     /* Borda totalmente arredondada */
+        background-color: #fff;    /* Fundo branco para a área do input */
+        overflow: hidden;          /* ESSENCIAL: corta os cantos dos elementos filhos */
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     }
 
     .input-with-clear-container {
-        position: relative; /* Permite posicionar o ícone de limpar dentro do container */
-        display: flex; /* Usa flexbox para organizar os elementos */
-        align-items: center; /* Alinha os elementos verticalmente */
-        min-width: 200px; /* Define a largura mínima do container */
+        flex-grow: 1; /* Faz com que esta área ocupe o máximo de espaço possível */
+        display: flex;
+        align-items: center;
+        position: relative;
     }
 
-    .keyword-search-container input[type="text"] {
-        padding: 8px;    /* Adiciona padding à direita para não sobrepor o 'X' */
-        padding-right: 30px; /* Ajuste este valor conforme o tamanho do seu 'X' + espaçamento */
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        flex-grow: 1; /* Faz o input ocupar o espaço no .input-with-clear-container */
-        box-sizing: border-box; /* Para que padding e borda não aumentem a largura total */
-        font-size: 16px;
+    #keyword-search {
+        border: none; /* Remove a borda padrão */
+        outline: none; /* Remove a borda azul ao focar */
+        background: transparent; /* Fundo transparente para mostrar o do contêiner */
+        padding: 0.5rem 1rem; /* Espaçamento interno (vertical e horizontal) */
+        font-size: 1rem;
+        color: #374151;
+        width: 100%;
+        padding-right: 35px;  /* Remove o padding direito para não interferir com o botão 'x' */
+        text-align: center;
     }
 
+    #keyword-search::placeholder {
+        color: #9ca3af;
+        opacity: 1;
+    }
+
+    #keyword-search:focus::placeholder {
+        color: transparent;
+        transition: color 0.2s ease-out;
+    }
+       
     /* Estilo para o ícone/botão de limpar 'X' */
     .clear-keyword-icon {
         position: absolute; /* Posicionamento absoluto em relação ao .input-with-clear-container */
@@ -105,28 +145,55 @@ body {
     }
 
     
-    /* Estilos para os botões de busca e limpar filtros */
-    #search-button,
-    #clear-filters-button {
-        padding: 10px 20px; /* Adiciona espaço interno aos botões */
-        border: none; /* Remove a borda dos botões */
-        font-size: 16px; /* Define o tamanho da fonte dos botões de paginação */
-        background-color: #69c4e0; /* Define a cor de fundo do botão de busca */
-        color: #fff; /* Define a cor do texto dos botões */
-        cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões */
-        border-radius: 5px; /* Arredonda os cantos dos botões */
+    /* Estilos para os botões de busca*/
+    #search-button{
+        background-color: #2596BE;
+        border: none;
+        cursor: pointer;
+        width: 60px;  /* Largura fixa para o botão */
+        height: 38px; /* A altura deve ser a mesma do campo de busca */
+        padding: 0;   /* Remove qualquer espaçamento interno que possa atrapalhar */
+        display: flex;
+        align-items: center;      /* Alinha o item na vertical (no meio) */
+        justify-content: center;  /* Alinha o item na horizontal (no meio) */
     }
 
-    #search-button:hover:not(:disabled) {
-        background-color: #313333; /* Muda a cor de fundo ao passar o mouse sobre o botão de busca */
+    #clear-filters-button{
+        background-color: #fff;
+        color: #2596BE;
+        border: 1px solid #d1d5db;
+        border-radius: 9999px;
+        padding: 10px 8px 10px 20px;
+        font-weight: bold;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-left: 30px;
+        font-family: 'Inter', sans-serif;
     }
-    
-    #clear-filters-button {
-        background-color: #c8c8c8; /* Define a cor de fundo do botão de limpar filtros */
+
+    #search-button:hover {
+        background-color: #1a6f91; /* Muda a cor de fundo ao passar o mouse sobre o botão de busca */
+    }
+
+    #search-button img {
+        width: 22px;
+        height: 22px;
+        filter: brightness(0) invert(1); /* Transforma o ícone em branco */
+        display: block; /* Remove espaço extra abaixo da imagem */
+        margin: 0; /* Remove margens para evitar deslocamento */
+    }
+
+    #clear-filters-button img {
+        width: 37px; /* Tamanho do ícone de limpar filtros */
+        height: 22px; /* Tamanho do ícone de limpar filtros */
     }
 
     #clear-filters-button:hover:not(:disabled) {
-        background-color: #313333; /* Muda a cor de fundo ao passar o mouse sobre o botão de limpar filtros */
+        background-color: #C8C8C8; /* Muda a cor de fundo ao passar o mouse sobre o botão de limpar filtros */
     }
 
     
@@ -137,15 +204,11 @@ body {
         gap: 15px; /* Adiciona espaço entre os resultados */
         max-width: 1200px; /* Define a largura máxima do container */
         margin: 0 auto; /* Centraliza o container horizontalmente */
-        
     }
 
     /* Estilos para o dropdown de ordenação */
     .sort-select-container {
         display: none; /* Começa escondido, JS controla a visibilidade */
-        /* Adicione margem ou outros estilos de layout conforme necessário */
-        /* Exemplo: margin-left: auto; para alinhar à direita dentro do filter-wrapper se ele for flex */
-        /* Ou deixe-o fluir com os outros itens do filter-wrapper */
         margin: 0 5px; /* Espaçamento similar aos antigos botões de imagem */
     }
 
@@ -181,48 +244,86 @@ body {
         z-index: 99; /* Para ficar sobre outros elementos */
         border: none; /* Sem borda */
         outline: none; /* Sem outline ao focar */
-        background-color: #2596BE; /* Cor de fundo (exemplo, igual aos botões de paginação) */
-        color: white; /* Cor do texto */
+        background-color: #808080; /* Cor de fundo (exemplo, igual aos botões de paginação) */
         cursor: pointer; /* Cursor de mãozinha */
-        padding: 12px 15px; /* Espaçamento interno */
-        border-radius: 5px; /* Bordas arredondadas */
-        font-size: 24px; /* Tamanho da fonte */
+        border-radius: 5px; /* Torna o botão um círculo */
+        width: 40px; /* Largura do botão */
+        height: 40px; /* Altura do botão */
+        display: flex; /* Para centralizar a imagem */
+        align-items: center;
+        justify-content: center;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave */
-        transition: background-color 0.3s ease, opacity 0.3s ease; /* Transições suaves */
+        opacity: 0;
+        pointer-events: none;
+        transition: background-color 0.6s ease, opacity 0.6s ease; /* Transições suaves */
+    }
+
+    #back-to-top-button.show {
+        opacity: 0.5; /* Torna o botão semi-transparente, como no seu estilo original */
+        pointer-events: auto; /* Torna o botão visível e clicável */
+    }
+
+    #back-to-top-button img {
+        width: 10.2px; /* Ajuste o tamanho da imagem conforme necessário */
+        height: 6px;
+        filter: brightness(0) invert(1); /* Isso transformará a imagem preta em branca */
     }
 
     #back-to-top-button:hover {
-        background-color: #69c4e0; /* Cor de fundo ao passar o mouse */
+        background-color: #1a6f91; /* Cor de fundo ao passar o mouse */
+        opacity: 1;
     }
 
     /* Estilos para o container da paginação */
     .pagination-controls {
-        display: none; /* Usa flexbox para organizar os elementos de paginação */
-        justify-content: center; /* Centraliza os elementos de paginação */
-        align-items: baseline; /* Alinha os elementos de paginação verticalmente */
-        gap: 12px; /* Adiciona espaço entre os elementos de paginação */
-        margin-top: 30px; /* Adiciona espaço acima do container de paginação */
-        margin-bottom: 20px; /* Adiciona espaço abaixo do container de paginação */
+        display: flex; /* Para centralizar a imagem */
+        align-items: center;
+        justify-content: center;
+        gap: 15px; /* Espaçamento entre os elementos (botões e texto) */
+        padding: 20px 0; /* Espaçamento interno superior e inferior */
+        border: none; /* Remova a borda que estava aqui, ela irá para os botões */
+        font-family: 'Inter', sans-serif; 
+        user-select: none; /* Impede seleção de texto nos botões e texto */
     }
 
     .pagination-controls button {
-        background-color: #2596BE; /* Define a cor de fundo dos botões de paginação */
-        color: white; /* Define a cor do texto dos botões de paginação */
-        border: none; /* Remove a borda dos botões de paginação */
-        padding: 10px 18px; /* Adiciona espaço interno aos botões de paginação */
-        font-size: 16px; /* Define o tamanho da fonte dos botões de paginação */
-        border-radius: 6px; /* Arredonda os cantos dos botões de paginação */
-        cursor: pointer; /* Muda o cursor ao passar o mouse sobre os botões de paginação */
-        transition: background-color 0.3s ease; /* Adiciona uma transição suave para a cor de fundo */
+        background-color: #333; /* Cor de fundo dos círculos (cinza escuro da imagem) */
+        border: none; /* Remove a borda padrão do botão */
+        border-radius: 50%; /* Torna o botão em um círculo perfeito */
+        width: 30px; /* Largura do círculo */
+        height: 30px; /* Altura do círculo */
+        
+        /* Para centralizar a imagem da seta dentro do círculo */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        cursor: pointer;
+        transition: background-color 0.3s ease; /* Transição suave na cor de fundo ao hover */
+        padding: 0; /* Remove padding padrão do botão para manter o formato circular */
+
+    }
+
+    .pagination-controls button img {
+        width: 7px; /* Tamanho da seta dentro do círculo */
+        height: 12px;
+        filter: invert(100%); /* Torna a seta branca se o ícone original for preto */
+        display: block; /* Garante que a imagem não tenha espaço extra abaixo */
+
     }
 
     .pagination-controls button:hover:not(:disabled) {
-        background-color: #69c4e0; /* Muda a cor de fundo ao passar o mouse sobre os botões de paginação */
+        background-color: #2596BE; /* Cor de fundo ao passar o mouse */
     }
 
     .pagination-controls button:disabled {
         background-color: #ccc; /* Define a cor de fundo dos botões desativados */
         cursor: not-allowed; /* Muda o cursor para indicar que o botão está desativado */
+        opacity: 0.6; /* Deixa ele um pouco transparente */
+    }
+
+    .pagination-controls button:active {
+        background-color: #6AC5E4;
     }
 
     .pagination-controls span {
@@ -231,15 +332,15 @@ body {
     
     /* Estilos para cada item de resultado */
     .item {
-    background-color: #fff; /* Define a cor de fundo do item */
-    border: 1px solid #048cb4; /* Define a borda do item */
-    border-right: 1px solid #048cb4; /* Adiciona borda direita */
-    padding: 20px; /* Adiciona espaço interno ao item */
-    border-radius: 8px; /* Arredonda os cantos do item */
-    margin-bottom: 15px; /* Adiciona espaço abaixo do item */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave */
-    width:100%; /* Faz o item ocupar toda a largura do container */
-    align-items: flex-start; /* Alinha o conteúdo à esquerda dentro do item */
+        background-color: #fff; /* Define a cor de fundo do item */
+        border: 1px solid #048cb4; /* Define a borda do item */
+        border-right: 1px solid #048cb4; /* Adiciona borda direita */
+        padding: 20px; /* Adiciona espaço interno ao item */
+        border-radius: 8px; /* Arredonda os cantos do item */
+        margin-bottom: 15px; /* Adiciona espaço abaixo do item */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave */
+        width:100%; /* Faz o item ocupar toda a largura do container */
+        align-items: flex-start; /* Alinha o conteúdo à esquerda dentro do item */
     }
     /* os Keyframes são responsavel pela animação, do ".item" e do c-indicador */
    
@@ -310,10 +411,6 @@ body {
     }
 
     .sort-order-wrapper {
-        position: absolute; /* Posicionamento absoluto em relação ao pai */
-        right: 30px; /* Distância da borda direita */
-        top: 50%; /* Alinha ao meio verticalmente */
-        transform: translateY(-50%); /* Ajuste para centralização vertical */
         display: flex;
         align-items: center;
         gap: 8px;
@@ -322,11 +419,202 @@ body {
     }
 
     .search-sort-bar {
-        position: relative;
+        background-color: #eee;
+        padding: 1.5rem 1rem; /* Espaçamento vertical e horizontal */
         display: flex;
-        justify-content: center; /* Centraliza o campo de pesquisa */
-        align-items: center; /* Alinha verticalmente */
-        margin: 8px 0 16px 0;
-        width: 100%;
-        height: 60px; /* Define uma altura fixa para ajudar no alinhamento */
+        justify-content: center;
+        align-items: center;
     }
+
+    /* ESTILOS DO RODAPÉ */
+    /* Reset básico para listas e links do rodapé */
+    li {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: #fff;
+    }
+
+    /* Container principal usado no rodapé */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Estilo do rodapé principal */
+    footer {
+        background-color: #808080;
+        color: #fff;
+        padding: 40px 0 0;
+        margin-top: 50px;
+    }
+
+    /* Conteúdo dividido em colunas */
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    /* Cada coluna */
+    .footer-box {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .footer-logo{
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .footer-logo img {
+        width: 120px;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+
+    .footer-box img {
+        width: 20px;
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+
+    .footer-box h3 {
+        margin-bottom: 15px;
+        color: #fff;
+    }
+
+    .footer-box p {
+        color: #fff;
+        max-width: 300px;
+        line-height: 1.5;
+    }
+
+    .footer-box ul li {
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #fff;
+        font-weight: 300;
+    }
+
+    /* Rodapé final com copyright */
+    .seidi {
+        width: 100%;
+        background-color: #5a5a5a;
+        color: #fff;
+        padding: 8px 0;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    /* RESPONSIVIDADE */
+
+    @media (max-width: 800px) {
+
+    /* 1. Ajuste do Cabeçalho */
+    .titulo h1 {
+        font-size: 28px; /* Diminui o tamanho da fonte do título principal */
+        letter-spacing: 2px; /* Reduz o espaçamento entre as letras */
+    }
+
+    /* 2. Ajuste da Barra de Pesquisa */
+    .search-sort-bar {
+        flex-direction: column; /* Empilha os itens verticalmente */
+        gap: 20px; /* Adiciona um espaço entre a busca e o botão de limpar */
+        padding: 1.5rem 1rem;
+    }
+
+    #clear-filters-button {
+        margin-left: 0; /* Remove a margem que empurrava o botão para a direita */
+    }
+
+    /* 3. Ajuste da Barra de Filtros */
+    .filter-wrapper {
+        flex-direction: column; /* Empilha os filtros verticalmente */
+        align-items: stretch;   /* Faz cada filtro ocupar a largura total */
+        gap: 20px;
+    }
+
+    .filter-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .filter-wrapper label {
+        text-align: center; /* Centraliza o texto das labels */
+    }
+
+    .filter-wrapper select, 
+    .sort-order-wrapper select {
+        width: 100%; /* Faz os seletores ocuparem toda a largura */
+        min-width: 0; /* Remove a largura mínima para permitir o ajuste */
+    }
+
+    .sort-order-wrapper {
+        flex-direction: column; /* Também empilha o label e o select da ordenação */
+        gap: 8px;
+    }
+
+
+    /* 4. Ajuste dos Cards de Resultado */
+    .item {
+        padding: 15px; /* Reduz o espaçamento interno dos cards */
+    }
+
+    .item h2 {
+        font-size: 1.2em; /* Diminui a fonte do título do prêmio */
+        margin-bottom: 20px;
+    }
+
+    .item-content {
+        flex-direction: column; /* Empilha a imagem e os detalhes */
+        align-items: center;    /* Centraliza os itens empilhados */
+    }
+
+    .item-image {
+        flex-basis: auto; /* Permite que a base da imagem seja automática */
+        margin-right: 0; /* Remove a margem direita da imagem */
+        margin-bottom: 20px; /* Adiciona uma margem abaixo da imagem */
+        max-width: 200px; /* Define uma largura máxima para a imagem no modo mobile */
+    }
+
+    .item-description {
+        margin-top: 20px; /* Reduz a margem acima da descrição */
+    }
+
+    footer {
+        margin-top: 30px; /* Reduz o espaço acima do rodapé em telas pequenas */
+    }
+
+    .footer-content {
+        flex-direction: column; /* Empilha as colunas verticalmente */
+        align-items: center;    /* Centraliza as colunas empilhadas */
+        gap: 40px;              /* Aumenta o espaço vertical entre as colunas */
+    }
+
+    .footer-box, .footer-logo {
+        text-align: center; /* Centraliza todo o texto dentro de cada coluna */
+    }
+
+    .footer-logo img {
+        width: 100px; /* Reduz o tamanho do logo da UFMS no rodapé */
+        margin: 0 0 10px 0; /* Centraliza o logo e adiciona margem abaixo */
+    }
+    
+    .footer-box ul {
+        padding: 0; /* Remove o preenchimento padrão da lista */
+    }
+
+    .footer-box ul li {
+        justify-content: center; /* Centraliza o ícone e o texto do contato */
+    }
+
+}
