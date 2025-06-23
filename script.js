@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(fetchedData => {
             allData = fetchedData; // Armazena os dados
             populateFilters(allData); // Preenche os filtros com os dados
-            loadAndDisplayDefaultData(); // Carrega e exibe os dados padrão
+            applyFiltersFromUrl(); // Aplica os filtros da URL, se existirem
     })
     .catch(error => { // Captura erros na requisição
         console.error('Erro ao buscar os dados:', error);
@@ -552,4 +552,39 @@ document.addEventListener('DOMContentLoaded', function() {
         const newUrl = `${window.location.pathname}?${params.toString()}`;
         window.history.pushState({path: newUrl }, '', newUrl);
     }
+
+    function applyFiltersFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+
+        // Sem valores iniciais, carrega os dados padrão
+        if (params.toString() === '') {
+            loadAndDisplayDefaultData();
+            return;
+        }
+
+        const tipo = params.get('tipo') || '';
+        const ano = params.get('ano') || '';
+        const categoria = params.get('categoria') || '';
+        const unidade = params.get('unidade') || '';
+        const keyword = params.get('keyword') || '';
+
+        filterTipoSelect.value = tipo
+        filterAnoSelect.value = ano;
+        filterCategoriaSelect.value = categoria;
+        filterUnidadeSelect.value = unidade;
+
+        // Se o campo de pesquisa por palavra-chave existir na busca, insere o seu valor no input
+        if (keywordSearchInput) {
+            keywordSearchInput.value = keyword; 
+            
+            // Se o campo de pesquisa por palavra-chave tiver um valor, exibe o botão 'X' para limpar a pesquisa
+            if (keyword && clearKeywordButton) {
+                clearKeywordButton.style.display = 'inline'; 
+            }
+            
+        }
+
+        applyFilters(); // Aplica os filtros com os valores obtidos da URL
+    }
+    
     });
