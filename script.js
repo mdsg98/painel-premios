@@ -153,27 +153,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const linkMateria = item['Link da Matéria']; // Usando o nome da sua variável original
             if (linkMateria && typeof linkMateria === 'string' && linkMateria.trim() !== "") {
                 // Divide a string de links pela vírgula, remove espaços extras de cada link, e filtra quaisquer strings vazias que possam surgir (ex: "link1,,link2")
-                const linksArray = linkMateria.split(',')
-                                      .map(link => link.trim())
-                                      .filter(link => link !== "");
+                const link = linkMateria.trim();
 
-                if (linksArray.length > 0) {
-                    // Inicia o parágrafo. Usa "Link(s)" para indicar que pode haver mais de um.
-                    detailsHTML += `<p>Link(s) da Matéria: `;
+                try {
+                    new URL(link); // Valida a URL
 
-                    linksArray.forEach((link, index) => {
-                        try {
-                            new URL(link); // Valida cada URL
-                            detailsHTML += `<a href="${link}" target="_blank" rel="noopener noreferrer">${link}</a>`;
-                            // Adiciona um separador (vírgula) entre os links, exceto para o último
-                            if (index < linksArray.length - 1) {
-                                detailsHTML += `, `;
-                            }
-                        } catch (_) {
-                            console.warn(`Link da Matéria (múltiplo) inválido [${index}] para '${item['Nome']}': ${link}`);
-                        }
-                    });
-                    detailsHTML += `</p>`; // Fecha o parágrafo
+                    detailsHTML += `
+                        <div class="link-materia-container">
+                            <div class="link-buttons-wrapper">
+                                <a href="${link}" target="_blank" rel="noopener noreferrer" class="link-materia-button">Ver Matéria</a>
+                            </div>
+                        </div>`;                  
+                } catch (_) {
+                    // Se a URL for inválida, exibe um aviso no console
+                    console.warn(`Link da Matéria inválido para: ${link}`);
                 }
             }
             
@@ -394,69 +387,91 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Event listener para o botão de busca
-    searchButton.addEventListener('click', function() {  
-    // Filtra os dados com base nos valores selecionados
-        const tipo = filterTipoSelect.value;
-        const ano = filterAnoSelect.value;
-        const categoria = filterCategoriaSelect.value;
-        const unidade = filterUnidadeSelect.value;
-        const keyword = keywordSearchInput ? keywordSearchInput.value.trim().toLowerCase() : ''; // Obtém o valor da pesquisa por palavra-chave
+    function applyFilters() {
+        // Esta parte está correta: a opacidade é aplicada imediatamente.
+        dataContainer.classList.add('loading-results');
 
-        const filteredData = allData.filter(item => {
-            const tipoMatch = tipo === '' || (item['Tipo'] && item['Tipo'] === tipo); // Verifica se o tipo é igual ao selecionado
-            const anoMatch = ano === '' || (item['Ano'] && String(item['Ano']) === String(ano)); // Verifica se o ano é igual ao selecionado
-            const categoriaMatch = categoria === '' || ( item['Categoria'] && item['Categoria'] === categoria); // Verifica se a categoria é igual ao selecionado
-            const unidadeMatch = unidade === '' || (item['Unidade'] && item['Unidade'] === unidade); // Verifica se a unidade é igual ao selecionado
-        
+        // A lógica de filtragem é agendada.
+        setTimeout(() => {
+            // ---> INÍCIO DA CORREÇÃO CRÍTICA <---
+            // As linhas abaixo PRECISAM estar DENTRO do setTimeout para que os valores
+            // sejam lidos no momento exato em que a filtragem vai acontecer.
+            const tipo = filterTipoSelect.value === 'Todos' ? '' : filterTipoSelect.value;
+            const ano = filterAnoSelect.value === 'Todos' ? '' : filterAnoSelect.value;
+            const categoria = filterCategoriaSelect.value === 'Todos' ? '' : filterCategoriaSelect.value;
+            const unidade = filterUnidadeSelect.value === 'Todos' ? '' : filterUnidadeSelect.value;
+            const keyword = keywordSearchInput ? keywordSearchInput.value.trim().toLowerCase() : '';
+            // ---> FIM DA CORREÇÃO CRÍTICA <---
 
-            let keywordMatch = true; // Inicializa a variável de correspondência de palavra-chave como verdadeira
-            if (keyword !== "") { // Se houver uma palavra-chave
-                const searchableText = `
-                    ${(item['Nome'] || '').toLowerCase()}
-                    ${(item['Descrição'] || '').toLowerCase()}
-                    ${(item['Tipo'] || '').toLowerCase()}
-                    ${(item['Categoria'] || '').toLowerCase()}
-                    ${(item['Unidade'] || '').toLowerCase()}
-                `;
-                keywordMatch = searchableText.includes(keyword); // Verifica se a palavra-chave está presente
-        }
-        return tipoMatch && anoMatch && categoriaMatch && unidadeMatch && keywordMatch; // Retorna verdadeiro se todas as condições forem atendidas
-    });       
-        // Aplicada a lógica da ordenação decrescente por ano
-        if (filteredData && filteredData.length > 0) {
-            filteredData.sort((a, b) => {
-                const anoA = parseInt(a['Cod'], 10); // Converte o código A para inteiro
-                const anoB = parseInt(b['Cod'], 10); // Converte o código B para inteiro
-
-                if (isNaN(codA) && isNaN(codB)) return 0; // Se ambos os códigos não forem números, retorna 0
-                if (isNaN(codA)) return 1; // Se o código A não for número, coloca B antes
-                if (isNaN(codB)) return -1; // Se o código B não for número, coloca A antes
-
-                return codB - codA; // Ordena em ordem decrescente
+            // Agora, a lógica de filtragem pode usar as variáveis acima, pois elas existem neste escopo.
+            const filteredData = allData.filter(item => {
+                const tipoMatch = tipo === '' || (item['Tipo'] && item['Tipo'] === tipo);
+                const anoMatch = ano === '' || (item['Ano'] && String(item['Ano']) === String(ano));
+                const categoriaMatch = categoria === '' || (item['Categoria'] && item['Categoria'] === categoria);
+                const unidadeMatch = unidade === '' || (item['Unidade'] && item['Unidade'] === unidade);
+                let keywordMatch = true;
+                if (keyword !== "") {
+                    const searchableText = `${(item['Nome do Prêmio'] || '').toLowerCase()} ${(item['Descrição'] || '').toLowerCase()}`;
+                    keywordMatch = searchableText.includes(keyword);
+                }
+                return tipoMatch && anoMatch && categoriaMatch && unidadeMatch && keywordMatch;
             });
-        }
-        updateSortDropdownState(); // Atualiza o estado da função dropdown de ordenação por ano
-        data = filteredData; // Atualiza os dados atuais com os dados filtrados
-        page = 1; // Reseta a página atual para 1
-        renderPage(data, page); // Renderiza a primeira página dos dados filtrados
-    });
+
+            if (filteredData.length > 0) {
+                filteredData.sort((a, b) => {
+                // Usando 'Cod' para corresponder à sua estrutura de dados
+                const codeA = parseInt(a['Cod'], 10);
+                const codeB = parseInt(b['Cod'], 10);
+                
+                // Tratamento para valores que não são números
+                if (isNaN(codeA) && isNaN(codeB)) return 0;
+                if (isNaN(codeA)) return 1;
+                if (isNaN(codeB)) return -1;
+                
+                // Retorna b - a para ordem decrescente (mais novo para mais velho)
+                return codeB - codeA; 
+                });
+            }
+
+            data = filteredData;
+            page = 1;
+            updateUrlWithFilters();
+            renderPage(data, page);
+
+            // Esta linha agora será alcançada, e a opacidade será removida.
+            dataContainer.classList.remove('loading-results');
+
+            lenis.scrollTo('#data-container', { duration: 1.5, offset: -20 });
+
+        }, 500); // Fim do setTimeout
+    }
+
+    searchButton.addEventListener('click', applyFilters);
 
     clearFiltersButton.addEventListener('click', () => {
-        filterTipoSelect.value = '';
-        filterAnoSelect.value = '';
-        filterCategoriaSelect.value = '';
-        filterUnidadeSelect.value = '';
-        keywordSearchInput.value = '';
+        dataContainer.classList.add('loading-results');
 
-        // Esconde o botão 'X' da barra de busca, se estiver visível
-        if (clearKeywordButton) {
-            clearKeywordButton.style.display = 'none';
-        }
+            setTimeout(() => {
+                filterTipoSelect.value = '';
+                filterAnoSelect.value = '';
+                filterCategoriaSelect.value = '';
+                filterUnidadeSelect.value = '';
+                keywordSearchInput.value = '';
 
-        // Carrega e exibe a lista de dados padrão (sem filtros)
-        loadAndDisplayDefaultData();
+                // Esconde o botão 'X' da barra de busca, se estiver visível
+                if (clearKeywordButton) {
+                    clearKeywordButton.style.display = 'none';
+                }
 
-        lenis.scrollTo(0, { duration: 2 }); // Rola suavemente para o topo da página
+                // Carrega e exibe a lista de dados padrão (sem filtros)
+                loadAndDisplayDefaultData();
+
+                window.history.pushState({}, '', window.location.pathname);
+
+                dataContainer.classList.remove('loading-results');
+
+                lenis.scrollTo(0, { duration: 1.5, offset: -20 });
+            }, 500);
     });
 
     // Event listener para o botão Página Anterior do rodapé
@@ -523,4 +538,18 @@ document.addEventListener('DOMContentLoaded', function() {
             searchButton.click(); // Simula um clique no botão de busca
         }
     });
+
+    // Função para carregar filtros na URL
+    function updateUrlWithFilters() {
+        const params = new URLSearchParams();
+
+        if (filterTipoSelect.value) params.set('tipo', filterTipoSelect.value);
+        if (filterAnoSelect.value) params.set('ano', filterAnoSelect.value); // Corrigido o nome da variável
+        if (filterCategoriaSelect.value) params.set('categoria', filterCategoriaSelect.value);
+        if (filterUnidadeSelect.value) params.set('unidade', filterUnidadeSelect.value);
+        if (keywordSearchInput.value) params.set('keyword', keywordSearchInput.value);
+
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        window.history.pushState({path: newUrl }, '', newUrl);
+    }
     });

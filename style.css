@@ -198,6 +198,17 @@ body {
 
     
     /* Estilos para o container dos resultados */
+
+    .loader {
+        border: 5px solid #f3f3f3; /* Cinza claro */
+        border-top: 5px solid #2596BE; /* Azul do tema */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: 50px auto; /* Centraliza o spinner */
+    }
+
     #data-container {
         display: flex; /* Usa flexbox para organizar os resultados */
         flex-direction: column; /* Empilha os resultados verticalmente */
@@ -205,6 +216,12 @@ body {
         max-width: 1200px; /* Define a largura máxima do container */
         margin: 0 auto; /* Centraliza o container horizontalmente */
     }
+
+    #data-container.loading-results {
+        opacity: 0.4; /* Deixa o container semitransparente */
+        transition: opacity 0.3s ease-in-out; /* Anima a mudança de opacidade */
+    }
+
 
     /* Estilos para o dropdown de ordenação */
     .sort-select-container {
@@ -244,7 +261,7 @@ body {
         z-index: 99; /* Para ficar sobre outros elementos */
         border: none; /* Sem borda */
         outline: none; /* Sem outline ao focar */
-        background-color: #808080; /* Cor de fundo (exemplo, igual aos botões de paginação) */
+        background-color: #808080; /* Cor de fundo */
         cursor: pointer; /* Cursor de mãozinha */
         border-radius: 5px; /* Torna o botão um círculo */
         width: 40px; /* Largura do botão */
@@ -276,7 +293,7 @@ body {
 
     /* Estilos para o container da paginação */
     .pagination-controls {
-        display: flex; /* Para centralizar a imagem */
+        display: none;
         align-items: center;
         justify-content: center;
         gap: 15px; /* Espaçamento entre os elementos (botões e texto) */
@@ -287,7 +304,7 @@ body {
     }
 
     .pagination-controls button {
-        background-color: #333; /* Cor de fundo dos círculos (cinza escuro da imagem) */
+        background-color: #2596BE; /* Cor de fundo dos círculos (cinza escuro da imagem) */
         border: none; /* Remove a borda padrão do botão */
         border-radius: 50%; /* Torna o botão em um círculo perfeito */
         width: 30px; /* Largura do círculo */
@@ -313,7 +330,7 @@ body {
     }
 
     .pagination-controls button:hover:not(:disabled) {
-        background-color: #2596BE; /* Cor de fundo ao passar o mouse */
+        background-color: #1a6f91; /* Cor de fundo ao passar o mouse */
     }
 
     .pagination-controls button:disabled {
@@ -333,8 +350,7 @@ body {
     /* Estilos para cada item de resultado */
     .item {
         background-color: #fff; /* Define a cor de fundo do item */
-        border: 1px solid #048cb4; /* Define a borda do item */
-        border-right: 1px solid #048cb4; /* Adiciona borda direita */
+        border: 1px solid #c0c0c0; /* Define a borda do item */
         padding: 20px; /* Adiciona espaço interno ao item */
         border-radius: 8px; /* Arredonda os cantos do item */
         margin-bottom: 15px; /* Adiciona espaço abaixo do item */
@@ -342,6 +358,44 @@ body {
         width:100%; /* Faz o item ocupar toda a largura do container */
         align-items: flex-start; /* Alinha o conteúdo à esquerda dentro do item */
     }
+
+    /* Estilos para o botão de Ver Matéria */
+    .link-materia-container {
+        margin-top: 15px;
+    }
+
+    .link-buttons-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Espaço entre os botões, caso haja mais de um */
+        margin-top: 8px;
+    }
+
+    .link-materia-button {
+        display: inline-block;
+        background-color: #2596BE; /* Cor de fundo igual ao botão de pesquisa */
+        color: #fff;              /* Texto branco */
+        padding: 8px 16px;         /* Espaçamento interno para dar tamanho ao botão */
+        border-radius: 5px;        /* Cantos arredondados */
+        border: none;
+        font-family: 'Inter', sans-serif;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;     /* Remove o sublinhado padrão do link */
+        cursor: pointer;
+        transition: background-color 0.3s ease; /* Transição suave */
+    }
+        
+    .item-details a {
+        color: #fff;
+        font-weight: 500; /* Deixa a fonte um pouco mais forte */
+    }
+
+    .link-materia-button:hover {
+        background-color: #1a6f91;
+    }
+
+
     /* os Keyframes são responsavel pela animação, do ".item" e do c-indicador */
    
      /* keyframes, faz a animação da barra de rolagem da pagina. */
@@ -351,6 +405,15 @@ body {
         }
         to{
             scale:1 1;
+        }
+    }
+
+    @keyframes spin {
+       0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
         }
     }
 
