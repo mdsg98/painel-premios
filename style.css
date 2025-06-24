@@ -6,692 +6,567 @@
    --scroll-height:5px; 
 }
 body {
-    font-family: sans-serif; /* Define a fonte padrão para a página */
-    background-color: #eee; /* Define a cor de fundo da página */
-    margin: 0;  /* Remove a margem padrão do navegador */
-    padding: 0; /* Garante que não há preenchimento no body */
-    }
+    font-family: sans-serif;
+    background-color: #eee;
+    margin: 0;
+    padding: 0;
+}
 
-    .header {
-        padding-top: 35px;
-        background-color: #fff;
-        width: 100%; 
-        padding-bottom: 35px;
-    }
+.header {
+    padding-top: 35px;
+    background-color: #fff;
+    width: 100%; 
+    padding-bottom: 35px;
+}
 
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+    padding: 0 20px;
+}
+
+#header-left-logo {
+    width: 150px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+.header-content h1{
+    color: #2596BE;
+    font-size: 50px;
+    text-align: center;
+    line-height: 1.2;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    margin: 0 30px;
+    flex-grow: 1;
+}
+
+#header-right-logo {
+    width: 150px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+/* Estilos para o container dos filtros */
+.filter-wrapper{
+    background-color:#2596BE;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content:center;
+    padding: 13px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+}
+
+.filter-wrapper label {
+    font-weight: bold;
+}
+
+.filter-wrapper select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-width: 150px;
+}
+
+.search-sort-bar {
+    background-color: #eee;
+    padding: 1.5rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.keyword-search-container {
+    display: flex;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 9999px;
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.input-with-clear-container {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#keyword-search {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #374151;
+    width: 100%;
+    padding-right: 35px;
+    text-align: center;
+}
+
+#keyword-search:focus::placeholder {
+    color: transparent;
+}
+
+.clear-keyword-icon {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: #999;
+    display: none;
+    line-height: 1;
+}
+
+.clear-keyword-icon:hover {
+    color: #333;
+}
+    
+#search-button{
+    background-color: #2596BE;
+    border: none;
+    cursor: pointer;
+    width: 60px;
+    height: 38px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#search-button:hover {
+    background-color: #1a6f91;
+}
+
+#search-button img {
+    width: 22px;
+    height: 22px;
+    filter: brightness(0) invert(1);
+    display: block;
+    margin: 0;
+}
+
+#clear-filters-button{
+    background-color: #fff;
+    color: #2596BE;
+    border: 1px solid #d1d5db;
+    border-radius: 9999px;
+    padding: 10px 8px 10px 20px;
+    font-weight: bold;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 30px;
+    font-family: 'Inter', sans-serif;
+}
+
+#clear-filters-button img {
+    width: 37px;
+    height: 22px;
+}
+
+#clear-filters-button:hover:not(:disabled) {
+    background-color: #C8C8C8;
+}
+
+/* Estilos para o loader */
+.loader {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: rotate 1s linear infinite;
+    position: relative;
+    margin: 50px auto; /* Centraliza o spinner */
+}
+
+.loader::before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 5px solid #2596BE;
+    animation: prixClipFix 2s linear infinite ;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes prixClipFix {
+    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+    25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+    75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
+    100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+}
+
+
+/* Estilos para o container dos resultados */
+#data-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#data-container.loading-results {
+    opacity: 0.4;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#sort-order-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    min-width: 220px;
+}
+
+/* Estilos para o botão de voltar ao topo */
+#back-to-top-button {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #808080;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: background-color 0.6s ease, opacity 0.6s ease;
+}
+
+#back-to-top-button.show {
+    opacity: 0.5;
+    pointer-events: auto;
+}
+
+#back-to-top-button img {
+    width: 10.2px;
+    height: 6px;
+    filter: brightness(0) invert(1);
+}
+
+#back-to-top-button:hover {
+    background-color: #1a6f91;
+    opacity: 1;
+}
+
+/* Estilos para o container da paginação */
+.pagination-controls {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px 0;
+    font-family: 'Inter', sans-serif; 
+    user-select: none;
+}
+
+.pagination-controls button {
+    background-color: #2596BE;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 0;
+}
+
+.pagination-controls button img {
+    width: 7px;
+    height: 12px;
+    filter: invert(100%);
+    display: block;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background-color: #1a6f91;
+}
+
+.pagination-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.pagination-controls span {
+    font-size: 16px;
+}
+
+/* --- NOVOS ESTILOS PARA O LAYOUT DOS RESULTADOS --- */
+.item {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+    background-color: #fdfdfd;
+    text-align: left;
+    margin-bottom: 25px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+}
+
+.item-image-column {
+    flex: 0 0 250px;
+    width: 250px;
+    height: 250px;
+}
+
+.item-image-column img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    background-color: #e0e0e0;
+}
+
+.item-content-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
+}
+
+h2.item-title {
+    text-align: left;
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #2596BE;
+    line-height: 1.2;
+}
+
+p.item-description {
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #555;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+.item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.tag {
+    display: inline-block;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 15px;
+    color: #fff;
+    text-transform: uppercase;
+    cursor: pointer; /* << ADICIONE: Mostra que o elemento é clicável */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* << ADICIONE: Para o efeito hover */
+}
+
+.tag:hover {
+    transform: translateY(-2px); /* Eleva um pouco a tag */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
+}
+
+.tag-ano { background-color: #808080; }
+.tag-tipo { background-color: #2596BE; }
+.tag-categoria { background-color: #2ca58d; }
+.tag-unidade { background-color: #e88b39; }
+
+.link-materia-button {
+    display: inline-block;
+    background-color: #333;
+    color: #fff !important;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold !important;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.link-materia-button:hover {
+    background-color: #555;
+    color: #fff !important;
+}
+
+.sort-order-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    width: auto;
+}
+
+/* ESTILOS DO RODAPÉ */
+footer {
+    background-color: #808080;
+    color: #fff;
+    padding: 40px 0 0;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.footer-box {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-logo{
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-box h3 {
+    margin-bottom: 15px;
+}
+
+.footer-box ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.footer-box ul li {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 300;
+}
+
+.footer-box ul li img {
+    width: 20px;
+    vertical-align: middle;
+}
+
+.seidi {
+    width: 100%;
+    background-color: #5a5a5a;
+    color: #fff;
+    padding: 8px 0;
+    text-align: center;
+    font-size: 13px;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 800px) {
     .header-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        min-height: 100px;
-        padding: 0 20px;
-        gap: 30px;
-    }
-    
-    #header-left-logo {
-        width: 150px;
-        height: auto;
-    }
-
-    .titulo {
-        width: 100%;
-        display: flex;
-        justify-content: center; /* Centraliza o H1 e a imagem horizontalmente */
-        align-items: center;     /* Alinha ambos verticalmente */
-        gap: 30px;               /* Espaço entre o título e a imagem da direita */
-    }
-
-    .header-content h1{
-        color: #2596BE;
-        font-size: 50px;
-        text-align: center;
-        line-height: 1.2;
-        font-family: 'Inter', sans-serif;
-        font-weight: 700;
-        margin: 0;
-        flex-grow: 1;
-
-    }
-
-    #header-right-logo {
-        width: 150px;
-        height: auto;
-    }
-
-
-    
-    /* Estilos para o container dos filtros */
-    .filter-wrapper{
-        background-color:#2596BE;
-        display: flex; /* Usa flexbox para organizar os elementos */
-        flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha */
-        gap: 20px; /* Adiciona espaço entre os elementos */
-        align-items: center; /* Alinha os elementos verticalmente */
-        justify-content:center;/* centraliza todos os elementos*/
-        padding: 13px;
-        color: #fff;
-        font-family: 'Inter', sans-serif;
-        font-weight: 700;
-    }
-    
-    .filter-wrapper label {
-        font-weight: bold; /* Deixa o texto das labels em negrito */
-    }
-    
-    .filter-wrapper select {
-        padding: 8px; /* Adiciona espaço interno aos selects */
-        border: 1px solid #ccc; /* Define a borda dos selects */
-        border-radius: 5px; /* Arredonda os cantos dos selects */
-        min-width: 150px; /* Define a largura mínima dos selects */
-    }
-
-    .keyword-search-container {
-        display: flex;
-        align-items: center;
-        max-width: 600px;
-        width: 100%;
-        border: 1px solid #d1d5db; /* Borda cinza clara e sutil */
-        border-radius: 9999px;     /* Borda totalmente arredondada */
-        background-color: #fff;    /* Fundo branco para a área do input */
-        overflow: hidden;          /* ESSENCIAL: corta os cantos dos elementos filhos */
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    .input-with-clear-container {
-        flex-grow: 1; /* Faz com que esta área ocupe o máximo de espaço possível */
-        display: flex;
-        align-items: center;
-        position: relative;
-    }
-
-    #keyword-search {
-        border: none; /* Remove a borda padrão */
-        outline: none; /* Remove a borda azul ao focar */
-        background: transparent; /* Fundo transparente para mostrar o do contêiner */
-        padding: 0.5rem 1rem; /* Espaçamento interno (vertical e horizontal) */
-        font-size: 1rem;
-        color: #374151;
-        width: 100%;
-        padding-right: 35px;  /* Remove o padding direito para não interferir com o botão 'x' */
-        text-align: center;
-    }
-
-    #keyword-search::placeholder {
-        color: #9ca3af;
-        opacity: 1;
-    }
-
-    #keyword-search:focus::placeholder {
-        color: transparent;
-        transition: color 0.2s ease-out;
-    }
-       
-    /* Estilo para o ícone/botão de limpar 'X' */
-    .clear-keyword-icon {
-        position: absolute; /* Posicionamento absoluto em relação ao .input-with-clear-container */
-        right: 8px; /* Distância da borda direita do input */
-        top: 50%; /* Centraliza verticalmente */
-        transform: translateY(-50%); /* Ajuste fino para centralização vertical perfeita */
-        cursor: pointer;
-        font-size: 20px; /* Tamanho do '×' */
-        color: #999; /* Cor do '×' */
-        display: none; /* Começa escondido, JS mostra quando há texto */
-        line-height: 1; /* Para melhor controle vertical do caractere '×' */
-    }
-
-    .clear-keyword-icon:hover {
-        color: #333; /* Cor do '×' ao passar o mouse */
-    }
-
-    
-    /* Estilos para os botões de busca*/
-    #search-button{
-        background-color: #2596BE;
-        border: none;
-        cursor: pointer;
-        width: 60px;  /* Largura fixa para o botão */
-        height: 38px; /* A altura deve ser a mesma do campo de busca */
-        padding: 0;   /* Remove qualquer espaçamento interno que possa atrapalhar */
-        display: flex;
-        align-items: center;      /* Alinha o item na vertical (no meio) */
-        justify-content: center;  /* Alinha o item na horizontal (no meio) */
-    }
-
-    #clear-filters-button{
-        background-color: #fff;
-        color: #2596BE;
-        border: 1px solid #d1d5db;
-        border-radius: 9999px;
-        padding: 10px 8px 10px 20px;
-        font-weight: bold;
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin-left: 30px;
-        font-family: 'Inter', sans-serif;
-    }
-
-    #search-button:hover {
-        background-color: #1a6f91; /* Muda a cor de fundo ao passar o mouse sobre o botão de busca */
-    }
-
-    #search-button img {
-        width: 22px;
-        height: 22px;
-        filter: brightness(0) invert(1); /* Transforma o ícone em branco */
-        display: block; /* Remove espaço extra abaixo da imagem */
-        margin: 0; /* Remove margens para evitar deslocamento */
-    }
-
-    #clear-filters-button img {
-        width: 37px; /* Tamanho do ícone de limpar filtros */
-        height: 22px; /* Tamanho do ícone de limpar filtros */
-    }
-
-    #clear-filters-button:hover:not(:disabled) {
-        background-color: #C8C8C8; /* Muda a cor de fundo ao passar o mouse sobre o botão de limpar filtros */
-    }
-
-    
-    /* Estilos para o container dos resultados */
-
-    .loader {
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        animation: rotate 1s linear infinite;
-        position: relative;
-        margin: 50px auto; /* Centraliza o spinner */
-    }
-
-    .loader::before {
-        content: "";
-        box-sizing: border-box;
-        position: absolute;
-        inset: 0px;
-        border-radius: 50%;
-        border: 5px solid #2596BE;
-        animation: prixClipFix 2s linear infinite ;
-    }
-
-    #data-container {
-        display: flex; /* Usa flexbox para organizar os resultados */
-        flex-direction: column; /* Empilha os resultados verticalmente */
-        gap: 15px; /* Adiciona espaço entre os resultados */
-        max-width: 1200px; /* Define a largura máxima do container */
-        margin: 0 auto; /* Centraliza o container horizontalmente */
-    }
-
-    #data-container.loading-results {
-        opacity: 0.4; /* Deixa o container semitransparente */
-        transition: opacity 0.3s ease-in-out; /* Anima a mudança de opacidade */
-    }
-
-
-    /* Estilos para o dropdown de ordenação */
-    .sort-select-container {
-        display: none; /* Começa escondido, JS controla a visibilidade */
-        margin: 0 5px; /* Espaçamento similar aos antigos botões de imagem */
-    }
-
-    #sort-order-select {
-        padding: 8px 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #fff;
-        cursor: pointer;
-        font-size: 1em; /* Ajuste conforme o tamanho dos outros filtros */
-        min-width: 220px; /* Largura mínima para acomodar o texto das opções */
-        margin-right: 16px; /* Espaçamento à direita para não colar o seletor de ordenação*/
-    }
-
-    #sort-order-select:focus {
-        outline: none;
-        border-color: #2596BE; /* Destaque ao focar */
-        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); /* Sombra ao focar */
-    }
-
-    .sort-icon {
-        width: 18px;
-        height: 18px;
-        display: block; /* Para garantir que a imagem não tenha espaço extra */
-    }
-
-    /* Estilos para o botão de voltar ao topo */
-    #back-to-top-button {
-        display: none; /* Inicialmente escondido */
-        position: fixed; /* Posição fixa na tela */
-        bottom: 20px; /* Distância do rodapé */
-        right: 30px; /* Distância da direita */
-        z-index: 99; /* Para ficar sobre outros elementos */
-        border: none; /* Sem borda */
-        outline: none; /* Sem outline ao focar */
-        background-color: #808080; /* Cor de fundo */
-        cursor: pointer; /* Cursor de mãozinha */
-        border-radius: 5px; /* Torna o botão um círculo */
-        width: 40px; /* Largura do botão */
-        height: 40px; /* Altura do botão */
-        display: flex; /* Para centralizar a imagem */
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra suave */
-        opacity: 0;
-        pointer-events: none;
-        transition: background-color 0.6s ease, opacity 0.6s ease; /* Transições suaves */
-    }
-
-    #back-to-top-button.show {
-        opacity: 0.5; /* Torna o botão semi-transparente, como no seu estilo original */
-        pointer-events: auto; /* Torna o botão visível e clicável */
-    }
-
-    #back-to-top-button img {
-        width: 10.2px; /* Ajuste o tamanho da imagem conforme necessário */
-        height: 6px;
-        filter: brightness(0) invert(1); /* Isso transformará a imagem preta em branca */
-    }
-
-    #back-to-top-button:hover {
-        background-color: #1a6f91; /* Cor de fundo ao passar o mouse */
-        opacity: 1;
-    }
-
-    /* Estilos para o container da paginação */
-    .pagination-controls {
-        display: none;
-        align-items: center;
-        justify-content: center;
-        gap: 15px; /* Espaçamento entre os elementos (botões e texto) */
-        padding: 20px 0; /* Espaçamento interno superior e inferior */
-        border: none; /* Remova a borda que estava aqui, ela irá para os botões */
-        font-family: 'Inter', sans-serif; 
-        user-select: none; /* Impede seleção de texto nos botões e texto */
-    }
-
-    .pagination-controls button {
-        background-color: #2596BE; /* Cor de fundo dos círculos (cinza escuro da imagem) */
-        border: none; /* Remove a borda padrão do botão */
-        border-radius: 50%; /* Torna o botão em um círculo perfeito */
-        width: 30px; /* Largura do círculo */
-        height: 30px; /* Altura do círculo */
-        
-        /* Para centralizar a imagem da seta dentro do círculo */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        
-        cursor: pointer;
-        transition: background-color 0.3s ease; /* Transição suave na cor de fundo ao hover */
-        padding: 0; /* Remove padding padrão do botão para manter o formato circular */
-
-    }
-
-    .pagination-controls button img {
-        width: 7px; /* Tamanho da seta dentro do círculo */
-        height: 12px;
-        filter: invert(100%); /* Torna a seta branca se o ícone original for preto */
-        display: block; /* Garante que a imagem não tenha espaço extra abaixo */
-
-    }
-
-    .pagination-controls button:hover:not(:disabled) {
-        background-color: #1a6f91; /* Cor de fundo ao passar o mouse */
-    }
-
-    .pagination-controls button:disabled {
-        background-color: #ccc; /* Define a cor de fundo dos botões desativados */
-        cursor: not-allowed; /* Muda o cursor para indicar que o botão está desativado */
-        opacity: 0.6; /* Deixa ele um pouco transparente */
-    }
-
-    .pagination-controls button:active {
-        background-color: #6AC5E4;
-    }
-
-    .pagination-controls span {
-        font-size: 16px; /* Define o tamanho da fonte do texto de informações da página */
-    }
-    
-    /* Estilos para cada item de resultado */
-    .item {
-        background-color: #fff; /* Define a cor de fundo do item */
-        border: 1px solid #c0c0c0; /* Define a borda do item */
-        padding: 20px; /* Adiciona espaço interno ao item */
-        border-radius: 8px; /* Arredonda os cantos do item */
-        margin-bottom: 15px; /* Adiciona espaço abaixo do item */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave */
-        width:100%; /* Faz o item ocupar toda a largura do container */
-        align-items: flex-start; /* Alinha o conteúdo à esquerda dentro do item */
-    }
-
-    /* Estilos para o botão de Ver Matéria */
-    .link-materia-container {
-        margin-top: 15px;
-    }
-
-    .link-buttons-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px; /* Espaço entre os botões, caso haja mais de um */
-        margin-top: 8px;
-    }
-
-    .link-materia-button {
-        display: inline-block;
-        background-color: #2596BE; /* Cor de fundo igual ao botão de pesquisa */
-        color: #fff;              /* Texto branco */
-        padding: 8px 16px;         /* Espaçamento interno para dar tamanho ao botão */
-        border-radius: 5px;        /* Cantos arredondados */
-        border: none;
-        font-family: 'Inter', sans-serif;
-        font-weight: bold;
-        text-align: center;
-        text-decoration: none;     /* Remove o sublinhado padrão do link */
-        cursor: pointer;
-        transition: background-color 0.3s ease; /* Transição suave */
-    }
-        
-    .item-details a {
-        color: #fff;
-        font-weight: 500; /* Deixa a fonte um pouco mais forte */
-    }
-
-    .link-materia-button:hover {
-        background-color: #1a6f91;
-    }
-
-
-    /* os Keyframes são responsavel pela animação, do ".item" e do c-indicador */
-   
-     /* keyframes, faz a animação da barra de rolagem da pagina. */
-    @keyframes scroll{
-        from{
-            scale:0 1;
-        }
-        to{
-            scale:1 1;
-        }
-    }
-
-    @keyframes rotate {
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    @keyframes prixClipFix {
-        0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
-        25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
-        50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
-        75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
-        100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
-    }
-
-    
-    .c-indicador{   /*o Indicador é o nome da div criada para fazer a barra de rolagem lateral*/
-       animation:scroll 1ms ease-in-out; 
-       animation-timeline:scroll();
-       background-color:#048cb4;
-       transform-origin:left;
-       height:10px;
-       inset:0;
-       position:fixed;
-       border-radius:2px;
-       height:var(--scroll-height); 
-    }
-    
-    /* Estilos para o título do item */
-    .item h2 {
-    text-align: center; /* Centraliza o título */
-    font-size: 1.5em; /* Define o tamanho da fonte do título */
-    margin-bottom: 40px; /* Adiciona espaço abaixo do título */
-    width: 100%; /* Faz o título ocupar toda a largura do item */
-    }
-    
-    /* Estilos para o container da imagem e detalhes */
-    .item-content {
-    display: flex; /* Usa flexbox para organizar a imagem e os detalhes */
-    width: 100%; /* Faz o container ocupar toda a largura do item */
-    align-items: center; /* Alinha a imagem e os detalhes verticalmente */
-    }
-    
-    /* Estilos para a imagem */
-    .item-image {
-    flex: 0 0 150px; /* Define a largura fixa da imagem */
-    margin-right: 20px; /* Adiciona espaço à direita da imagem */
-    }
-    
-    .item-image img {
-    max-width: 100%; /* Faz a imagem ocupar toda a largura do container */
-    height: auto; /* Mantém a proporção da imagem */
-    display: block; /* Remove espaço extra abaixo da imagem */
-    }
-    
-    /* Estilos para os detalhes do item */
-    .item-details p {
-    margin: 5px 0; /* Adiciona espaço acima e abaixo dos parágrafos */
-    }
-    
-    .item-details p strong {
-    font-weight: bold; /* Deixa o texto em negrito */
-    }
-    
-    /* Estilos para a descrição do item */
-    .item-description {
-    text-align: justify; /* Justifica o texto */
-    margin-top: 40px; /* Adiciona espaço acima da descrição */
-    width: 100%; /* Faz a descrição ocupar toda a largura do item */
-    }
-
-    .sort-order-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin: 0;
-        width: auto;
-    }
-
-    .search-sort-bar {
-        background-color: #eee;
-        padding: 1.5rem 1rem; /* Espaçamento vertical e horizontal */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* ESTILOS DO RODAPÉ */
-    /* Reset básico para listas e links do rodapé */
-    li {
-        list-style: none;
-    }
-
-    a {
-        text-decoration: none;
-        color: #fff;
-    }
-
-    /* Container principal usado no rodapé */
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    /* Estilo do rodapé principal */
-    footer {
-        background-color: #808080;
-        color: #fff;
-        padding: 40px 0 0;
-        margin-top: 50px;
-    }
-
-    /* Conteúdo dividido em colunas */
-    .footer-content {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 20px;
     }
-
-    /* Cada coluna */
-    .footer-box {
-        flex: 1;
-        min-width: 250px;
+    .header-content h1 {
+        font-size: 28px;
     }
-
-    .footer-logo{
-        flex: 1;
-        min-width: 250px;
-    }
-
-    .footer-logo img {
-        width: 120px;
-        vertical-align: middle;
-        margin-right: 10px;
-    }
-
-    .footer-box img {
-        width: 20px;
-        vertical-align: middle;
-        margin-right: 10px;
-    }
-
-    .footer-box h3 {
-        margin-bottom: 15px;
-        color: #fff;
-    }
-
-    .footer-box p {
-        color: #fff;
-        max-width: 300px;
-        line-height: 1.5;
-    }
-
-    .footer-box ul li {
-        margin: 10px 0;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: #fff;
-        font-weight: 300;
-    }
-
-    /* Rodapé final com copyright */
-    .seidi {
-        width: 100%;
-        background-color: #5a5a5a;
-        color: #fff;
-        padding: 8px 0;
-        text-align: center;
-        font-size: 13px;
-    }
-
-    /* RESPONSIVIDADE */
-
-    @media (max-width: 800px) {
-
-    /* 1. Ajuste do Cabeçalho */
-    .titulo h1 {
-        font-size: 28px; /* Diminui o tamanho da fonte do título principal */
-        letter-spacing: 2px; /* Reduz o espaçamento entre as letras */
-    }
-
-    /* 2. Ajuste da Barra de Pesquisa */
     .search-sort-bar {
-        flex-direction: column; /* Empilha os itens verticalmente */
-        gap: 20px; /* Adiciona um espaço entre a busca e o botão de limpar */
+        flex-direction: column;
+        gap: 20px;
         padding: 1.5rem 1rem;
     }
-
     #clear-filters-button {
-        margin-left: 0; /* Remove a margem que empurrava o botão para a direita */
+        margin-left: 0;
     }
-
-    /* 3. Ajuste da Barra de Filtros */
     .filter-wrapper {
-        flex-direction: column; /* Empilha os filtros verticalmente */
-        align-items: stretch;   /* Faz cada filtro ocupar a largura total */
+        flex-direction: column;
+        align-items: stretch;
         gap: 20px;
     }
-
     .filter-item {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 8px;
     }
-
-    .filter-wrapper label {
-        text-align: center; /* Centraliza o texto das labels */
-    }
-
     .filter-wrapper select, 
     .sort-order-wrapper select {
-        width: 100%; /* Faz os seletores ocuparem toda a largura */
-        min-width: 0; /* Remove a largura mínima para permitir o ajuste */
+        width: 100%;
+        min-width: 0;
     }
-
     .sort-order-wrapper {
-        flex-direction: column; /* Também empilha o label e o select da ordenação */
+        flex-direction: column;
         gap: 8px;
     }
 
-
-    /* 4. Ajuste dos Cards de Resultado */
+    /* Ajuste dos Cards de Resultado */
     .item {
-        padding: 15px; /* Reduz o espaçamento interno dos cards */
+        flex-direction: column;
+        align-items: center;
     }
-
-    .item h2 {
-        font-size: 1.2em; /* Diminui a fonte do título do prêmio */
-        margin-bottom: 20px;
+    .item-image-column {
+        width: 100%;
+        height: 200px;
     }
-
-    .item-content {
-        flex-direction: column; /* Empilha a imagem e os detalhes */
-        align-items: center;    /* Centraliza os itens empilhados */
+    .item-content-column {
+        min-height: auto;
+        height: auto;
+        width: 100%;
     }
-
-    .item-image {
-        flex-basis: auto; /* Permite que a base da imagem seja automática */
-        margin-right: 0; /* Remove a margem direita da imagem */
-        margin-bottom: 20px; /* Adiciona uma margem abaixo da imagem */
-        max-width: 200px; /* Define uma largura máxima para a imagem no modo mobile */
-    }
-
     .item-description {
-        margin-top: 20px; /* Reduz a margem acima da descrição */
+        -webkit-line-clamp: 10; /* Permite mais linhas em telas menores */
     }
 
-    footer {
-        margin-top: 30px; /* Reduz o espaço acima do rodapé em telas pequenas */
-    }
-
+    /* Rodapé */
     .footer-content {
-        flex-direction: column; /* Empilha as colunas verticalmente */
-        align-items: center;    /* Centraliza as colunas empilhadas */
-        gap: 40px;              /* Aumenta o espaço vertical entre as colunas */
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
     }
-
     .footer-box, .footer-logo {
-        text-align: center; /* Centraliza todo o texto dentro de cada coluna */
+        text-align: center;
     }
-
-    .footer-logo img {
-        width: 100px; /* Reduz o tamanho do logo da UFMS no rodapé */
-        margin: 0 0 10px 0; /* Centraliza o logo e adiciona margem abaixo */
-    }
-    
     .footer-box ul {
-        padding: 0; /* Remove o preenchimento padrão da lista */
+        padding: 0;
     }
-
     .footer-box ul li {
-        justify-content: center; /* Centraliza o ícone e o texto do contato */
+        justify-content: center;
     }
-
 }

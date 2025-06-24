@@ -16,72 +16,67 @@
         </div>        
     </div>
 
-        <!--Implementação da funcionalidade de filtros-->
-        <div class="filter-container">
-            <div class="filter-wrapper" id="filter-wrapper">
-                <div class="filter-item">
-                    <label for="filter-tipo">Tipo</label>
-                    <select id="filter-tipo">
-                        <option value="">Todos</option>
-                    </select>
-                </div>
+    <div class="filter-container">
+        <div class="filter-wrapper" id="filter-wrapper">
+            <div class="filter-item">
+                <label for="filter-tipo">Tipo</label>
+                <select id="filter-tipo">
+                    <option value="">Todos</option>
+                </select>
+            </div>
 
-                <div class="filter-item">
-                    <label for="filter-ano">Ano</label>
-                    <select id="filter-ano">
-                        <option value="">Todos</option>
-                    </select>
-                </div>
+            <div class="filter-item">
+                <label for="filter-ano">Ano</label>
+                <select id="filter-ano">
+                    <option value="">Todos</option>
+                </select>
+            </div>
 
-                <div class="filter-item">
-                    <label for="filter-categoria">Categoria</label>
-                    <select id="filter-categoria">
-                        <option value="">Todos</option>
-                    </select>
-                </div>
+            <div class="filter-item">
+                <label for="filter-categoria">Categoria</label>
+                <select id="filter-categoria">
+                    <option value="">Todos</option>
+                </select>
+            </div>
 
-                <div class="filter-item">
-                    <label for="filter-unidade">Unidade</label>
-                    <select id="filter-unidade">
-                        <option value="">Todos</option>
-                    </select>
-                </div>
+            <div class="filter-item">
+                <label for="filter-unidade">Unidade</label>
+                <select id="filter-unidade">
+                    <option value="">Todos</option>
+                </select>
+            </div>
 
-                <div class="filter-item">
-                    <div class="sort-order-wrapper">
-                        <label for="sort-order-select">Ordenar</label>
-                        <select id="sort-order-select">
-                            <option value="desc">Mais Novo</option>
-                            <option value="asc">Mais Antigo</option>
-                        </select>
-                    </div>
+            <div class="filter-item">
+                <div class="sort-order-wrapper">
+                    <label for="sort-order-select">Ordenar</label>
+                    <select id="sort-order-select">
+                        <option value="desc">Mais Novo</option>
+                        <option value="asc">Mais Antigo</option>
+                    </select>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="search-sort-bar">
-        <!--Implementação da funcionalidade de pesquisa por palavra-chave, com funcionalidade de apagar-->
-            <div class="keyword-search-container">
-                <div class="input-with-clear-container">
-                    <input type="text" id="keyword-search" placeholder="Digite para buscar...">
-                    <span id="clear-keyword-button" class="clear-keyword-icon" title="Limpar pesquisa">&times;</span>
-                </div>
-                <button id="search-button">
-                    <img src="images/Magnifier.png" alt="Buscar Resultados">
-                </button>
+    <div class="search-sort-bar">
+    <div class="keyword-search-container">
+            <div class="input-with-clear-container">
+                <input type="text" id="keyword-search" placeholder="Digite para buscar...">
+                <span id="clear-keyword-button" class="clear-keyword-icon" title="Limpar pesquisa">&times;</span>
             </div>
-            <button id="clear-filters-button">LIMPAR FILTROS
-                <img src="images/Clear-icon-bold.png" alt="Limpar Filtros">
+            <button id="search-button">
+                <img src="images/Magnifier.png" alt="Buscar Resultados">
             </button>
         </div>
+        <button id="clear-filters-button">LIMPAR FILTROS
+            <img src="images/Clear-icon-bold.png" alt="Limpar Filtros">
+        </button>
+    </div>
 
-            <!--Implementação de botão para voltar ao início-->
-            <button id="back-to-top-button" title="Voltar ao topo">
-                <img src="images/Back-to-top-icon.png" alt="Voltar ao Topo">
-            </button>
-        </div>
+    <button id="back-to-top-button" title="Voltar ao topo">
+        <img src="images/Back-to-top-icon.png" alt="Voltar ao Topo">
+    </button>
 
-    <!--Implementação de funcionaliadade de paginação na parte superior (topo) dos resultados-->
     <div id="pagination-container-top" class="pagination-controls">
         <button id="prev-page-button-top">
             <img src="images/Backward-icon.png" alt="Página Anterior">
@@ -92,54 +87,49 @@
         </button>
     </div>
     
-    <!-- Implementação da funcionalidade de mostrar resultados da pesquisa-->
     <div id="data-container">
-        <div class="loader" id="loading-spinner"></div>
-    </div>
+        </div>
 
-    <!--Implementação da funcionalidade de paginação na parte inferior (rodapé) dos resultados-->
     <div id="pagination-container" class="pagination-controls">
         <button id="prev-page-button">
             <img src="images/Backward-icon.png" alt="Página Anterior">
         </button>
         <span id="page-info"></span>
         <button id="next-page-button">
-            <img src="images/Forward-icon.png" alt="Página Anterior">
+            <img src="images/Forward-icon.png" alt="Próxima Página">
         </button>
     </div>
 
-    <div class="c-indicador"></div><!--Classe criada para fazer a barra de rolagem lateral-->
+    <div class="loader" id="loading-spinner"></div>
 
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <div class="c-indicador"></div><script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
     <script src="script.js"></script>
 
     <footer>
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <p>Caso deseje que seu prêmio seja divulgado neste espaço, solicitamos que o encaminhe por meio do SIGProj</p>
-            </div>
-
-            <div class="footer-box">
-                <h3>Links</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Sigproj</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-box">
-                <h3>Contatos</h3>
-                <ul>
-                    <li><img src="images/endereco.png" alt="Endereço">Av. Costa & Silva,Cidade Universitaria Campo Grande-MS cep:79070-900</li>
-                    <li><img src="images/telefone.png" alt="Telefone">(67)3345-7821</li>
-                    <li><img src="images/email.png" alt="Email">seidi.diavi@ufms.br</li>
-                </ul>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <p>Caso deseje que seu prêmio seja divulgado neste espaço, solicitamos que o encaminhe por meio do SIGProj</p>
+                </div>
+                <div class="footer-box">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Sigproj</a></li>
+                    </ul>
+                </div>
+                <div class="footer-box">
+                    <h3>Contatos</h3>
+                    <ul>
+                        <li><img src="images/endereco.png" alt="Endereço">Av. Costa & Silva,Cidade Universitaria Campo Grande-MS cep:79070-900</li>
+                        <li><img src="images/telefone.png" alt="Telefone">(67)3345-7821</li>
+                        <li><img src="images/email.png" alt="Email">seidi.diavi@ufms.br</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-
-    <p class="seidi">Secretaria de Indicadores Institucionais &copy; 2025</p>
+        <p class="seidi">Secretaria de Indicadores Institucionais &copy; 2025</p>
     </footer>
-    </body>
+
+</body>
 </html>
