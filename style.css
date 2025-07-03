@@ -3,7 +3,15 @@
 
 /* Estilos para o layout geral da página */
 :root{
-   --scroll-height:5px; 
+    --scroll-height:5px; 
+    --primary-color: #48444c;
+    --secondary-color: #808080; /* Cor de fundo do rodapé principal */
+    --dark-grey: #5a5a5a; /* Cor de fundo da seção de copyright */
+    --light-grey: #e0e0e0;
+    --text-color: #333;
+    --light-text-color: #fff; /* Cor do texto no rodapé */
+    --font-inter: 'Inter', sans-serif;
+    --font-oswald: 'Oswald', sans-serif;
 }
 body {
     font-family: sans-serif;
@@ -371,9 +379,9 @@ h2.item-title {
 }
 
 p.item-description {
-    text-align: left;
+    text-align: justify;
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #555;
     display: -webkit-box;
     -webkit-line-clamp: 5;
@@ -406,9 +414,9 @@ p.item-description {
 }
 
 .tag-ano { background-color: #808080; }
-.tag-tipo { background-color: #2596BE; }
+.tag-tipo { background-color: #e88b39; }
 .tag-categoria { background-color: #2ca58d; }
-.tag-unidade { background-color: #e88b39; }
+.tag-unidade { background-color: #2596BE; }
 
 .link-materia-button {
     display: inline-block;
@@ -440,66 +448,158 @@ p.item-description {
 
 /* ESTILOS DO RODAPÉ */
 footer {
-    background-color: #808080;
-    color: #fff;
-    padding: 40px 0 0;
+    background-color: var(--secondary-color);
+    color: var(--light-text-color);
     margin-top: 50px;
+    font-family: var(--font-inter);
+}
+
+/* Estilos para a seção superior do rodapé */
+.footer-top-section {
+    padding: 40px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilos para a seção inferior do rodapé (copyright) */
+.footer-bottom-section {
+    background-color: var(--dark-grey);
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 0.85em;
+    opacity: 0.9;
+}
+
+/* Centralização de Parágrafo */
+.footer-text-centered {
+    text-align: center;
+    max-width: 800px;
+    margin: 40px auto 30px auto;
+    font-size: 1.0em;
+    line-height: 1.8;
+    color: var(--light-text-color);
+}
+
+/* Links dentro do parágrafo*/
+.footer-text-centered a {
+    color: var(--light-text-color); /* Branco padrão */
+    transition: color 0.3s ease;
+}
+
+/* Escurece no hover */
+.footer-text-centered a:hover {
+    color: var(--primary-color); 
+}
+
+/* Container para o logo e as linhas separadoras */
+.footer-logo-separator-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+/* Estilo para as linhas separadoras */
+.separator-line {
+    flex-grow: 1;
+    height: 2px;
+    background-color: var(--light-text-color);
+    border: none;
+    margin: 0 15px;
+    opacity: 0.7;
+}
+
+/* Estilo para o logo principal no rodapé */
+.footer-main-logo {
+    width: 100px;
+    height: auto;
+    margin: 0;
+    border-radius: 8px;
+    opacity: 0.8;
+    flex-shrink: 0;
 }
 
 .footer-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
 }
 
 .footer-box {
-    flex: 1;
-    min-width: 250px;
+    flex: 0 0 auto;
+    min-width: 280px;
 }
 
-.footer-logo{
-    flex: 1;
-    min-width: 250px;
-}
-
+/* Estilos para os títulos das colunas (Links, Contatos) */
 .footer-box h3 {
-    margin-bottom: 15px;
+    font-size: 1.4em;
+    margin-bottom: 20px;
+    color: var(--light-text-color);
+    position: relative;
+    padding-bottom: 5px;
 }
 
+/* Efeito de underline para os títulos */
+.footer-box h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-color);
+}
+
+/* Estilos para as listas de links/contatos */
 .footer-box ul {
     padding: 0;
     margin: 0;
     list-style: none;
 }
 
+/* Estilos para os itens da lista */
 .footer-box ul li {
-    margin: 10px 0;
+    margin-bottom: 12px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
-    font-weight: 300;
+    font-size: 0.9em;
+    line-height: 1.5;
 }
 
+/* Remove o último item da lista */
+.footer-box ul li:last-child {
+    margin-bottom: 0;
+}
+
+/* Estilos para os links dentro das listas */
+.footer-box ul li a {
+    color: var(--light-text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Efeito de destaque ao passar o mouse nos links */
+.footer-box ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* Estilos para os ícones nos itens de contato */
 .footer-box ul li img {
     width: 20px;
-    vertical-align: middle;
-}
-
-.seidi {
-    width: 100%;
-    background-color: #5a5a5a;
-    color: #fff;
-    padding: 8px 0;
-    text-align: center;
-    font-size: 13px;
+    height: 20px;
+    flex-shrink: 0;
+    filter: brightness(0) invert(1);
 }
 
 /* RESPONSIVIDADE */
-@media (max-width: 800px) {
+@media (max-width: 900px) {
     .header-content {
         flex-direction: column;
         gap: 20px;
@@ -550,23 +650,52 @@ footer {
         height: auto;
         width: 100%;
     }
-    .item-description {
+    p.item-description {
+        margin-bottom: 10px;
         -webkit-line-clamp: 10; /* Permite mais linhas em telas menores */
     }
 
+    .item-tags {
+        margin-top: 10px;
+    }
+
     /* Rodapé */
-    .footer-content {
+    .footer-top-section {
+        align-items: center; /* Garante centralização em telas menores */
+    }
+
+    /* As colunas do footer-content já se adaptam */
+    .footer-content { /* Esta classe já existe no seu HTML */
         flex-direction: column;
-        align-items: center;
-        gap: 40px;
+        align-items: center; /* Centraliza as colunas */
+        text-align: center; /* Centraliza o texto dentro das colunas */
     }
-    .footer-box, .footer-logo {
-        text-align: center;
+
+    .footer-box { /* Esta classe já existe no seu HTML */
+        min-width: unset; /* Remove o min-width para permitir que ocupe a largura total */
+        width: 100%; /* Ocupa a largura total disponível */
     }
-    .footer-box ul {
-        padding: 0;
+    
+    .footer-box h3::after {
+        left: 50%; /* Centraliza o underline dos títulos */
+        transform: translateX(-50%);
+    }
+
+    .footer-box ul li { /* Esta classe já existe no seu HTML */
+        justify-content: center; /* Centraliza os itens da lista para contatos */
+        text-align: left; /* Mantém o alinhamento esquerdo do texto para melhor leitura de multi-linhas */
+    }
+}
+
+/* Ajustes adicionais para telas muito pequenas */
+@media (max-width: 480px) {    
+    .footer-main-logo {
+        width: 80px;
+    }
+    .footer-box h3 {
+        font-size: 1.2em;
     }
     .footer-box ul li {
-        justify-content: center;
+        font-size: 0.85em;
     }
 }
