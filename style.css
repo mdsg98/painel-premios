@@ -454,89 +454,37 @@ footer {
     font-family: var(--font-inter);
 }
 
-/* Estilos para a seção superior do rodapé */
+/* --- Container Principal do Rodapé --- */
+/* Define o padding geral (200px nas laterais) e a organização vertical */
 .footer-top-section {
-    padding: 40px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
 }
 
-/* Estilos para a seção inferior do rodapé (copyright) */
-.footer-bottom-section {
-    background-color: var(--dark-grey);
-    padding: 15px 20px;
-    text-align: center;
-    font-size: 0.85em;
-    opacity: 0.9;
-}
-
-/* Centralização de Parágrafo */
-.footer-text-centered {
-    text-align: center;
-    max-width: 800px;
-    margin: 40px auto 30px auto;
-    font-size: 1.0em;
-    line-height: 1.8;
-    color: var(--light-text-color);
-}
-
-/* Links dentro do parágrafo*/
-.footer-text-centered a {
-    color: var(--light-text-color); /* Branco padrão */
-    transition: color 0.3s ease;
-}
-
-/* Escurece no hover */
-.footer-text-centered a:hover {
-    color: var(--primary-color); 
-}
-
-/* Container para o logo e as linhas separadoras */
-.footer-logo-separator-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 40px;
-}
-
-/* Estilo para as linhas separadoras */
-.separator-line {
-    flex-grow: 1;
-    height: 2px;
-    background-color: var(--light-text-color);
-    border: none;
-    margin: 0 15px;
-    opacity: 0.7;
-}
-
-/* Estilo para o logo principal no rodapé */
-.footer-main-logo {
-    width: 100px;
-    height: auto;
-    margin: 0;
-    border-radius: 8px;
-    opacity: 0.8;
-    flex-shrink: 0;
-}
-
+/* --- Container das 3 Colunas de Texto --- */
+/* Organiza as 3 caixas de texto lado a lado */
 .footer-content {
+    width: 100%;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
+    justify-content: space-between; /* Distribui as caixas nas extremidades */
+    flex-wrap: wrap; /* Permite que as caixas quebrem a linha em telas menores */
+    gap: 30px; /* Espaço entre as caixas caso elas quebrem a linha */
+    margin-bottom: 40px; /* Espaço antes da seção da logo */
 }
 
+/* --- As 3 Colunas Individuais (O PONTO CRÍTICO DA CORREÇÃO) --- */
+/* Define que cada caixa pode ocupar até 31% do espaço, permitindo que fiquem lado a lado */
 .footer-box {
-    flex: 0 0 auto;
-    min-width: 280px;
+    flex-grow: 0;         /* Não devem crescer */
+    flex-shrink: 1;       /* Podem encolher se necessário */
+    flex-basis: 31%;      /* Base de largura para cada uma, permitindo que caibam 3 na mesma linha */
+    max-width: 300px;
 }
 
-/* Estilos para os títulos das colunas (Links, Contatos) */
+/* --- Títulos das Colunas (Navegue, Contatos, etc.) --- */
 .footer-box h3 {
     font-size: 1.4em;
     margin-bottom: 20px;
@@ -545,7 +493,6 @@ footer {
     padding-bottom: 5px;
 }
 
-/* Efeito de underline para os títulos */
 .footer-box h3::after {
     content: '';
     position: absolute;
@@ -556,14 +503,13 @@ footer {
     background-color: var(--primary-color);
 }
 
-/* Estilos para as listas de links/contatos */
+/* --- Listas dentro das Colunas --- */
 .footer-box ul {
     padding: 0;
     margin: 0;
     list-style: none;
 }
 
-/* Estilos para os itens da lista */
 .footer-box ul li {
     margin-bottom: 12px;
     display: flex;
@@ -573,29 +519,89 @@ footer {
     line-height: 1.5;
 }
 
-/* Remove o último item da lista */
 .footer-box ul li:last-child {
     margin-bottom: 0;
 }
 
-/* Estilos para os links dentro das listas */
 .footer-box ul li a {
     color: var(--light-text-color);
-    text-decoration: none;
     transition: color 0.3s ease;
+    text-decoration: none;
 }
 
-/* Efeito de destaque ao passar o mouse nos links */
 .footer-box ul li a:hover {
     color: var(--primary-color);
 }
 
-/* Estilos para os ícones nos itens de contato */
+/* --- Ícones de Contato --- */
 .footer-box ul li img {
     width: 20px;
     height: 20px;
     flex-shrink: 0;
     filter: brightness(0) invert(1);
+}
+
+/* --- Parágrafo de Texto Específico --- */
+.footer-text-centered {
+    text-align: left;
+    font-size: 1.0em;
+    line-height: 1.8;
+    color: var(--light-text-color);
+    margin-top: -1px;
+}
+
+.footer-box ul li .footer-text-centered a {
+    color: var(--light-text-color);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+}
+
+.footer-box ul li .footer-text-centered a:hover {
+    color: var(--primary-color);    
+}
+
+/* --- Container da Logo e Linhas Separadoras --- */
+.footer-logo-separator-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin-top: 30px;
+}
+
+/* --- Linhas Separadoras --- */
+.separator-line {
+    flex-grow: 1; /* Faz as linhas crescerem para preencher o espaço */
+    height: 1px;
+    background-color: var(--light-text-color);
+    border: none;
+    margin: 0 15px;
+    opacity: 0.3;
+}
+
+/* --- Logo no Rodapé --- */
+.footer-main-logo {
+    width: 100px;
+    height: auto;
+    border-radius: 8px;
+    flex-shrink: 0; /* Impede que a logo encolha */
+}
+
+/* --- Seção Final de Copyright --- */
+.footer-bottom-section {
+    background-color: var(--dark-grey);
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 0.85em;
+    opacity: 0.9;
 }
 
 /* RESPONSIVIDADE */
