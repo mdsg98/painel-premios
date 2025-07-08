@@ -4,9 +4,9 @@
 /* Estilos para o layout geral da página */
 :root{
     --scroll-height:5px; 
-    --primary-color: #48444c; /* Cor principal do cabeçalho */
+    --primary-color: #444; /* Cor principal do cabeçalho */
     --secondary-color: #808080; /* Cor de fundo do rodapé principal */
-    --dark-grey: #5a5a5a; /* Cor de fundo da seção de copyright */
+    --dark-grey: #444; /* Cor de fundo da seção de copyright */
     --light-grey: #e0e0e0; /* Cor de fundo dos cards de resultado */
     --text-color: #333; /* Cor do texto principal */
     --light-text-color: #fff; /* Cor do texto no rodapé */
