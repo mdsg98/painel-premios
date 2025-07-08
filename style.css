@@ -173,7 +173,7 @@ body {
     color: #2596BE;
     border: 1px solid #d1d5db;
     border-radius: 9999px;
-    padding: 10px 8px 10px 20px;
+    padding: 10px 8px 10px 10px;
     font-weight: bold;
     font-size: 1rem;
     display: flex;
@@ -183,11 +183,6 @@ body {
     transition: background-color 0.3s ease;
     margin-left: 30px;
     font-family: 'Inter', sans-serif;
-}
-
-#clear-filters-button img {
-    width: 37px;
-    height: 22px;
 }
 
 #clear-filters-button:hover:not(:disabled) {
