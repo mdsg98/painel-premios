@@ -1,20 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Painel de Prêmios, Reconhecimentos e Destaques da UFMS</title>
-    <link rel="stylesheet" href="style.css">
     <meta name="description" content="Explore o painel interativo de prêmios, reconhecimentos e destaques da UFMS. Filtre e pesquise as conquistas da Universidade Federal de Mato Grosso do Sul.">
-</head>
-    
-<body>
+  </head>
+  <body>
     <div class="header">
-        <div class="header-content">
-            <img src="images/logo.webp" alt="Logo da UFMS" id="header-left-logo">
-            <h1>Painel de Prêmios<br>Reconhecimentos e Destaques</h1>
-            <img src="images/Logo_header.webp" alt="Logo secundário da UFMS" id="header-right-logo">
-        </div>        
+      <div class="header-content">
+          <img src="images/logo.webp" alt="Logo da UFMS" id="header-left-logo">
+          <h1>Painel de Prêmios<br>Reconhecimentos e Destaques</h1>
+          <img src="images/Logo_header.webp" alt="Logo secundário da UFMS" id="header-right-logo">
+      </div>        
     </div>
 
     <div class="filter-container">
@@ -101,9 +100,6 @@
 
     <div class="loader" id="loading-spinner"></div>
 
-    <div class="c-indicador"></div><script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-    <script src="script.js"></script>
-
     <footer>
         <div class="footer-top-section">
             <div class="container footer-content">
@@ -142,6 +138,6 @@
         <div class="footer-bottom-section"> <p class="seidi">Secretaria de Indicadores Institucionais &copy; 2025</p>
         </div>
     </footer>
-
-</body>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
