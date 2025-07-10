@@ -1,17 +1,23 @@
 // src/ui.js
 
 // --- FUNÇÃO PARA RENDERIZAR OS DADOS NA TELA ---
-export function renderData(dataToRender, dataContainer, filterElements, applyFiltersCallback) {
+export function renderData(
+    dataToRender,
+    dataContainer,
+    filterElements,
+    applyFiltersCallback
+) {
     if (!dataContainer) return;
     dataContainer.innerHTML = '';
 
     if (!dataToRender || dataToRender.length === 0) {
         const noResultsMessage = document.createElement('p');
         noResultsMessage.classList.add('no-results-message');
-        noResultsMessage.textContent = 'Não existem resultados para os filtros selecionados.';
+        noResultsMessage.textContent =
+            'Não existem resultados para os filtros selecionados.';
         dataContainer.appendChild(noResultsMessage);
     } else {
-        dataToRender.forEach(item => {
+        dataToRender.forEach((item) => {
             const itemDiv = document.createElement('div');
             itemDiv.classList.add('item');
 
@@ -28,12 +34,12 @@ export function renderData(dataToRender, dataContainer, filterElements, applyFil
 
             const mainContent = document.createElement('div');
             mainContent.classList.add('item-main-content');
-            
+
             const title = document.createElement('h2');
             title.classList.add('item-title');
             title.textContent = item['Nome do Prêmio'];
             mainContent.appendChild(title);
-            
+
             const description = document.createElement('p');
             description.classList.add('item-description');
             description.textContent = item['Descrição'];
@@ -87,9 +93,11 @@ export function renderData(dataToRender, dataContainer, filterElements, applyFil
 
 // --- FUNÇÃO PARA POPULAR SELECTS COM VALORES ÚNICOS ---
 export function populateSelect(selectElement, header, dataToPopulate) {
-    const uniqueValues = [...new Set(dataToPopulate.map(item => item[header]).filter(Boolean))].sort();
+    const uniqueValues = [
+        ...new Set(dataToPopulate.map((item) => item[header]).filter(Boolean)),
+    ].sort();
     selectElement.innerHTML = '<option value="">Todos</option>';
-    uniqueValues.forEach(value => {
+    uniqueValues.forEach((value) => {
         const option = document.createElement('option');
         option.value = value;
         option.textContent = value;
@@ -99,9 +107,11 @@ export function populateSelect(selectElement, header, dataToPopulate) {
 
 // --- FUNÇÃO PARA POPULAR SELECT DE ANO EM ORDEM DECRESCENTE ---
 export function populateSelectAnoDescending(selectElement, header, data) {
-    const uniqueValues = [...new Set(data.map(item => item[header]).filter(Boolean))].sort((a, b) => b - a);
+    const uniqueValues = [
+        ...new Set(data.map((item) => item[header]).filter(Boolean)),
+    ].sort((a, b) => b - a);
     selectElement.innerHTML = '<option value="">Todos</option>';
-    uniqueValues.forEach(value => {
+    uniqueValues.forEach((value) => {
         const option = document.createElement('option');
         option.value = value;
         option.textContent = value;
@@ -110,22 +120,31 @@ export function populateSelectAnoDescending(selectElement, header, data) {
 }
 
 // --- FUNÇÃO PARA ATUALIZAR CONTROLES DE PAGINAÇÃO ---
-export function updateAllPaginationControls(pageNum, totalItems, itemsPerPageNum, paginationElements) {
+export function updateAllPaginationControls(
+    pageNum,
+    totalItems,
+    itemsPerPageNum,
+    paginationElements
+) {
     const totalPages = Math.ceil(totalItems / itemsPerPageNum) || 1;
     const showPagination = totalItems > itemsPerPageNum;
     const displayStyle = showPagination ? 'flex' : 'none';
 
-    [paginationElements.container, paginationElements.containerTop].forEach(container => {
-        if (container) container.style.display = displayStyle;
-    });
+    [paginationElements.container, paginationElements.containerTop].forEach(
+        (container) => {
+            if (container) container.style.display = displayStyle;
+        }
+    );
 
-    if(paginationElements.info) paginationElements.info.textContent = `Página ${pageNum} de ${totalPages}`;
-    if(paginationElements.infoTop) paginationElements.infoTop.textContent = `Página ${pageNum} de ${totalPages}`;
-    
-    [paginationElements.prev, paginationElements.prevTop].forEach(btn => {
+    if (paginationElements.info)
+        paginationElements.info.textContent = `Página ${pageNum} de ${totalPages}`;
+    if (paginationElements.infoTop)
+        paginationElements.infoTop.textContent = `Página ${pageNum} de ${totalPages}`;
+
+    [paginationElements.prev, paginationElements.prevTop].forEach((btn) => {
         if (btn) btn.disabled = pageNum === 1;
     });
-    [paginationElements.next, paginationElements.nextTop].forEach(btn => {
+    [paginationElements.next, paginationElements.nextTop].forEach((btn) => {
         if (btn) btn.disabled = pageNum === totalPages;
     });
 }

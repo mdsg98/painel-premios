@@ -1,143 +1,222 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Painel de Prêmios, Reconhecimentos e Destaques da UFMS</title>
-    <meta name="description" content="Explore o painel interativo de prêmios, reconhecimentos e destaques da UFMS. Filtre e pesquise as conquistas da Universidade Federal de Mato Grosso do Sul.">
-  </head>
-  <body>
-    <div class="header">
-      <div class="header-content">
-          <img src="images/logo.webp" alt="Logo da UFMS" id="header-left-logo">
-          <h1>Painel de Prêmios<br>Reconhecimentos e Destaques</h1>
-          <img src="images/Logo_header.webp" alt="Logo secundário da UFMS" id="header-right-logo">
-      </div>        
-    </div>
-
-    <div class="filter-container">
-        <div class="filter-wrapper" id="filter-wrapper">
-            <div class="filter-item">
-                <label for="filter-tipo">Tipo</label>
-                <select id="filter-tipo">
-                    <option value="">Todos</option>
-                </select>
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Painel de Prêmios, Reconhecimentos e Destaques da UFMS</title>
+        <meta
+            name="description"
+            content="Explore o painel interativo de prêmios, reconhecimentos e destaques da UFMS. Filtre e pesquise as conquistas da Universidade Federal de Mato Grosso do Sul."
+        />
+    </head>
+    <body>
+        <div class="header">
+            <div class="header-content">
+                <img
+                    src="images/logo.webp"
+                    alt="Logo da UFMS"
+                    id="header-left-logo"
+                />
+                <h1>Painel de Prêmios<br />Reconhecimentos e Destaques</h1>
+                <img
+                    src="images/Logo_header.webp"
+                    alt="Logo secundário da UFMS"
+                    id="header-right-logo"
+                />
             </div>
+        </div>
 
-            <div class="filter-item">
-                <label for="filter-ano">Ano</label>
-                <select id="filter-ano">
-                    <option value="">Todos</option>
-                </select>
-            </div>
-
-            <div class="filter-item">
-                <label for="filter-categoria">Categoria</label>
-                <select id="filter-categoria">
-                    <option value="">Todos</option>
-                </select>
-            </div>
-
-            <div class="filter-item">
-                <label for="filter-unidade">Unidade</label>
-                <select id="filter-unidade">
-                    <option value="">Todos</option>
-                </select>
-            </div>
-
-            <div class="filter-item">
-                <div class="sort-order-wrapper">
-                    <label for="sort-order-select">Ordenar</label>
-                    <select id="sort-order-select">
-                        <option value="desc">Mais Novo</option>
-                        <option value="asc">Mais Antigo</option>
+        <div class="filter-container">
+            <div class="filter-wrapper" id="filter-wrapper">
+                <div class="filter-item">
+                    <label for="filter-tipo">Tipo</label>
+                    <select id="filter-tipo">
+                        <option value="">Todos</option>
                     </select>
                 </div>
+
+                <div class="filter-item">
+                    <label for="filter-ano">Ano</label>
+                    <select id="filter-ano">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+
+                <div class="filter-item">
+                    <label for="filter-categoria">Categoria</label>
+                    <select id="filter-categoria">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+
+                <div class="filter-item">
+                    <label for="filter-unidade">Unidade</label>
+                    <select id="filter-unidade">
+                        <option value="">Todos</option>
+                    </select>
+                </div>
+
+                <div class="filter-item">
+                    <div class="sort-order-wrapper">
+                        <label for="sort-order-select">Ordenar</label>
+                        <select id="sort-order-select">
+                            <option value="desc">Mais Novo</option>
+                            <option value="asc">Mais Antigo</option>
+                        </select>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="search-sort-bar">
-    <div class="keyword-search-container">
-            <div class="input-with-clear-container">
-                <input type="text" id="keyword-search" placeholder="Digite para buscar...">
-                <span id="clear-keyword-button" class="clear-keyword-icon" title="Limpar pesquisa">&times;</span>
+        <div class="search-sort-bar">
+            <div class="keyword-search-container">
+                <div class="input-with-clear-container">
+                    <input
+                        type="text"
+                        id="keyword-search"
+                        placeholder="Digite para buscar..."
+                    />
+                    <span
+                        id="clear-keyword-button"
+                        class="clear-keyword-icon"
+                        title="Limpar pesquisa"
+                        >&times;</span
+                    >
+                </div>
+                <button id="search-button" aria-label="Buscar resultados">
+                    <img src="images/Magnifier.webp" alt="" />
+                </button>
             </div>
-            <button id="search-button" aria-label="Buscar resultados">
-                <img src="images/Magnifier.webp" alt="">
+            <button id="clear-filters-button" aria-label="Limpar filtros">
+                LIMPAR FILTROS
             </button>
         </div>
-        <button id="clear-filters-button" aria-label="Limpar filtros">LIMPAR FILTROS</button>
-    </div>
 
-    <button id="back-to-top-button" title="Voltar ao topo" aria-label="Voltar ao topo da página">
-        <img src="images/Back-to-top-icon.webp" alt="Voltar ao Topo">
-    </button>
+        <button
+            id="back-to-top-button"
+            title="Voltar ao topo"
+            aria-label="Voltar ao topo da página"
+        >
+            <img src="images/Back-to-top-icon.webp" alt="Voltar ao Topo" />
+        </button>
 
-    <div id="pagination-container-top" class="pagination-controls">
-        <button id="prev-page-button-top" aria-label="Ir para a página anterior">
-            <img src="images/Backward-icon.webp" alt="">
-        </button>
-        <span id="page-info-top"></span>
-        <button id="next-page-button-top" aria-label="Ir para a próxima página">
-            <img src="images/Forward-icon.webp" alt="">
-        </button>
-    </div>
-    
-    <div id="data-container">
+        <div id="pagination-container-top" class="pagination-controls">
+            <button
+                id="prev-page-button-top"
+                aria-label="Ir para a página anterior"
+            >
+                <img src="images/Backward-icon.webp" alt="" />
+            </button>
+            <span id="page-info-top"></span>
+            <button
+                id="next-page-button-top"
+                aria-label="Ir para a próxima página"
+            >
+                <img src="images/Forward-icon.webp" alt="" />
+            </button>
         </div>
 
-    <div id="pagination-container" class="pagination-controls">
-        <button id="prev-page-button" aria-label="Ir para a página anterior">
-            <img src="images/Backward-icon.webp" alt="">
-        </button>
-        <span id="page-info"></span>
-        <button id="next-page-button" aria-label="Ir para a próxima página">
-            <img src="images/Forward-icon.webp" alt="">
-        </button>
-    </div>
+        <div id="data-container"></div>
 
-    <div class="loader" id="loading-spinner"></div>
-
-    <footer>
-        <div class="footer-top-section">
-            <div class="container footer-content">
-                <div class="footer-box">
-                    <h3>Navegue pelo nosso site</h3>
-                    <ul>
-                        <li><a href="https://ufms.br/">Página da UFMS</a></li>
-                        <li><a href="https://diavi.ufms.br/">Página da DIAVI</a></li>
-                        <li><a href="https://sigproj.ufms.br/">Site do SIGPROJ</a></li>
-                        
-                    </ul>
-                </div>
-                <div class="footer-box">
-                    <h3>Informações para Contato</h3>
-                    <ul>
-                        <li><img src="images/endereco.webp" alt="Ícone de Endereço">Av. Costa & Silva, Cidade Universitária Campo Grande-MS CEP: 79070-900</li>
-                        <li><img src="images/telefone.webp" alt="Ícone de Telefone">(67)3345-7821</li>
-                        <li><img src="images/email.webp" alt="Ícone de E-mail">seidi.diavi@ufms.br</li>
-                    </ul>
-                </div>
-                <div class="footer-box">
-                    <h3>Como faço para participar?</h3>
-                    <ul>
-                        <li><p class="footer-text-centered">Caso deseje que seu prêmio seja divulgado neste espaço, solicitamos que o encaminhe por meio do <a href="https://sigproj.ufms.br/" target="_blank" rel="noopener noreferrer">Edital de Submissão</a>, na plataforma SIGProj</p>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="container">
-                <div class="footer-logo-separator-container">
-                    <hr class="separator-line"> <img src="images/ufms_footer.webp" alt="Logo da UFMS" class="footer-main-logo">
-                    <hr class="separator-line">
-                </div>
-            </div>
-    </div>
-        <div class="footer-bottom-section"> <p class="seidi">Secretaria de Indicadores Institucionais &copy; 2025</p>
+        <div id="pagination-container" class="pagination-controls">
+            <button
+                id="prev-page-button"
+                aria-label="Ir para a página anterior"
+            >
+                <img src="images/Backward-icon.webp" alt="" />
+            </button>
+            <span id="page-info"></span>
+            <button id="next-page-button" aria-label="Ir para a próxima página">
+                <img src="images/Forward-icon.webp" alt="" />
+            </button>
         </div>
-    </footer>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+
+        <div class="loader" id="loading-spinner"></div>
+
+        <footer>
+            <div class="footer-top-section">
+                <div class="container footer-content">
+                    <div class="footer-box">
+                        <h3>Navegue pelo nosso site</h3>
+                        <ul>
+                            <li>
+                                <a href="https://ufms.br/">Página da UFMS</a>
+                            </li>
+                            <li>
+                                <a href="https://diavi.ufms.br/"
+                                    >Página da DIAVI</a
+                                >
+                            </li>
+                            <li>
+                                <a href="https://sigproj.ufms.br/"
+                                    >Site do SIGPROJ</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-box">
+                        <h3>Informações para Contato</h3>
+                        <ul>
+                            <li>
+                                <img
+                                    src="images/endereco.webp"
+                                    alt="Ícone de Endereço"
+                                />Av. Costa & Silva, Cidade Universitária Campo
+                                Grande-MS CEP: 79070-900
+                            </li>
+                            <li>
+                                <img
+                                    src="images/telefone.webp"
+                                    alt="Ícone de Telefone"
+                                />(67)3345-7821
+                            </li>
+                            <li>
+                                <img
+                                    src="images/email.webp"
+                                    alt="Ícone de E-mail"
+                                />seidi.diavi@ufms.br
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-box">
+                        <h3>Como faço para participar?</h3>
+                        <ul>
+                            <li>
+                                <p class="footer-text-centered">
+                                    Caso deseje que seu prêmio seja divulgado
+                                    neste espaço, solicitamos que o encaminhe
+                                    por meio do
+                                    <a
+                                        href="https://sigproj.ufms.br/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Edital de Submissão</a
+                                    >, na plataforma SIGProj
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="footer-logo-separator-container">
+                        <hr class="separator-line" />
+                        <img
+                            src="images/ufms_footer.webp"
+                            alt="Logo da UFMS"
+                            class="footer-main-logo"
+                        />
+                        <hr class="separator-line" />
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom-section">
+                <p class="seidi">
+                    Secretaria de Indicadores Institucionais &copy; 2025
+                </p>
+            </div>
+        </footer>
+        <script type="module" src="/src/main.js"></script>
+    </body>
 </html>

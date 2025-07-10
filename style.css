@@ -2,8 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Oswald:wght@700&display=swap');
 
 /* Estilos para o layout geral da página */
-:root{
-    --scroll-height:5px; 
+:root {
+    --scroll-height: 5px;
     --primary-color: #444; /* Cor principal do cabeçalho */
     --secondary-color: #808080; /* Cor de fundo do rodapé principal */
     --dark-grey: #444; /* Cor de fundo da seção de copyright */
@@ -24,7 +24,7 @@ body {
 .header {
     padding-top: 35px;
     background-color: #fff;
-    width: 100%; 
+    width: 100%;
     padding-bottom: 35px;
 }
 
@@ -43,8 +43,8 @@ body {
     flex-shrink: 0;
 }
 
-.header-content h1{
-    color: #2596BE;
+.header-content h1 {
+    color: #2596be;
     font-size: 50px;
     text-align: center;
     line-height: 1.2;
@@ -61,13 +61,13 @@ body {
 }
 
 /* Estilos para o container dos filtros */
-.filter-wrapper{
-    background-color:#2596BE;
+.filter-wrapper {
+    background-color: #2596be;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
     padding: 13px;
     color: #fff;
     font-family: 'Inter', sans-serif;
@@ -143,9 +143,9 @@ body {
 .clear-keyword-icon:hover {
     color: #333;
 }
-    
-#search-button{
-    background-color: #2596BE;
+
+#search-button {
+    background-color: #2596be;
     border: none;
     cursor: pointer;
     width: 60px;
@@ -168,9 +168,9 @@ body {
     margin: 0;
 }
 
-#clear-filters-button{
+#clear-filters-button {
     background-color: #fff;
-    color: #2596BE;
+    color: #2596be;
     border: 1px solid #d1d5db;
     border-radius: 9999px;
     padding: 10px 8px 10px 10px;
@@ -186,7 +186,7 @@ body {
 }
 
 #clear-filters-button:hover:not(:disabled) {
-    background-color: #C8C8C8;
+    background-color: #c8c8c8;
 }
 
 /* Estilos para o loader */
@@ -200,13 +200,13 @@ body {
 }
 
 .loader::before {
-    content: "";
+    content: '';
     box-sizing: border-box;
     position: absolute;
     inset: 0px;
     border-radius: 50%;
-    border: 5px solid #2596BE;
-    animation: prixClipFix 2s linear infinite ;
+    border: 5px solid #2596be;
+    animation: prixClipFix 2s linear infinite;
 }
 
 /* Animação de rotação*/
@@ -218,13 +218,29 @@ body {
 
 /* Animação de clip fix - Carregamento */
 @keyframes prixClipFix {
-    0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
-    25%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
-    50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
-    75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
-    100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
+    0% {
+        clip-path: polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0);
+    }
+    25% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0);
+    }
+    50% {
+        clip-path: polygon(
+            50% 50%,
+            0 0,
+            100% 0,
+            100% 100%,
+            100% 100%,
+            100% 100%
+        );
+    }
+    75% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+    }
+    100% {
+        clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+    }
 }
-
 
 /* Estilos para o container dos resultados */
 #data-container {
@@ -266,10 +282,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     opacity: 0;
     pointer-events: none;
-    transition: background-color 0.6s ease, opacity 0.6s ease;
+    transition:
+        background-color 0.6s ease,
+        opacity 0.6s ease;
 }
 
 #back-to-top-button.show {
@@ -295,12 +313,12 @@ body {
     justify-content: center;
     gap: 15px;
     padding: 20px 0;
-    font-family: 'Inter', sans-serif; 
+    font-family: 'Inter', sans-serif;
     user-select: none;
 }
 
 .pagination-controls button {
-    background-color: #2596BE;
+    background-color: #2596be;
     border: none;
     border-radius: 50%;
     width: 30px;
@@ -372,7 +390,7 @@ h2.item-title {
     font-size: 1.8em;
     margin-top: 0;
     margin-bottom: 10px;
-    color: #2596BE;
+    color: #2596be;
     line-height: 1.2;
 }
 
@@ -383,7 +401,7 @@ p.item-description {
     color: #555;
     display: -webkit-box;
     -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;  
+    -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
@@ -403,7 +421,9 @@ p.item-description {
     color: #fff;
     text-transform: uppercase;
     cursor: pointer; /* << ADICIONE: Mostra que o elemento é clicável */
-    transition: transform 0.2s ease, box-shadow 0.2s ease; /* << ADICIONE: Para o efeito hover */
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease; /* << ADICIONE: Para o efeito hover */
 }
 
 .tag:hover {
@@ -411,10 +431,18 @@ p.item-description {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra sutil */
 }
 
-.tag-ano { background-color: #808080; }
-.tag-tipo { background-color: #e88b39; }
-.tag-categoria { background-color: #2ca58d; }
-.tag-unidade { background-color: #2596BE; }
+.tag-ano {
+    background-color: #808080;
+}
+.tag-tipo {
+    background-color: #e88b39;
+}
+.tag-categoria {
+    background-color: #2ca58d;
+}
+.tag-unidade {
+    background-color: #2596be;
+}
 
 .link-materia-button {
     display: inline-block;
@@ -539,7 +567,7 @@ footer {
 /* Parágrafo de Texto do Edital de Submissão */
 .footer-text-centered {
     text-align: left;
-    font-size: 1.0em;
+    font-size: 1em;
     line-height: 1.8;
     color: var(--light-text-color);
     margin-top: -1px;
@@ -552,7 +580,7 @@ footer {
 }
 
 .footer-box ul li .footer-text-centered a:hover {
-    color: var(--primary-color);    
+    color: var(--primary-color);
 }
 
 /* Container da Logo e Linhas Separadoras */
@@ -627,7 +655,7 @@ footer {
         align-items: center;
         gap: 8px;
     }
-    .filter-wrapper select, 
+    .filter-wrapper select,
     .sort-order-wrapper select {
         width: 100%;
         min-width: 0;
@@ -708,7 +736,7 @@ footer {
         padding: 0 10px;
         box-sizing: border-box;
     }
-    
+
     .footer-box ul li:last-child {
         margin-bottom: 0;
     }
@@ -725,7 +753,7 @@ footer {
 }
 
 /* Ajustes adicionais para telas muito pequenas - Mobile */
-@media (max-width: 480px) {    
+@media (max-width: 480px) {
     .footer-main-logo {
         width: 80px;
     }
