@@ -5,6 +5,7 @@ import {
     renderData,
     populateSelect,
     populateSelectAnoDescending,
+    populateSelectFromList,
     updateAllPaginationControls,
     toggleBackToTopButton,
     updateSortDropdownState,
@@ -40,7 +41,6 @@ const dom = {
 
 // -- DESESTRUTURANDO OS ELEMENTOS DO DOM PARA FICAR MAIS LEGÍVEL / ESTADO DA APLICAÇÃO --
 const state = {
-    allData: [],
     filteredData: [],
     currentPage: 1,
     itemsPerPage: 10,
@@ -55,28 +55,11 @@ function raf(time) {
 }
 requestAnimationFrame(raf);
 
-// --- FUNÇÃO DE ORDENAÇÃO MULTI-NÍVEL ---
-function sortData(arrayToSort, primaryDirection = 'desc') {
-    if (!arrayToSort || arrayToSort.length === 0) return;
-    arrayToSort.sort((a, b) => {
-        const anoA = parseInt(a['Ano'], 10) || 0;
-        const anoB = parseInt(b['Ano'], 10) || 0;
-        if (anoA !== anoB) {
-            return primaryDirection === 'asc' ? anoA - anoB : anoB - anoA;
-        }
-        const codeA = parseInt(a['Cod'], 10) || 0;
-        const codeB = parseInt(b['Cod'], 10) || 0;
-        return codeB - codeA;
-    });
-}
-
 // --- FUNÇÕES PRINCIPAIS ---
 
 // --- CARREGAMENTO DE PÁGINA ---
 function renderCurrentPage() {
-    const start = (state.currentPage - 1) * state.itemsPerPage;
-    const end = start + state.itemsPerPage;
-    const pageData = state.filteredData.slice(start, end);
+    const pageData = state.filteredData;
 
     const filterElements = {
         tipo: dom.filters.tipo,
@@ -116,11 +99,7 @@ function updateUrlWithFilters() {
 // --- FUNÇÃO PARA APLICAR FILTROS A PARTIR DA URL (CARREGAMENTO INICIAL) ---
 function applyFiltersFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    if (params.toString() === '') {
-        // Se não há parâmetros, apenas aplica os filtros padrão (mostra tudo)
-        applyFilters();
-        return;
-    }
+    const page = parseInt(params.get('page') || '1', 10);
 
     dom.filters.tipo.value = params.get('tipo') || '';
     dom.filters.ano.value = params.get('ano') || '';
@@ -128,119 +107,99 @@ function applyFiltersFromUrl() {
     dom.filters.unidade.value = params.get('unidade') || '';
     dom.keywordSearchInput.value = params.get('keyword') || '';
 
-    applyFilters();
+    return applyFilters(page);
 }
 
 // APLICAÇÃO DE FILTROS AOS RESULTADOS
-function applyFilters() {
+async function applyFilters(page = 1) {
     dom.dataContainer.classList.add('loading-results');
-    setTimeout(() => {
-        const tipo = dom.filters.tipo.value;
-        const ano = dom.filters.ano.value;
-        const categoria = dom.filters.categoria.value;
-        const unidade = dom.filters.unidade.value;
-        const keyword = dom.keywordSearchInput.value.trim().toLowerCase();
 
-        state.filteredData = state.allData.filter((item) => {
-            const tipoMatch = !tipo || item['Tipo'] === tipo;
-            const anoMatch = !ano || String(item['Ano']) === String(ano);
-            const categoriaMatch =
-                !categoria || item['Categoria'] === categoria;
-            const unidadeMatch = !unidade || item['Unidade'] === unidade;
-            const keywordMatch =
-                !keyword ||
-                `${(item['Nome do Prêmio'] || '').toLowerCase()} ${(item['Descrição'] || '').toLowerCase()}`.includes(
-                    keyword
-                );
-            return (
-                tipoMatch &&
-                anoMatch &&
-                categoriaMatch &&
-                unidadeMatch &&
-                keywordMatch
-            );
-        });
+    state.currentPage = page;
 
-        sortData(state.filteredData, state.currentSort);
-        state.currentPage = 1;
+    const params = new URLSearchParams({
+        page: state.currentPage,
+        sort: state.currentSort,
+    });
+
+    if (dom.filters.tipo.value) params.set('tipo', dom.filters.tipo.value);
+    if (dom.filters.ano.value) params.set('ano', dom.filters.ano.value);
+    if (dom.filters.categoria.value)
+        params.set('categoria', dom.filters.categoria.value);
+    if (dom.filters.unidade.value)
+        params.set('unidade', dom.filters.unidade.value);
+    if (dom.keywordSearchInput.value)
+        params.set('keyword', dom.keywordSearchInput.value);
+
+    try {
+        const result = await fetchSpreadsheetData(params);
+        state.filteredData = result.data || [];
+
         updateUrlWithFilters();
         renderCurrentPage();
+
+        updateAllPaginationControls(
+            state.currentPage,
+            result.totalItems,
+            state.itemsPerPage,
+            dom.pagination
+        );
+    } catch (error) {
+        console.error('Erro ao aplicar filtros:', error);
+        dom.dataContainer.textContent = 'Não foi possível carregar os dados.';
+    } finally {
         dom.dataContainer.classList.remove('loading-results');
-        lenis.scrollTo('#data-container', { duration: 1.5, offset: -20 });
-    }, 500);
+    }
 }
 
 // --- FUNÇÃO PARA CONFIGURAR LISTENERS DE EVENTOS ---
 function setupEventListeners() {
-    dom.searchButton.addEventListener('click', applyFilters);
-
-    // --- BOTÃO DE LIMPAR FILTROS ---
-    dom.clearFiltersButton.addEventListener('click', () => {
-        dom.dataContainer.classList.add('loading-results');
-
-        setTimeout(() => {
-            dom.filters.tipo.value = '';
-            dom.filters.ano.value = '';
-            dom.filters.categoria.value = '';
-            dom.filters.unidade.value = '';
-            dom.keywordSearchInput.value = '';
-            dom.sortOrderSelect.value = 'desc';
-            if (dom.clearKeywordButton)
-                dom.clearKeywordButton.style.display = 'none';
-
-            state.filteredData = [...state.allData];
-            state.currentSort = 'desc';
-            state.currentPage = 1;
-
-            sortData(state.filteredData, state.currentSort);
-            renderCurrentPage();
-
-            window.history.pushState({}, '', window.location.pathname);
-            dom.dataContainer.classList.remove('loading-results');
-            lenis.scrollTo('#data-container', { duration: 1.5, offset: -20 });
-        }, 500);
-    });
-
+    dom.searchButton.addEventListener('click', () => applyFilters(1));
     Object.values(dom.filters).forEach((select) =>
-        select.addEventListener('change', applyFilters)
+        select.addEventListener('change', () => applyFilters(1))
     );
 
+    // MUDANÇA DE ORDENAÇÃO
     dom.sortOrderSelect.addEventListener('change', (e) => {
         state.currentSort = e.target.value;
-        sortData(state.filteredData, state.currentSort);
-        state.currentPage = 1;
-        renderCurrentPage();
+        applyFilters(1);
     });
 
+    // PAGINAÇÃO - PRÓXIMA PÁGINA
     [dom.pagination.next, dom.pagination.nextTop].forEach((btn) =>
         btn.addEventListener('click', () => {
-            const totalPages = Math.ceil(
-                state.filteredData.length / state.itemsPerPage
-            );
-            if (state.currentPage < totalPages) {
-                state.currentPage++;
-                renderCurrentPage();
-                lenis.scrollTo('#data-container', {
-                    duration: 1.5,
-                    offset: -20,
-                });
-            }
+            applyFilters(state.currentPage + 1);
+            lenis.scrollTo('#data-container', { duration: 1.5, offset: -20 });
         })
     );
 
+    // PAGINAÇÃO - PÁGINA ANTERIOR
     [dom.pagination.prev, dom.pagination.prevTop].forEach((btn) =>
         btn.addEventListener('click', () => {
-            if (state.currentPage > 1) {
-                state.currentPage--;
-                renderCurrentPage();
-                lenis.scrollTo('#data-container', {
-                    duration: 1.5,
-                    offset: -20,
-                });
-            }
+            applyFilters(state.currentPage - 1);
+            lenis.scrollTo('#data-container', { duration: 1.5, offset: -20 });
         })
     );
 
+    // BOTÃO DE LIMPAR FILTROS
+    dom.clearFiltersButton.addEventListener('click', () => {
+        dom.filters.tipo.value = '';
+        dom.filters.ano.value = '';
+        dom.filters.categoria.value = '';
+        dom.filters.unidade.value = '';
+        dom.keywordSearchInput.value = '';
+        dom.sortOrderSelect.value = 'desc';
+        if (dom.clearKeywordButton) {
+            dom.clearKeywordButton.style.display = 'none';
+        }
+
+        state.currentSort = 'desc';
+
+        window.history.pushState({}, '', window.location.pathname);
+
+        applyFilters(1);
+    });
+
+    // BOTÃO VOLTAR AO TOPO
     window.addEventListener('scroll', () =>
         toggleBackToTopButton(dom.backToTopButton)
     );
@@ -253,13 +212,21 @@ function setupEventListeners() {
 async function main() {
     dom.loadingSpinner.style.display = 'block';
     setupEventListeners();
+
     try {
-        state.allData = await fetchSpreadsheetData();
-        populateSelect(dom.filters.tipo, 'Tipo', state.allData);
-        populateSelectAnoDescending(dom.filters.ano, 'Ano', state.allData);
-        populateSelect(dom.filters.categoria, 'Categoria', state.allData);
-        populateSelect(dom.filters.unidade, 'Unidade', state.allData);
-        applyFiltersFromUrl();
+        // Cria um pedido para as opções de filtro
+        const filterParams = new URLSearchParams({ action: 'getFilters' });
+        const filterOptions = await fetchSpreadsheetData(filterParams);
+
+        // Popula os dropdowns com as opções recebidas
+        // (Estamos adaptando as funções existentes para usar os novos arrays)
+        populateSelectFromList(dom.filters.tipo, filterOptions.tipos);
+        populateSelectFromList(dom.filters.ano, filterOptions.anos);
+        populateSelectFromList(dom.filters.categoria, filterOptions.categorias);
+        populateSelectFromList(dom.filters.unidade, filterOptions.unidades);
+
+        // Depois de popular os filtros, carrega os dados da página inicial
+        await applyFiltersFromUrl();
     } catch (error) {
         console.error('Falha ao inicializar a aplicação:', error);
         dom.dataContainer.textContent =

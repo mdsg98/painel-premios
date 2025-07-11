@@ -105,6 +105,17 @@ export function populateSelect(selectElement, header, dataToPopulate) {
     });
 }
 
+// --- FUNÇÃO PARA POPULAR SELECTS A PARTIR DE UMA LISTA (FILTROS) ---
+export function populateSelectFromList(selectElement, optionsList) {
+    selectElement.innerHTML = '<option value="">Todos</option>';
+    optionsList.forEach((value) => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = value;
+        selectElement.appendChild(option);
+    });
+}
+
 // --- FUNÇÃO PARA POPULAR SELECT DE ANO EM ORDEM DECRESCENTE ---
 export function populateSelectAnoDescending(selectElement, header, data) {
     const uniqueValues = [
