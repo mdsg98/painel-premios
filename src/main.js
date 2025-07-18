@@ -1,5 +1,5 @@
 import '../style.css';
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 import { fetchSpreadsheetData } from './api.js';
 import {
     renderData,

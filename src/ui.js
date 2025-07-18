@@ -45,7 +45,27 @@ export function renderData(
             description.textContent = item['Descrição'];
             mainContent.appendChild(description);
 
-            // ... (o resto do seu código para criar o botão de matéria)
+            const linkMateria = item['Link da Matéria'];
+            if (
+                linkMateria &&
+                typeof linkMateria === 'string' &&
+                linkMateria.trim() !== ''
+            ) {
+                const link = linkMateria.trim();
+                // Verifica se o link é válido antes de criar o botão
+                try {
+                    new URL(link);
+                    const linkButton = document.createElement('a');
+                    linkButton.href = link;
+                    linkButton.target = '_blank';
+                    linkButton.rel = 'noopener noreferrer';
+                    linkButton.classList.add('link-materia-button');
+                    linkButton.textContent = 'Ler Matéria';
+                    mainContent.appendChild(linkButton);
+                } catch (_) {
+                    console.warn(`Link da Matéria inválido ignorado: ${link}`);
+                }
+            }
 
             const tagsWrapper = document.createElement('div');
             tagsWrapper.classList.add('item-tags');
