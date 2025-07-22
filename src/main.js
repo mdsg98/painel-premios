@@ -234,6 +234,27 @@ async function main() {
     } finally {
         dom.loadingSpinner.style.display = 'none';
     }
+
+    // Configura o evento de pressionar Enter no campo de pesquisa
+    dom.keywordSearchInput.addEventListener('keypress', function (event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            dom.searchButton.click();
+        }
+    });
+
+    // Configura o botão "X" de limpar a pesquisa digitada pelo usuário
+    dom.keywordSearchInput.addEventListener('input', function () {
+        dom.clearKeywordButton.style.display =
+            this.value.trim() !== '' ? 'inline' : 'none';
+    });
+
+    // Configura a limpeza de campo ao clicar no botão "X"
+    dom.clearKeywordButton.addEventListener('click', function () {
+        dom.keywordSearchInput.value = '';
+        this.style.display = 'none';
+        dom.keywordSearchInput.focus();
+    });
 }
 
 // --- INICIALIZAÇÃO DA APLICAÇÃO ---
