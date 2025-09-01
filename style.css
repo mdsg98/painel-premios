@@ -630,6 +630,10 @@ footer {
 
 /* Responsividade */
 @media (max-width: 900px) {
+    /* Esconde a logo da DIAVI no mobile (menos destaque) */
+    #header-left-logo {
+        display: none;
+    }
     .header-content {
         flex-direction: column;
         gap: 20px;
